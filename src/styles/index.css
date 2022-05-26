@@ -14,7 +14,6 @@ html {
 *::after {
   box-sizing: inherit;
   font-size: 100%;
-  border: 1px solid white;
 }
 
 body {
@@ -24,7 +23,12 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: #121212;
+  background: #333333;
+  height: 100%;
+}
+
+#root {
+  height: 100%;
 }
 
 code {
