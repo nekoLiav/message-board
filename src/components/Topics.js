@@ -1,5 +1,6 @@
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import posts from '../posttest.json';
+import postsjson from '../posttest.json';
 import Post from './Post';
 
 const StyledTopics = styled.div`
@@ -8,7 +9,7 @@ const StyledTopics = styled.div`
   background: #222222;
   border: 1px solid white;
   width: 100%;
-  padding: 1rem 1rem 0 1rem;
+  padding: 1rem 1rem 1rem 1rem;
 `;
 
 const TopicsHeader = styled.h1`
@@ -22,20 +23,19 @@ const TopicsList = styled.div`
   height: 100%;
 `;
 
-const postArray = posts.posts;
-
 const Topics = () => {
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    setPosts(postsjson.posts);
+  }, []);
+
   return (
     <StyledTopics>
       <TopicsHeader>Popular</TopicsHeader>
       <TopicsList>
-        {postArray.map((post) => (
-          <Post
-            key={Date.now()}
-            title={post.title}
-            time={post.time}
-            user={post.user}
-          />
+        {posts.map((post) => (
+          <Post key={post.time} post={post} />
         ))}
       </TopicsList>
     </StyledTopics>

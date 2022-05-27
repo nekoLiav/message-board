@@ -11,10 +11,20 @@ const StyledNubButtons = styled.div`
 
 const UpNubButton = styled.div`
   color: white;
+
+  &:hover {
+    color: orange;
+    cursor: pointer;
+  }
 `;
 
 const DownNubButton = styled.div`
   color: white;
+
+  &:hover {
+    color: lightblue;
+    cursor: pointer;
+  }
 `;
 
 const NubButtons = () => {
