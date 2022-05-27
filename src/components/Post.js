@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import NubButtons from './NubButtons';
 import ThreadButtons from './ThreadButtons';
 import PropTypes from 'prop-types';
-import { formatDistanceToNow } from 'date-fns/esm';
+import { formatDistanceToNowStrict } from 'date-fns';
 
 const StyledPost = styled.div`
   display: flex;
@@ -22,6 +22,7 @@ const StyledThreadTitle = styled.p`
   border: 1px solid white;
   padding: 0.2rem;
   width: 100%;
+  font-weight: bold;
 `;
 
 const StyledThreadInfo = styled.div`
@@ -37,11 +38,13 @@ const Post = (props) => {
     <StyledPost>
       <NubButtons />
       <StyledThread>
-        <StyledThreadTitle>{postData.title}</StyledThreadTitle>
-        <StyledThreadInfo>{`submitted ${formatDistanceToNow(
-          postData.time
-        )} ago by ${postData.user} in n/${postData.subnub}`}</StyledThreadInfo>
-        <ThreadButtons />
+        <StyledThreadTitle>{postData.content.title}</StyledThreadTitle>
+        <StyledThreadInfo>{`submitted ${formatDistanceToNowStrict(
+          postData.metadata['time-posted']
+        )} ago by ${postData.metadata.author} in n/${
+          postData.subnublet
+        }`}</StyledThreadInfo>
+        <ThreadButtons comments={postData.comments} />
       </StyledThread>
     </StyledPost>
   );
@@ -49,10 +52,20 @@ const Post = (props) => {
 
 Post.propTypes = {
   post: PropTypes.shape({
-    subnub: PropTypes.string,
-    user: PropTypes.string,
-    time: PropTypes.number,
-    title: PropTypes.string,
+    metadata: PropTypes.shape({
+      author: PropTypes.string,
+      ['time-posted']: PropTypes.number,
+    }),
+    content: PropTypes.shape({
+      title: PropTypes.string,
+      body: PropTypes.string,
+    }),
+    nubs: PropTypes.shape({
+      up: PropTypes.number,
+      down: PropTypes.number,
+    }),
+    comments: PropTypes.number,
+    subnublet: PropTypes.string,
   }),
 };
 

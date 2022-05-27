@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import postjson from '../posttest.json';
+import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
 
 const StyledThreadButtons = styled.div`
@@ -19,11 +19,11 @@ const StyledThreadButton = styled.p`
   }
 `;
 
-const ThreadButtons = () => {
+const ThreadButtons = (props) => {
   const [comments, setComments] = useState(0);
 
   useEffect(() => {
-    setComments(postjson.posts[0].comments);
+    setComments(props.comments);
   }, []);
 
   return (
@@ -32,6 +32,10 @@ const ThreadButtons = () => {
       <StyledThreadButton>report post</StyledThreadButton>
     </StyledThreadButtons>
   );
+};
+
+ThreadButtons.propTypes = {
+  comments: PropTypes.number,
 };
 
 export default ThreadButtons;

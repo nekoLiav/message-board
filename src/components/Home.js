@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import Topics from './Topics';
+import All from './All';
 
 const StyledHome = styled.div`
   display: flex;
@@ -10,7 +10,7 @@ const StyledHome = styled.div`
 const Home = () => {
   return (
     <StyledHome>
-      <Topics />
+      <All />
     </StyledHome>
   );
 };
