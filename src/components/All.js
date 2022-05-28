@@ -9,6 +9,7 @@ const StyledAll = styled.div`
   flex-direction: column;
   background: #222222;
   border: 1px solid white;
+  height: 100%;
   width: 100%;
   padding: 1rem 1rem 1rem 1rem;
 `;
@@ -44,25 +45,11 @@ const All = () => {
       }
     };
     fetchAll();
-    // query by subnublet
-    // const fetchPosts = async () => {
-    //   try {
-    //     const fetchedPosts = await getDocs(
-    //       collection(db, 'subnublets', 'ps5', 'posts')
-    //     );
-    //     let fetchedPostsMiddleman = [];
-    //     fetchedPosts.forEach((post) => fetchedPostsMiddleman.push(post.data()));
-    //     setPosts(fetchedPostsMiddleman);
-    //   } catch (error) {
-    //     console.log('Something went wrong!', error);
-    //   }
-    // };
-    // fetchPosts();
   }, []);
 
   return (
     <StyledAll>
-      <AllHeader>all</AllHeader>
+      <AllHeader>home</AllHeader>
       <AllList>
         {posts.map((post) => (
           <Post key={post.metadata['time-posted']} post={post} />

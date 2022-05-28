@@ -8,7 +8,7 @@ const StyledThreadButtons = styled.div`
   gap: 0.5rem;
 `;
 
-const StyledThreadButton = styled.p`
+const ThreadButton = styled.p`
   font-size: 0.7rem;
   font-weight: bold;
   padding: 0.2rem;
@@ -28,8 +28,7 @@ const ThreadButtons = (props) => {
 
   return (
     <StyledThreadButtons>
-      <StyledThreadButton>{`${comments}`} comments</StyledThreadButton>
-      <StyledThreadButton>report post</StyledThreadButton>
+      <ThreadButton>{`${comments}`} comments</ThreadButton>
     </StyledThreadButtons>
   );
 };

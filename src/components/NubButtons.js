@@ -1,12 +1,14 @@
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 const StyledNubButtons = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: center;
   border: 1px solid white;
   padding: 0.25rem;
+  width: 3rem;
 `;
 
 const UpNubButton = styled.div`
@@ -27,13 +29,22 @@ const DownNubButton = styled.div`
   }
 `;
 
-const NubButtons = () => {
+const Nubs = styled.p`
+  color: white;
+`;
+
+const NubButtons = (props) => {
   return (
     <StyledNubButtons>
       <UpNubButton>/\</UpNubButton>
+      <Nubs>{props.nubs}</Nubs>
       <DownNubButton>\/</DownNubButton>
     </StyledNubButtons>
   );
+};
+
+NubButtons.propTypes = {
+  nubs: PropTypes.number,
 };
 
 export default NubButtons;

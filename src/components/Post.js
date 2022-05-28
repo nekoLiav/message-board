@@ -3,6 +3,7 @@ import NubButtons from './NubButtons';
 import ThreadButtons from './ThreadButtons';
 import PropTypes from 'prop-types';
 import { formatDistanceToNowStrict } from 'date-fns';
+import { Link } from 'react-router-dom';
 
 const StyledPost = styled.div`
   display: flex;
@@ -12,40 +13,58 @@ const StyledPost = styled.div`
   width: 100%;
 `;
 
-const StyledThread = styled.div`
+const Thread = styled.div`
   width: 100%;
   border: 1px solid white;
 `;
 
-const StyledThreadTitle = styled.p`
+const ThreadTitle = styled.p`
   color: white;
   border: 1px solid white;
   padding: 0.2rem;
   width: 100%;
   font-weight: bold;
+  cursor: pointer;
 `;
 
-const StyledThreadInfo = styled.div`
+const ThreadInfo = styled.div`
   display: flex;
   color: white;
   font-size: 0.7rem;
   padding: 0.2rem;
 `;
 
+const StyledA = styled.a`
+  color: white;
+`;
+
+const StyledLink = styled(Link)`
+  color: white;
+  text-decoration: none;
+`;
+
 const Post = (props) => {
   const postData = props.post;
+  const formattedTime = formatDistanceToNowStrict(
+    postData.metadata['time-posted']
+  );
   return (
     <StyledPost>
-      <NubButtons />
-      <StyledThread>
-        <StyledThreadTitle>{postData.content.title}</StyledThreadTitle>
-        <StyledThreadInfo>{`submitted ${formatDistanceToNowStrict(
-          postData.metadata['time-posted']
-        )} ago by ${postData.metadata.author} in n/${
-          postData.subnublet
-        }`}</StyledThreadInfo>
+      <NubButtons nubs={postData.nubs.up - postData.nubs.down} />
+      <Thread>
+        <ThreadTitle>{postData.content.title}</ThreadTitle>
+        <ThreadInfo>
+          submitted&nbsp;
+          <StyledA>{formattedTime}</StyledA>
+          &nbsp;ago by&nbsp;
+          <StyledA>{postData.metadata.author}</StyledA>
+          &nbsp;in&nbsp;
+          <StyledLink
+            to={`n/${postData.subnublet}`}
+          >{`n/${postData.subnublet}`}</StyledLink>
+        </ThreadInfo>
         <ThreadButtons comments={postData.comments} />
-      </StyledThread>
+      </Thread>
     </StyledPost>
   );
 };
