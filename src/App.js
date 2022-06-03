@@ -1,6 +1,6 @@
 import TopBar from './components/TopBar';
 import styled from 'styled-components';
-import Home from './components/Home';
+import { Outlet } from 'react-router-dom';
 
 const StyledApp = styled.div`
   display: flex;
@@ -12,7 +12,7 @@ function App() {
   return (
     <StyledApp>
       <TopBar />
-      <Home />
+      <Outlet />
     </StyledApp>
   );
 }

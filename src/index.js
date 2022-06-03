@@ -13,10 +13,8 @@ root.render(
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<App />}>
-          <Route index element={<Home />}></Route>
-          <Route path="/n" element={<SubNub />}>
-            <Route path=":subnub" element={<SubNub />}></Route>
-          </Route>
+          <Route index element={<Home />} />
+          <Route path="n/:subnub" element={<SubNub />} />
         </Route>
       </Routes>
     </BrowserRouter>

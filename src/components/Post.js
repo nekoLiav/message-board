@@ -41,6 +41,10 @@ const StyledA = styled.a`
 const StyledLink = styled(Link)`
   color: white;
   text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
 `;
 
 const Post = (props) => {
