@@ -40,9 +40,7 @@ const SubNub = () => {
         );
         let subnubletPostsMiddleman = [];
         querySnapshot.forEach((doc) => {
-          subnubletPostsMiddleman.push(
-            Object.assign(doc.data(), { subnublet: subnub })
-          );
+          subnubletPostsMiddleman.push({ ...doc.data(), subnublet: subnub });
         });
         setSubnubletPosts(subnubletPostsMiddleman);
       } catch (error) {

@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import UserPanel from './UserPanel';
+import { Link } from 'react-router-dom';
 
 const StyledTopBar = styled.div`
   display: flex;
@@ -19,16 +20,17 @@ const HomeBar = styled.div`
   background: #222222;
 `;
 
-const HomeText = styled.p`
+const StyledHomeLink = styled(Link)`
   color: white;
   font-size: 2rem;
+  text-decoration: none;
 `;
 
 const TopBar = () => {
   return (
     <StyledTopBar>
       <HomeBar>
-        <HomeText>nublet</HomeText>
+        <StyledHomeLink to="/">nublet</StyledHomeLink>
       </HomeBar>
       <UserPanel />
     </StyledTopBar>

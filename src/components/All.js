@@ -35,9 +35,10 @@ const All = () => {
         const fetchedPosts = await getDocs(queryAllPosts);
         let allPosts = [];
         fetchedPosts.forEach((post) =>
-          allPosts.push(
-            Object.assign(post.data(), { subnublet: post.ref.parent.parent.id })
-          )
+          allPosts.push({
+            ...post.data(),
+            subnublet: post.ref.parent.parent.id,
+          })
         );
         setPosts(allPosts);
       } catch (error) {
