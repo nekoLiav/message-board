@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react';
 
 const StyledThreadButtons = styled.div`
   display: flex;
-  border: 1px solid white;
   gap: 0.5rem;
 `;
 

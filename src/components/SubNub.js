@@ -10,20 +10,15 @@ const StyledSubnublet = styled.div`
   display: flex;
   flex-direction: column;
   background: #222222;
-  border: 1px solid white;
   height: 100%;
   width: 100%;
-  padding: 1rem 1rem 1rem 1rem;
 `;
 
 const SubnubletHeader = styled.h1`
-  border: 1px solid white;
   color: white;
-  padding: 0.5rem;
 `;
 
 const SubnubletList = styled.div`
-  border: 1px solid white;
   height: 100%;
 `;
 

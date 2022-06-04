@@ -8,19 +8,16 @@ import { Link } from 'react-router-dom';
 const StyledPost = styled.div`
   display: flex;
   color: white;
-  border: 1px solid white;
   padding: 0.5rem;
   width: 100%;
 `;
 
 const Thread = styled.div`
   width: 100%;
-  border: 1px solid white;
 `;
 
 const ThreadTitle = styled.p`
   color: white;
-  border: 1px solid white;
   padding: 0.2rem;
   width: 100%;
   font-weight: bold;

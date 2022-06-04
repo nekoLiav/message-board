@@ -6,7 +6,6 @@ const StyledNubButtons = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  border: 1px solid white;
   padding: 0.25rem;
   width: 3rem;
 `;

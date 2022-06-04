@@ -8,20 +8,15 @@ const StyledAll = styled.div`
   display: flex;
   flex-direction: column;
   background: #222222;
-  border: 1px solid white;
   height: 100%;
   width: 100%;
-  padding: 1rem 1rem 1rem 1rem;
 `;
 
 const AllHeader = styled.h1`
-  border: 1px solid white;
   color: white;
-  padding: 0.5rem;
 `;
 
 const AllList = styled.div`
-  border: 1px solid white;
   height: 100%;
 `;
 
@@ -50,7 +45,7 @@ const All = () => {
 
   return (
     <StyledAll>
-      <AllHeader>home</AllHeader>
+      <AllHeader>all</AllHeader>
       <AllList>
         {posts.map((post) => (
           <Post key={post.metadata['time-posted']} post={post} />
