@@ -1,33 +1,25 @@
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 const StyledHeader = styled.div`
   display: flex;
+  flex-direction: column;
   width: 100%;
   background: #444444;
 `;
 
-const StyledHomeLink = styled(Link)`
-  color: white;
-  font-size: 2rem;
-  text-decoration: none;
-  background: #222222;
-  width: 7rem;
-  padding: 0.2rem;
-  text-align: center;
-`;
-
-const StyledSubnubList = styled.ul`
+const Nav = styled.nav`
   display: flex;
   align-items: flex-end;
-  background: #222222;
   height: min-content;
   width: 100%;
+  background: #666666;
 `;
 
-const StyledSubnubListItem = styled.li`
+const NavItem = styled(Link)`
   color: white;
   height: min-content;
+  text-decoration: none;
 
   &:hover {
     text-decoration: underline;
@@ -35,35 +27,40 @@ const StyledSubnubListItem = styled.li`
   }
 `;
 
-const StyledUserPanel = styled.div`
+const Container = styled.div`
   display: flex;
-  margin-left: auto;
-  background: #444444;
-  height: 100%;
+  align-items: flex-end;
 `;
 
-const UserMenu = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-left: auto;
-  width: 7rem;
-  padding: 0.2rem;
-  background: #222222;
-  font-size: 1rem;
+const HomeLink = styled(Link)`
   color: white;
+  font-size: 2rem;
+  text-decoration: none;
+`;
+
+const Location = styled(Link)`
+  color: white;
+  height: min-content;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+    cursor: pointer;
+  }
 `;
 
 const Header = () => {
+  const params = useParams();
+
   return (
     <StyledHeader>
-      <StyledHomeLink to="/">nublet</StyledHomeLink>
-      <StyledSubnubList>
-        <StyledSubnubListItem>home</StyledSubnubListItem>&nbsp;
-      </StyledSubnubList>
-      <StyledUserPanel>
-        <UserMenu>Menu</UserMenu>
-      </StyledUserPanel>
+      <Nav>
+        <NavItem to="/">home</NavItem>&nbsp;
+      </Nav>
+      <Container>
+        <HomeLink to="/">nublet</HomeLink>&nbsp;
+        <Location to={`n/${params.subnub}`}>{params.subnub}</Location>
+      </Container>
     </StyledHeader>
   );
 };
