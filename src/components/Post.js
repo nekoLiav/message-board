@@ -1,6 +1,4 @@
 import styled from 'styled-components';
-import NubButtons from './NubButtons';
-import ThreadButtons from './ThreadButtons';
 import PropTypes from 'prop-types';
 import { formatDistanceToNowStrict } from 'date-fns';
 import { Link } from 'react-router-dom';
@@ -53,6 +51,50 @@ const StyledLink = styled(Link)`
   }
 `;
 
+const NubButtons = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 3rem;
+`;
+
+const UpNubButton = styled.div`
+  color: white;
+
+  &:hover {
+    color: orange;
+    cursor: pointer;
+  }
+`;
+
+const DownNubButton = styled.div`
+  color: white;
+
+  &:hover {
+    color: lightblue;
+    cursor: pointer;
+  }
+`;
+
+const Nubs = styled.p`
+  color: white;
+`;
+
+const ThreadButtons = styled.div`
+  display: flex;
+`;
+
+const ThreadButton = styled.p`
+  font-size: 0.7rem;
+  font-weight: bold;
+
+  &:hover {
+    cursor: pointer;
+    text-decoration: underline;
+  }
+`;
+
 const Post = (props) => {
   const postData = props.post;
   const formattedTime = formatDistanceToNowStrict(
@@ -60,7 +102,11 @@ const Post = (props) => {
   );
   return (
     <StyledPost>
-      <NubButtons nubs={postData.nubs.up - postData.nubs.down} />
+      <NubButtons>
+        <UpNubButton>/\</UpNubButton>
+        <Nubs>{postData.nubs.up - postData.nubs.down}</Nubs>
+        <DownNubButton>\/</DownNubButton>
+      </NubButtons>
       <Thread>
         <ThreadTitle>{postData.content.title}</ThreadTitle>
         <ThreadInfo>
@@ -74,7 +120,9 @@ const Post = (props) => {
             state={{ view: postData.subnublet }}
           >{`n/${postData.subnublet}`}</StyledLink>
         </ThreadInfo>
-        <ThreadButtons comments={postData.comments} />
+        <ThreadButtons>
+          <ThreadButton>{`${postData.comments}`} comments</ThreadButton>
+        </ThreadButtons>
       </Thread>
     </StyledPost>
   );
