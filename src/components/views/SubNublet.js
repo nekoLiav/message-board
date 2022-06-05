@@ -5,6 +5,7 @@ import { getDocs, collection } from 'firebase/firestore';
 import { db } from '../../firebase/firebase-config';
 import styled from 'styled-components';
 import Post from '../Post';
+import Sidebar from '../Sidebar';
 
 const StyledSubnublet = styled.div`
   display: flex;
@@ -12,6 +13,11 @@ const StyledSubnublet = styled.div`
   background: #222222;
   height: 100%;
   width: 100%;
+`;
+
+const View = styled.div`
+  display: flex;
+  height: 100%;
 `;
 
 const SubnubletList = styled.div`
@@ -43,11 +49,14 @@ const SubNub = () => {
 
   return (
     <StyledSubnublet>
-      <SubnubletList>
-        {subnubletPosts.map((post) => (
-          <Post key={post.metadata['time-posted']} post={post} />
-        ))}
-      </SubnubletList>
+      <View>
+        <SubnubletList>
+          {subnubletPosts.map((post) => (
+            <Post key={post.metadata['time-posted']} post={post} />
+          ))}
+        </SubnubletList>
+        <Sidebar />
+      </View>
     </StyledSubnublet>
   );
 };

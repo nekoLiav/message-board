@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Post from '../Post';
 import { db } from '../../firebase/firebase-config';
 import { collectionGroup, getDocs, query } from 'firebase/firestore';
+import Sidebar from '../Sidebar';
 
 const StyledAll = styled.div`
   display: flex;
@@ -10,6 +11,11 @@ const StyledAll = styled.div`
   height: 100%;
   width: 100%;
   background: #222222;
+`;
+
+const View = styled.div`
+  display: flex;
+  height: 100%;
 `;
 
 const AllList = styled.div`
@@ -43,11 +49,14 @@ const All = () => {
 
   return (
     <StyledAll>
-      <AllList>
-        {posts.map((post) => (
-          <Post key={post.metadata['time-posted']} post={post} />
-        ))}
-      </AllList>
+      <View>
+        <AllList>
+          {posts.map((post) => (
+            <Post key={post.metadata['time-posted']} post={post} />
+          ))}
+        </AllList>
+        <Sidebar />
+      </View>
     </StyledAll>
   );
 };
