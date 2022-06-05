@@ -9,15 +9,23 @@ const StyledPost = styled.div`
   display: flex;
   color: white;
   width: 100%;
+  padding: 0.3rem 0;
+
+  &:hover {
+    background: #333333;
+  }
 `;
 
 const Thread = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   width: 100%;
 `;
 
 const ThreadTitle = styled.p`
   color: white;
-  width: 100%;
+  width: max-content;
   font-weight: bold;
   cursor: pointer;
 `;
