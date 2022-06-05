@@ -8,7 +8,6 @@ import { Link } from 'react-router-dom';
 const StyledPost = styled.div`
   display: flex;
   color: white;
-  padding: 0.5rem;
   width: 100%;
 `;
 
@@ -18,7 +17,6 @@ const Thread = styled.div`
 
 const ThreadTitle = styled.p`
   color: white;
-  padding: 0.2rem;
   width: 100%;
   font-weight: bold;
   cursor: pointer;
@@ -28,7 +26,6 @@ const ThreadInfo = styled.div`
   display: flex;
   color: white;
   font-size: 0.7rem;
-  padding: 0.2rem;
 `;
 
 const StyledA = styled.a`
@@ -36,8 +33,12 @@ const StyledA = styled.a`
 `;
 
 const StyledLink = styled(Link)`
-  color: white;
   text-decoration: none;
+  color: #99ccff;
+
+  &:visited {
+    color: #99ccff;
+  }
 
   &:hover {
     text-decoration: underline;
@@ -59,9 +60,10 @@ const Post = (props) => {
           <StyledA>{formattedTime}</StyledA>
           &nbsp;ago by&nbsp;
           <StyledA>{postData.metadata.author}</StyledA>
-          &nbsp;in&nbsp;
+          &nbsp;to&nbsp;
           <StyledLink
-            to={`n/${postData.subnublet}`}
+            to={`/n/${postData.subnublet}`}
+            state={{ view: postData.subnublet }}
           >{`n/${postData.subnublet}`}</StyledLink>
         </ThreadInfo>
         <ThreadButtons comments={postData.comments} />

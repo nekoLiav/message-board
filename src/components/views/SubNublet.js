@@ -2,9 +2,9 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getDocs, collection } from 'firebase/firestore';
-import { db } from '../firebase/firebase-config';
+import { db } from '../../firebase/firebase-config';
 import styled from 'styled-components';
-import Post from './Post';
+import Post from '../Post';
 
 const StyledSubnublet = styled.div`
   display: flex;
@@ -14,16 +14,12 @@ const StyledSubnublet = styled.div`
   width: 100%;
 `;
 
-const SubnubletHeader = styled.h1`
-  color: white;
-`;
-
 const SubnubletList = styled.div`
   height: 100%;
 `;
 
 const SubNub = () => {
-  const { subnub } = useParams();
+  const { subnublet } = useParams();
 
   const [subnubletPosts, setSubnubletPosts] = useState([]);
 
@@ -31,11 +27,11 @@ const SubNub = () => {
     const fetchSubnubletPosts = async () => {
       try {
         const querySnapshot = await getDocs(
-          collection(db, 'subnublets', subnub, 'posts')
+          collection(db, 'subnublets', subnublet, 'posts')
         );
         let subnubletPostsMiddleman = [];
         querySnapshot.forEach((doc) => {
-          subnubletPostsMiddleman.push({ ...doc.data(), subnublet: subnub });
+          subnubletPostsMiddleman.push({ ...doc.data(), subnublet: subnublet });
         });
         setSubnubletPosts(subnubletPostsMiddleman);
       } catch (error) {
@@ -47,7 +43,6 @@ const SubNub = () => {
 
   return (
     <StyledSubnublet>
-      <SubnubletHeader>{subnub}</SubnubletHeader>
       <SubnubletList>
         {subnubletPosts.map((post) => (
           <Post key={post.metadata['time-posted']} post={post} />

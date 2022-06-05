@@ -3,9 +3,10 @@ import ReactDOM from 'react-dom/client';
 import './styles/meyer-reset.css';
 import './styles/index.css';
 import App from './App';
-import SubNub from './components/SubNub';
+import SubNub from './components/views/SubNublet';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import All from './components/All';
+import All from './components/views/All';
+import Home from './components/views/Home';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -13,8 +14,12 @@ root.render(
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<App />}>
-          <Route index element={<All />} />
-          <Route path="n/:subnub" element={<SubNub />} />
+          <Route index element={<Home />} />
+          <Route path="n">
+            <Route path="home" element={<Home />} />
+            <Route path="all" element={<All />} />
+            <Route path=":subnublet" element={<SubNub />} />
+          </Route>
         </Route>
       </Routes>
     </BrowserRouter>

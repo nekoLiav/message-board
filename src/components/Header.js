@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 const StyledHeader = styled.div`
   display: flex;
@@ -50,16 +50,19 @@ const Location = styled(Link)`
 `;
 
 const Header = () => {
-  const params = useParams();
+  const location = useLocation();
+  const viewSring = location.pathname.slice(3);
 
   return (
     <StyledHeader>
       <Nav>
         <NavItem to="/">home</NavItem>&nbsp;
+        <NavItem to={'n/all'}>all</NavItem>
+        &nbsp;
       </Nav>
       <Container>
         <HomeLink to="/">nublet</HomeLink>&nbsp;
-        <Location to={`n/${params.subnub}`}>{params.subnub}</Location>
+        <Location to={`n/${viewSring}`}>{viewSring}</Location>
       </Container>
     </StyledHeader>
   );

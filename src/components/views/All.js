@@ -1,19 +1,15 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import Post from './Post';
-import { db } from '../firebase/firebase-config';
+import Post from '../Post';
+import { db } from '../../firebase/firebase-config';
 import { collectionGroup, getDocs, query } from 'firebase/firestore';
 
 const StyledAll = styled.div`
   display: flex;
   flex-direction: column;
-  background: #222222;
   height: 100%;
   width: 100%;
-`;
-
-const AllHeader = styled.h1`
-  color: white;
+  background: #222222;
 `;
 
 const AllList = styled.div`
@@ -45,7 +41,6 @@ const All = () => {
 
   return (
     <StyledAll>
-      <AllHeader>all</AllHeader>
       <AllList>
         {posts.map((post) => (
           <Post key={post.metadata['time-posted']} post={post} />
