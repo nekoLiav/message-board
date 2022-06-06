@@ -8,6 +8,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import All from './components/views/All';
 import Home from './components/views/Home';
 import PostSubmission from './components/views/PostSubmission';
+import SubSubmission from './components/views/SubSubmission';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -17,6 +18,7 @@ root.render(
         <Route path="/" element={<App />}>
           <Route index element={<Home />} />
           <Route path="create-post" element={<PostSubmission />} />
+          <Route path="create-sub" element={<SubSubmission />} />
           <Route path="n">
             <Route path="all" element={<All />} />
             <Route path=":subnublet" element={<SubNub />} />

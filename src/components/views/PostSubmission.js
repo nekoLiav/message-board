@@ -106,12 +106,11 @@ const PostSubmission = () => {
           <ToInput
             id="targetsub"
             type="text"
-            value={viewSring}
-            readOnly
+            defaultValue={viewSring}
             required
           />
         </FieldWrapper>
-        <SubmitButton type="submit">Submit Post</SubmitButton>
+        <SubmitButton type="submit">submit post</SubmitButton>
       </PostSubmissionForm>
     </StyledPostSubmission>
   );

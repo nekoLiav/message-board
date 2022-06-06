@@ -47,9 +47,7 @@ const Sidebar = () => {
         New Post {generalViewBool ? null : ` in n/${viewSring}`}
       </CreatePostLink>
       {generalViewBool ? (
-        <CreateSubnubletLink to="create-subnublet">
-          New Community
-        </CreateSubnubletLink>
+        <CreateSubnubletLink to="create-sub">New Community</CreateSubnubletLink>
       ) : null}
     </StyledSidebar>
   );
