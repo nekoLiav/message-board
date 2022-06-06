@@ -22,6 +22,7 @@ const View = styled.div`
 
 const SubnubletList = styled.div`
   height: 100%;
+  width: 100%;
 `;
 
 const SubNub = () => {

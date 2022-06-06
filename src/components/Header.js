@@ -51,7 +51,15 @@ const Location = styled(Link)`
 
 const Header = () => {
   const location = useLocation();
-  const viewSring = location.pathname.slice(3);
+  const viewSring = () => {
+    let string;
+    if (location.pathname.includes('n/')) {
+      string = location.pathname.slice(3);
+    } else {
+      string = location.pathname.slice(1);
+    }
+    return string;
+  };
 
   return (
     <StyledHeader>
@@ -62,7 +70,7 @@ const Header = () => {
       </Nav>
       <Container>
         <HomeLink to="/">nublet</HomeLink>&nbsp;
-        <Location to={`n/${viewSring}`}>{viewSring}</Location>
+        <Location to={`n/${viewSring()}`}>{viewSring()}</Location>
       </Container>
     </StyledHeader>
   );
