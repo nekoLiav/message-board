@@ -25,6 +25,19 @@ const SubnubletList = styled.div`
   width: 100%;
 `;
 
+const EmptySubContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+  height: 100%;
+  width: 100%;
+`;
+
+const EmptySubText = styled.p`
+  color: white;
+  font-size: 1.5rem;
+`;
+
 const SubNub = () => {
   const { subnublet } = useParams();
 
@@ -51,11 +64,19 @@ const SubNub = () => {
   return (
     <StyledSubnublet>
       <View>
-        <SubnubletList>
-          {subnubletPosts.map((post) => (
-            <Post key={post.metadata['time-posted']} post={post} />
-          ))}
-        </SubnubletList>
+        {subnubletPosts.length > 0 ? (
+          <SubnubletList>
+            {subnubletPosts.map((post) => (
+              <Post key={post.metadata['time-posted']} post={post} />
+            ))}
+          </SubnubletList>
+        ) : (
+          <EmptySubContainer>
+            <EmptySubText>
+              {`This community has no posts. You should be the first to make one! :)`}
+            </EmptySubText>
+          </EmptySubContainer>
+        )}
         <Sidebar />
       </View>
     </StyledSubnublet>

@@ -21,11 +21,12 @@ const Thread = styled.div`
   width: 100%;
 `;
 
-const ThreadTitle = styled.p`
+const ThreadTitle = styled(Link)`
   color: white;
   width: max-content;
   font-weight: bold;
   cursor: pointer;
+  text-decoration: none;
 `;
 
 const ThreadInfo = styled.div`
@@ -85,9 +86,11 @@ const ThreadButtons = styled.div`
   display: flex;
 `;
 
-const ThreadButton = styled.p`
+const ThreadButton = styled(Link)`
   font-size: 0.7rem;
   font-weight: bold;
+  text-decoration: none;
+  color: white;
 
   &:hover {
     cursor: pointer;
@@ -108,7 +111,9 @@ const Post = (props) => {
         <DownNubButton>\/</DownNubButton>
       </NubButtons>
       <Thread>
-        <ThreadTitle>{postData.content.title}</ThreadTitle>
+        <ThreadTitle to={`/n/comments/${postData.content.title}`}>
+          {postData.content.title}
+        </ThreadTitle>
         <ThreadInfo>
           submitted&nbsp;
           <StyledA>{formattedTime}</StyledA>
@@ -121,7 +126,9 @@ const Post = (props) => {
           >{`n/${postData.subnublet}`}</StyledLink>
         </ThreadInfo>
         <ThreadButtons>
-          <ThreadButton>{`${postData.comments}`} comments</ThreadButton>
+          <ThreadButton to={`/n/comments/${postData.content.title}`}>
+            {`${postData.comments}`} comments
+          </ThreadButton>
         </ThreadButtons>
       </Thread>
     </StyledPost>

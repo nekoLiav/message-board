@@ -52,7 +52,7 @@ const SubSubmission = () => {
     e.preventDefault();
     const subName = document.getElementById('subname').value;
     setDoc(doc(db, 'subnublets', subName), { merge: true });
-    navigate('/', { replace: true });
+    navigate(`/n/${subName}`, { replace: true });
   };
 
   return (

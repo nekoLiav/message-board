@@ -9,6 +9,7 @@ import All from './components/views/All';
 import Home from './components/views/Home';
 import PostSubmission from './components/views/PostSubmission';
 import SubSubmission from './components/views/SubSubmission';
+import Thread from './components/views/Thread';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -22,6 +23,9 @@ root.render(
           <Route path="n">
             <Route path="all" element={<All />} />
             <Route path=":subnublet" element={<SubNub />} />
+            <Route path="comments">
+              <Route path=":thread" element={<Thread />} />
+            </Route>
           </Route>
         </Route>
       </Routes>

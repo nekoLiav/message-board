@@ -53,12 +53,14 @@ const Header = () => {
   const location = useLocation();
   const viewSring = () => {
     let string;
-    if (location.pathname.includes('n/')) {
-      string = location.pathname.slice(3);
-    } else {
-      string = location.pathname.slice(1);
+    if (!location.pathname.includes('comments')) {
+      if (location.pathname.includes('n/')) {
+        string = location.pathname.slice(3);
+      } else {
+        string = location.pathname.slice(1);
+      }
+      return string;
     }
-    return string;
   };
 
   return (
