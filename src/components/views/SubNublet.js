@@ -77,7 +77,7 @@ const SubNub = () => {
         ) : (
           <EmptySubContainer>
             <EmptySubText>
-              {`This community has no posts. You should be the first to make one! :)`}
+              {`This sub has no posts. You should be the first to make one! :)`}
             </EmptySubText>
           </EmptySubContainer>
         )}
