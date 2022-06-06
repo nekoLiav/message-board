@@ -1,5 +1,7 @@
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { db } from '../../firebase/firebase-config';
+import { collection, addDoc } from 'firebase/firestore';
 
 const StyledPostSubmission = styled.div`
   display: flex;
@@ -67,11 +69,30 @@ const SubmitButton = styled.button`
 
 const PostSubmission = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const viewSring = location.state.pathname.slice(3);
+
+  const handleSubmission = async (e) => {
+    e.preventDefault();
+    const titleContent = document.getElementById('title').value;
+    const bodyContent = document.getElementById('body').value;
+    const targetSub = document.getElementById('targetsub').value;
+    addDoc(
+      collection(db, 'subnublets', targetSub, 'posts'),
+      {
+        comments: 0,
+        content: { body: bodyContent, title: titleContent },
+        metadata: { author: 'Liav', 'time-posted': Date.now() },
+        nubs: { up: 0, down: 0 },
+      },
+      { merge: true }
+    );
+    navigate('/', { replace: true });
+  };
 
   return (
     <StyledPostSubmission>
-      <PostSubmissionForm onSubmit={(e) => e.preventDefault()}>
+      <PostSubmissionForm onSubmit={handleSubmission}>
         <FieldWrapper>
           <TitleFieldLabel htmlFor="title">*title:</TitleFieldLabel>
           <TitleField name="title" id="title" required></TitleField>
@@ -82,7 +103,13 @@ const PostSubmission = () => {
         </FieldWrapper>
         <FieldWrapper>
           <ToLabel>*where do you want to post?</ToLabel>
-          <ToInput type="text" value={viewSring} readOnly required />
+          <ToInput
+            id="targetsub"
+            type="text"
+            value={viewSring}
+            readOnly
+            required
+          />
         </FieldWrapper>
         <SubmitButton type="submit">Submit Post</SubmitButton>
       </PostSubmissionForm>
