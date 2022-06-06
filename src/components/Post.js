@@ -111,7 +111,10 @@ const Post = (props) => {
         <DownNubButton>\/</DownNubButton>
       </NubButtons>
       <Thread>
-        <ThreadTitle to={`/n/comments/${postData.content.title}`}>
+        <ThreadTitle
+          state={{ sub: postData.subnublet }}
+          to={`/n/comments/${postData.id}`}
+        >
           {postData.content.title}
         </ThreadTitle>
         <ThreadInfo>
@@ -126,7 +129,10 @@ const Post = (props) => {
           >{`n/${postData.subnublet}`}</StyledLink>
         </ThreadInfo>
         <ThreadButtons>
-          <ThreadButton to={`/n/comments/${postData.content.title}`}>
+          <ThreadButton
+            state={{ sub: postData.subnublet }}
+            to={`/n/comments/${postData.id}`}
+          >
             {`${postData.comments}`} comments
           </ThreadButton>
         </ThreadButtons>
@@ -151,6 +157,7 @@ Post.propTypes = {
     }),
     comments: PropTypes.number,
     subnublet: PropTypes.string,
+    id: PropTypes.string,
   }),
 };
 

@@ -36,6 +36,7 @@ const All = () => {
           allPosts.push({
             ...post.data(),
             subnublet: post.ref.parent.parent.id,
+            id: post.id,
           })
         );
         setPosts(allPosts);
