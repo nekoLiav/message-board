@@ -1,5 +1,6 @@
 import { initializeApp } from 'firebase/app';
 import { getFirestore, connectFirestoreEmulator } from 'firebase/firestore';
+import { getAuth, connectAuthEmulator, signInAnonymously } from 'firebase/auth';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyAe3WUJ9sSXaJuSoeVhejz-2jG04ldJxbI',
@@ -13,3 +14,15 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
 connectFirestoreEmulator(db, 'localhost', 8080);
+
+const auth = getAuth();
+connectAuthEmulator(auth, 'http://localhost:9099');
+
+signInAnonymously(auth)
+  .then(() => {
+    // Signed in..
+  })
+  .catch((error) => {
+    console.log(error.code, error.message);
+    // ...
+  });

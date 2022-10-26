@@ -21,7 +21,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "emulate": "firebase emulators:start --only firestore --import=./saved-database-stuff --export-on-exit=./saved-database-stuff"
+    "emulate": "firebase emulators:start --import=./saved-database-stuff --export-on-exit=./saved-database-stuff"
   },
   "eslintConfig": {
     "extends": [
