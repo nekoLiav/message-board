@@ -22,10 +22,10 @@ root.render(
           <Route path="create-sub" element={<SubSubmission />} />
           <Route path="n">
             <Route path="all" element={<All />} />
-            <Route path=":subnublet" element={<SubNub />} />
-            <Route path="comments">
+            <Route path=":subnublet/comments">
               <Route path=":thread" element={<Thread />} />
             </Route>
+            <Route exact path=":subnublet" element={<SubNub />} />
           </Route>
         </Route>
       </Routes>

@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import { collection, getDocs, addDoc } from 'firebase/firestore';
+import { collection, doc, getDoc, addDoc, getDocs } from 'firebase/firestore';
 import { db } from '../../firebase/firebase-config';
+import { Link } from 'react-router-dom';
+import { formatDistanceToNowStrict } from 'date-fns';
 
 const StyledThread = styled.div`
   display: flex;
@@ -10,6 +12,39 @@ const StyledThread = styled.div`
   background: #222222;
   width: 100%;
   height: 100%;
+`;
+
+const SourcePost = styled.div`
+  background: #333333;
+`;
+
+const SourcePostInfo = styled.div`
+  margin-left: 1rem;
+  padding: 0.2rem;
+`;
+
+const SourcePostTitle = styled.p`
+  color: white;
+  font-weight: bold;
+  font-size: 1.2rem;
+`;
+
+const SourcePostSubmissionTime = styled.p`
+  color: white;
+  font-size: 0.8rem;
+`;
+
+const SourcePostAuthor = styled.p`
+  color: white;
+  font-size: 0.8rem;
+`;
+
+const SourcePostBody = styled.p`
+  color: white;
+  background: #222222;
+  width: 50rem;
+  padding: 0.2rem;
+  margin-left: 1rem;
 `;
 
 const CommentSubmitForm = styled.form`
@@ -49,7 +84,16 @@ const Comment = styled.div`
   color: white;
 `;
 
-const CommentAuthor = styled.p``;
+const CommentAuthor = styled(Link)`
+  color: cyan;
+  text-decoration: none;
+  font-size: 0.8rem;
+
+  &:hover {
+    text-decoration: underline;
+    cursor: pointer;
+  }
+`;
 
 const CommentText = styled.p`
   width: 40rem;
@@ -73,39 +117,62 @@ const CommentButton = styled.p`
 `;
 
 const Thread = () => {
+  const [postData, setPostData] = useState({
+    content: { title: '', body: '' },
+    metadata: {
+      author: '',
+      ['time-posted']: 0,
+    },
+  });
   const [comments, setComments] = useState([]);
-  const location = useLocation();
-  const locationString = location.pathname.slice(12);
-  const sub = location.state.sub;
+  const params = useParams();
 
   useEffect(() => {
+    const fetchPost = async () => {
+      try {
+        const querySnapshot = await getDoc(
+          doc(db, 'subnublets', params.subnublet, 'posts', params.thread)
+        );
+        let tempPostData = querySnapshot.data();
+        setPostData(tempPostData);
+      } catch (error) {
+        console.log('Something went wrong!', error);
+      }
+    };
     const fetchComments = async () => {
       try {
         const querySnapshot = await getDocs(
           collection(
             db,
             'subnublets',
-            location.state.sub,
+            params.subnublet,
             'posts',
-            locationString,
+            params.thread,
             'comments'
           )
         );
-        let commentMiddleman = [];
-        querySnapshot.forEach((doc) => commentMiddleman.push(doc.data()));
-        console.log(commentMiddleman);
-        setComments(commentMiddleman);
+        let tempComments = [];
+        querySnapshot.forEach((doc) => tempComments.push(doc.data()));
+        setComments(tempComments);
       } catch (error) {
         console.log('Something went wrong!', error);
       }
     };
+    fetchPost();
     fetchComments();
   }, []);
 
   const handleSubmit = () => {
     const commentText = document.getElementById('commenttext').value;
     addDoc(
-      collection(db, 'subnublets', sub, 'posts', locationString, 'comments'),
+      collection(
+        db,
+        'subnublets',
+        params.subnublet,
+        'posts',
+        params.thread,
+        'comments'
+      ),
       {
         text: commentText,
       },
@@ -115,6 +182,16 @@ const Thread = () => {
 
   return (
     <StyledThread>
+      <SourcePost>
+        <SourcePostInfo>
+          <SourcePostTitle>{postData.content.title}</SourcePostTitle>
+          <SourcePostSubmissionTime>
+            {formatDistanceToNowStrict(postData.metadata['time-posted'])}
+          </SourcePostSubmissionTime>
+          <SourcePostAuthor>{postData.metadata.author}</SourcePostAuthor>
+        </SourcePostInfo>
+        <SourcePostBody>{postData.content.body}</SourcePostBody>
+      </SourcePost>
       <CommentSubmitForm onSubmit={handleSubmit}>
         <CommentSubmitText id="commenttext" />
         <CommentSubmitButton>submit comment</CommentSubmitButton>
@@ -122,7 +199,7 @@ const Thread = () => {
       {comments.map((comment) => (
         <CommentContainer key={comment.metadata.metadata}>
           <Comment>
-            <CommentAuthor>{comment.metadata.author}</CommentAuthor>
+            <CommentAuthor to="/">{comment.metadata.author}</CommentAuthor>
             <CommentText>{comment.content}</CommentText>
             <CommentButtons>
               <CommentButton>reply</CommentButton>

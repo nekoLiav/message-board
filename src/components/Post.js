@@ -77,8 +77,12 @@ const Post = (props) => {
     <StyledPost>
       <Thread>
         <ThreadTitle
-          state={{ sub: postData.subnublet }}
-          to={`/n/comments/${postData.id}`}
+          state={{
+            sub: postData.subnublet,
+            title: postData.content.title,
+            body: postData.content.body,
+          }}
+          to={`/n/${postData.subnublet}/comments/${postData.id}`}
         >
           {postData.content.title}
         </ThreadTitle>
@@ -96,7 +100,7 @@ const Post = (props) => {
         <ThreadButtons>
           <ThreadButton
             state={{ sub: postData.subnublet }}
-            to={`/n/comments/${postData.id}`}
+            to={`/n/${postData.subnublet}/comments/${postData.id}`}
           >
             {`${postData.comments}`} comments
           </ThreadButton>
