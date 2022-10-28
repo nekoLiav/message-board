@@ -78,12 +78,9 @@ const PostSubmission = () => {
     const bodyContent = document.getElementById('body').value;
     const targetSub = document.getElementById('targetsub').value;
     addDoc(
-      collection(db, 'subnublets', targetSub, 'posts'),
+      collection(db, 'subs', targetSub, 'posts'),
       {
-        comments: 0,
         content: { body: bodyContent, title: titleContent },
-        metadata: { author: 'Liav', 'time-posted': Date.now() },
-        nubs: { up: 0, down: 0 },
       },
       { merge: true }
     );

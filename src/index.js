@@ -13,22 +13,20 @@ import Thread from './components/views/Thread';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<App />}>
-          <Route index element={<Home />} />
-          <Route path="create-post" element={<PostSubmission />} />
-          <Route path="create-sub" element={<SubSubmission />} />
-          <Route path="n">
-            <Route path="all" element={<All />} />
-            <Route path=":subnublet/comments">
-              <Route path=":thread" element={<Thread />} />
-            </Route>
-            <Route exact path=":subnublet" element={<SubNub />} />
+  <BrowserRouter>
+    <Routes>
+      <Route path="/" element={<App />}>
+        <Route index element={<Home />} />
+        <Route path="create-post" element={<PostSubmission />} />
+        <Route path="create-sub" element={<SubSubmission />} />
+        <Route path="n">
+          <Route path="all" element={<All />} />
+          <Route path=":subnublet/comments">
+            <Route path=":thread" element={<Thread />} />
           </Route>
+          <Route exact path=":subnublet" element={<SubNub />} />
         </Route>
-      </Routes>
-    </BrowserRouter>
-  </React.StrictMode>
+      </Route>
+    </Routes>
+  </BrowserRouter>
 );

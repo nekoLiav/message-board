@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import Post from '../Post';
 import { db } from '../../firebase/firebase-config';
 import { collectionGroup, getDocs, query } from 'firebase/firestore';
 import Sidebar from '../Sidebar';
+import Post from '../Post';
 
 const StyledHome = styled.div`
   display: flex;
@@ -31,30 +31,25 @@ const Home = () => {
       try {
         const queryHomePosts = query(collectionGroup(db, 'posts'));
         const fetchedPosts = await getDocs(queryHomePosts);
-        let HomePosts = [];
         fetchedPosts.forEach((post) =>
-          HomePosts.push({
-            ...post.data(),
-            subnublet: post.ref.parent.parent.id,
-            id: post.id,
-          })
+          setPosts((posts) => [...posts, { ...post.data(), id: post.id }])
         );
-        setPosts(HomePosts);
       } catch (error) {
         console.log('Something went wrong!', error);
       }
     };
-    fetchHome();
+    setTimeout(() => {
+      fetchHome();
+    }, 1000);
   }, []);
 
   return (
     <StyledHome>
       <View>
-        <HomeList>
-          {posts.map((post) => (
-            <Post key={post.metadata['time-posted']} post={post} />
-          ))}
-        </HomeList>
+        {posts.map((post) => (
+          <Post key={post.id} post={post} />
+        ))}
+        <HomeList></HomeList>
         <Sidebar />
       </View>
     </StyledHome>

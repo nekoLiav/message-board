@@ -70,19 +70,13 @@ const ThreadButton = styled(Link)`
 
 const Post = (props) => {
   const postData = props.post;
-  const formattedTime = formatDistanceToNowStrict(
-    postData.metadata['time-posted']
-  );
+  const formattedTime = formatDistanceToNowStrict(postData.metadata.created);
   return (
     <StyledPost>
       <Thread>
         <ThreadTitle
-          state={{
-            sub: postData.subnublet,
-            title: postData.content.title,
-            body: postData.content.body,
-          }}
-          to={`/n/${postData.subnublet}/comments/${postData.id}`}
+          state={{ sub: postData.subnublet }}
+          to={`/n/comments/${postData.id}`}
         >
           {postData.content.title}
         </ThreadTitle>
@@ -100,7 +94,7 @@ const Post = (props) => {
         <ThreadButtons>
           <ThreadButton
             state={{ sub: postData.subnublet }}
-            to={`/n/${postData.subnublet}/comments/${postData.id}`}
+            to={`/n/comments/${postData.id}`}
           >
             {`${postData.comments}`} comments
           </ThreadButton>
@@ -114,7 +108,7 @@ Post.propTypes = {
   post: PropTypes.shape({
     metadata: PropTypes.shape({
       author: PropTypes.string,
-      ['time-posted']: PropTypes.number,
+      created: PropTypes.number,
     }),
     content: PropTypes.shape({
       title: PropTypes.string,
