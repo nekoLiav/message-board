@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Link, useLocation } from 'react-router-dom';
+import SvgComponent from '../assets/logo.jsx';
 
 const StyledHeader = styled.div`
   display: flex;
@@ -25,23 +26,26 @@ const NavItem = styled(Link)`
     text-decoration: underline;
     cursor: pointer;
   }
+  padding-right: 0.5rem;
 `;
 
 const Container = styled.div`
   display: flex;
-  align-items: flex-end;
 `;
 
-const HomeLink = styled(Link)`
-  color: white;
-  font-size: 2rem;
-  text-decoration: none;
+const HomeLink = styled(Link)``;
+
+const Logo = styled(SvgComponent)`
+  height: 100%;
+  width: 5rem;
 `;
 
 const Location = styled(Link)`
   color: white;
   height: min-content;
   text-decoration: none;
+  justify-self: center;
+  align-self: center;
 
   &:hover {
     text-decoration: underline;
@@ -66,12 +70,13 @@ const Header = () => {
   return (
     <StyledHeader>
       <Nav>
-        <NavItem to="/">home</NavItem>&nbsp;
+        <NavItem to="/">home</NavItem>
         <NavItem to={'n/all'}>all</NavItem>
-        &nbsp;
       </Nav>
       <Container>
-        <HomeLink to="/">nublet</HomeLink>&nbsp;
+        <HomeLink to="/">
+          <Logo />
+        </HomeLink>
         <Location to={`n/${viewSring()}`}>{viewSring()}</Location>
       </Container>
     </StyledHeader>
