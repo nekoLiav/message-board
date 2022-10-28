@@ -49,40 +49,11 @@ const Comment = styled.div`
   color: white;
 `;
 
+const CommentAuthor = styled.p``;
+
 const CommentText = styled.p`
   width: 40rem;
   line-height: 1.5rem;
-`;
-
-const NubButtons = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  width: 3rem;
-  height: 3rem;
-`;
-
-const UpNubButton = styled.div`
-  color: white;
-
-  &:hover {
-    color: orange;
-    cursor: pointer;
-  }
-`;
-
-const DownNubButton = styled.div`
-  color: white;
-
-  &:hover {
-    color: lightblue;
-    cursor: pointer;
-  }
-`;
-
-const Nubs = styled.p`
-  color: white;
 `;
 
 const CommentButtons = styled.div`
@@ -122,6 +93,7 @@ const Thread = () => {
         );
         let commentMiddleman = [];
         querySnapshot.forEach((doc) => commentMiddleman.push(doc.data()));
+        console.log(commentMiddleman);
         setComments(commentMiddleman);
       } catch (error) {
         console.log('Something went wrong!', error);
@@ -148,14 +120,10 @@ const Thread = () => {
         <CommentSubmitButton>submit comment</CommentSubmitButton>
       </CommentSubmitForm>
       {comments.map((comment) => (
-        <CommentContainer key={comment.text + 1}>
-          <NubButtons>
-            <UpNubButton>/\</UpNubButton>
-            <Nubs>101.7k</Nubs>
-            <DownNubButton>\/</DownNubButton>
-          </NubButtons>
+        <CommentContainer key={comment.metadata.metadata}>
           <Comment>
-            <CommentText>{comment.text}</CommentText>
+            <CommentAuthor>{comment.metadata.author}</CommentAuthor>
+            <CommentText>{comment.content}</CommentText>
             <CommentButtons>
               <CommentButton>reply</CommentButton>
             </CommentButtons>

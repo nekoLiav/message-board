@@ -52,36 +52,6 @@ const StyledLink = styled(Link)`
   }
 `;
 
-const NubButtons = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  width: 3rem;
-`;
-
-const UpNubButton = styled.div`
-  color: white;
-
-  &:hover {
-    color: orange;
-    cursor: pointer;
-  }
-`;
-
-const DownNubButton = styled.div`
-  color: white;
-
-  &:hover {
-    color: lightblue;
-    cursor: pointer;
-  }
-`;
-
-const Nubs = styled.p`
-  color: white;
-`;
-
 const ThreadButtons = styled.div`
   display: flex;
 `;
@@ -105,11 +75,6 @@ const Post = (props) => {
   );
   return (
     <StyledPost>
-      <NubButtons>
-        <UpNubButton>/\</UpNubButton>
-        <Nubs>{postData.nubs.up - postData.nubs.down}</Nubs>
-        <DownNubButton>\/</DownNubButton>
-      </NubButtons>
       <Thread>
         <ThreadTitle
           state={{ sub: postData.subnublet }}
