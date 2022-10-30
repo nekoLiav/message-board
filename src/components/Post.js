@@ -1,14 +1,14 @@
-/* eslint-disable no-unused-vars */
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { formatDistanceToNowStrict } from 'date-fns';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 
 const StyledPost = styled.div`
   display: flex;
+  flex-direction: column;
   color: white;
   width: 100%;
-  padding: 0.3rem 0;
+  height: max-content;
   border: 1px solid grey;
 
   &:hover {
@@ -16,77 +16,33 @@ const StyledPost = styled.div`
   }
 `;
 
-const Thread = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  width: 100%;
-`;
-
-const ThreadTitle = styled(Link)`
-  color: white;
-  width: max-content;
-  font-weight: bold;
-  cursor: pointer;
-  text-decoration: none;
-`;
-
-const ThreadInfo = styled.div`
-  display: flex;
-  color: white;
-  font-size: 0.7rem;
-`;
-
-const StyledA = styled.a`
+const Info = styled.div`
   color: white;
 `;
 
-const StyledLink = styled(Link)`
-  text-decoration: none;
-  color: #99ccff;
-
-  &:visited {
-    color: #99ccff;
-  }
-
-  &:hover {
-    text-decoration: underline;
-  }
-`;
-
-const ThreadButtons = styled.div`
-  display: flex;
-`;
-
-const ThreadButton = styled(Link)`
-  font-size: 0.7rem;
-  font-weight: bold;
-  text-decoration: none;
+const Body = styled.p`
   color: white;
-
-  &:hover {
-    cursor: pointer;
-    text-decoration: underline;
-  }
+  padding: 5px 0;
 `;
 
 const Post = (props) => {
-  return <StyledPost></StyledPost>;
+  const body = props.post.body;
+  const created = formatDistanceToNowStrict(props.post.created);
+  const createdString = `${created.split(' ')[0]}${created.split(' ')[1][0]}`;
+  const by = props.post.by;
+  return (
+    <StyledPost>
+      <Info>{`${by} - ${createdString}`}</Info>
+      <Body>{body}</Body>
+    </StyledPost>
+  );
 };
 
 Post.propTypes = {
   post: PropTypes.shape({
-    metadata: PropTypes.shape({
-      author: PropTypes.string,
-      created: PropTypes.number,
-    }),
-    content: PropTypes.shape({
-      title: PropTypes.string,
-      body: PropTypes.string,
-    }),
-    comments: PropTypes.number,
-    subnublet: PropTypes.string,
-    id: PropTypes.string,
+    body: PropTypes.string,
+    created: PropTypes.number,
+    by: PropTypes.string,
   }),
 };
 
