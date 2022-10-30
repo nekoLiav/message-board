@@ -6,7 +6,7 @@ const StyledHeader = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  background: #444444;
+  background: black;
 `;
 
 const Nav = styled.nav`
@@ -14,19 +14,7 @@ const Nav = styled.nav`
   align-items: flex-end;
   height: min-content;
   width: 100%;
-  background: #666666;
-`;
-
-const NavItem = styled(Link)`
-  color: white;
-  height: min-content;
-  text-decoration: none;
-
-  &:hover {
-    text-decoration: underline;
-    cursor: pointer;
-  }
-  padding-right: 0.5rem;
+  background: black;
 `;
 
 const Container = styled.div`
@@ -69,10 +57,7 @@ const Header = () => {
 
   return (
     <StyledHeader>
-      <Nav>
-        <NavItem to="/">home</NavItem>
-        <NavItem to={'n/all'}>all</NavItem>
-      </Nav>
+      <Nav></Nav>
       <Container>
         <HomeLink to="/">
           <Logo />

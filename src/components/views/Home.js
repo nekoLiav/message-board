@@ -1,7 +1,8 @@
+/* eslint-disable no-unused-vars */
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { db } from '../../firebase/firebase-config';
-import { collectionGroup, getDocs, query } from 'firebase/firestore';
+import { collectionGroup, query, onSnapshot } from 'firebase/firestore';
 import Sidebar from '../Sidebar';
 import Post from '../Post';
 
@@ -10,7 +11,7 @@ const StyledHome = styled.div`
   flex-direction: column;
   height: 100%;
   width: 100%;
-  background: #222222;
+  background: black;
 `;
 
 const View = styled.div`
@@ -25,31 +26,31 @@ const HomeList = styled.div`
 
 const Home = () => {
   const [posts, setPosts] = useState([]);
+  const [isUpdated, setIsUpdated] = useState(false);
 
   useEffect(() => {
-    const fetchHome = async () => {
-      try {
-        const queryHomePosts = query(collectionGroup(db, 'posts'));
-        const fetchedPosts = await getDocs(queryHomePosts);
-        fetchedPosts.forEach((post) =>
-          setPosts((posts) => [...posts, { ...post.data(), id: post.id }])
-        );
-      } catch (error) {
-        console.log('Something went wrong!', error);
-      }
-    };
-    setTimeout(() => {
-      fetchHome();
-    }, 1000);
+    const q = query(collectionGroup(db, 'posts'));
+    const unsub = onSnapshot(q, (querySnapShot) => {
+      const newPosts = [];
+      querySnapShot.docChanges().forEach((change) => {
+        if (change.type === 'added') {
+          newPosts.push({ ...change.doc.data(), id: change.doc.id });
+        }
+      });
+      setPosts(newPosts);
+      setIsUpdated(true);
+    });
+    // return () => unsub();
   }, []);
 
   return (
     <StyledHome>
       <View>
-        {posts.map((post) => (
-          <Post key={post.id} post={post} />
-        ))}
-        <HomeList></HomeList>
+        <HomeList>
+          {isUpdated
+            ? posts.map((post) => <Post key={post.id} post={post} />)
+            : null}
+        </HomeList>
         <Sidebar />
       </View>
     </StyledHome>

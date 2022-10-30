@@ -1,7 +1,9 @@
+/* eslint-disable no-unused-vars */
 import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { db } from '../../firebase/firebase-config';
-import { collection, addDoc } from 'firebase/firestore';
+import { collection, addDoc, onSnapshot, doc } from 'firebase/firestore';
+import { useEffect } from 'react';
 
 const StyledPostSubmission = styled.div`
   display: flex;
@@ -77,14 +79,22 @@ const PostSubmission = () => {
     const titleContent = document.getElementById('title').value;
     const bodyContent = document.getElementById('body').value;
     const targetSub = document.getElementById('targetsub').value;
-    addDoc(
+    const newPost = await addDoc(
       collection(db, 'subs', targetSub, 'posts'),
       {
         content: { body: bodyContent, title: titleContent },
       },
       { merge: true }
     );
-    navigate('/', { replace: true });
+    const unsub = onSnapshot(
+      doc(db, 'subs', targetSub, 'posts', newPost.id),
+      (doc) => {
+        const docData = doc.data();
+        if (Object.hasOwn(docData, 'metadata')) {
+          navigate('/', { replace: true });
+        }
+      }
+    );
   };
 
   return (
