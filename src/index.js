@@ -5,7 +5,6 @@ import './styles/index.css';
 import App from './App';
 import SubNub from './components/views/SubNublet';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import All from './components/views/All';
 import Home from './components/views/Home';
 import PostSubmission from './components/views/PostSubmission';
 import SubSubmission from './components/views/SubSubmission';
@@ -20,7 +19,6 @@ root.render(
         <Route path="create-post" element={<PostSubmission />} />
         <Route path="create-sub" element={<SubSubmission />} />
         <Route path="n">
-          <Route path="all" element={<All />} />
           <Route path=":subnublet/comments">
             <Route path=":thread" element={<Thread />} />
           </Route>
