@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { formatDistanceToNowStrict } from 'date-fns';
@@ -70,39 +71,7 @@ const ThreadButton = styled(Link)`
 `;
 
 const Post = (props) => {
-  const postData = props.post;
-  const formattedTime = formatDistanceToNowStrict(postData.metadata.created);
-  return (
-    <StyledPost>
-      <Thread>
-        <ThreadTitle
-          state={{ sub: postData.subnublet }}
-          to={`/n/comments/${postData.id}`}
-        >
-          {postData.content.title}
-        </ThreadTitle>
-        <ThreadInfo>
-          submitted&nbsp;
-          <StyledA>{formattedTime}</StyledA>
-          &nbsp;ago by&nbsp;
-          <StyledA>{postData.metadata.author}</StyledA>
-          &nbsp;to&nbsp;
-          <StyledLink
-            to={`/n/${postData.subnublet}`}
-            state={{ view: postData.subnublet }}
-          >{`n/${postData.subnublet}`}</StyledLink>
-        </ThreadInfo>
-        <ThreadButtons>
-          <ThreadButton
-            state={{ sub: postData.subnublet }}
-            to={`/n/comments/${postData.id}`}
-          >
-            {`${postData.comments}`} comments
-          </ThreadButton>
-        </ThreadButtons>
-      </Thread>
-    </StyledPost>
-  );
+  return <StyledPost></StyledPost>;
 };
 
 Post.propTypes = {
@@ -114,10 +83,6 @@ Post.propTypes = {
     content: PropTypes.shape({
       title: PropTypes.string,
       body: PropTypes.string,
-    }),
-    nubs: PropTypes.shape({
-      up: PropTypes.number,
-      down: PropTypes.number,
     }),
     comments: PropTypes.number,
     subnublet: PropTypes.string,

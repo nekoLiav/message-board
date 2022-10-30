@@ -1,9 +1,7 @@
 /* eslint-disable no-unused-vars */
-import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { db } from '../firebase/firebase-config';
-import { collection, addDoc, onSnapshot, doc } from 'firebase/firestore';
-import { useEffect } from 'react';
+import { collection, addDoc } from 'firebase/firestore';
 
 const StyledPostSubmission = styled.div`
   display: flex;
@@ -32,18 +30,6 @@ const FieldWrapper = styled.div`
   width: 100%;
 `;
 
-const TitleFieldLabel = styled.label`
-  color: white;
-  font-size: 1.5rem;
-`;
-
-const TitleField = styled.textarea`
-  width: 100%;
-  height: 10rem;
-  background: #333333;
-  color: white;
-`;
-
 const BodyFieldLabel = styled.label`
   color: white;
   font-size: 1.5rem;
@@ -56,44 +42,21 @@ const BodyField = styled.textarea`
   color: white;
 `;
 
-const ToLabel = styled.label`
-  color: white;
-`;
-
-const ToInput = styled.input`
-  background: #333333;
-  color: white;
-`;
-
 const SubmitButton = styled.button`
   width: 10rem;
 `;
 
 const PostSubmission = () => {
-  const location = useLocation();
-  const navigate = useNavigate();
-  const viewSring = location.state.pathname.slice(3);
-
   const handleSubmission = async (e) => {
     e.preventDefault();
-    const titleContent = document.getElementById('title').value;
-    const bodyContent = document.getElementById('body').value;
-    const targetSub = document.getElementById('targetsub').value;
+    const body = document.getElementById('body').value;
     const newPost = await addDoc(
-      collection(db, 'subs', targetSub, 'posts'),
+      collection(db, 'posts'),
       {
-        content: { body: bodyContent, title: titleContent },
+        body: body,
+        created: Date.now(),
       },
       { merge: true }
-    );
-    const unsub = onSnapshot(
-      doc(db, 'subs', targetSub, 'posts', newPost.id),
-      (doc) => {
-        const docData = doc.data();
-        if (Object.hasOwn(docData, 'metadata')) {
-          navigate('/', { replace: true });
-        }
-      }
     );
   };
 
@@ -101,21 +64,8 @@ const PostSubmission = () => {
     <StyledPostSubmission>
       <PostSubmissionForm onSubmit={handleSubmission}>
         <FieldWrapper>
-          <TitleFieldLabel htmlFor="title">*title:</TitleFieldLabel>
-          <TitleField name="title" id="title" required></TitleField>
-        </FieldWrapper>
-        <FieldWrapper>
           <BodyFieldLabel htmlFor="body">body:</BodyFieldLabel>
           <BodyField name="body" id="body"></BodyField>
-        </FieldWrapper>
-        <FieldWrapper>
-          <ToLabel>*where do you want to post?</ToLabel>
-          <ToInput
-            id="targetsub"
-            type="text"
-            defaultValue={viewSring}
-            required
-          />
         </FieldWrapper>
         <SubmitButton type="submit">submit post</SubmitButton>
       </PostSubmissionForm>

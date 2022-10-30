@@ -2,9 +2,10 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { db, userID } from '../firebase/firebase-config';
-import { collectionGroup, query, onSnapshot } from 'firebase/firestore';
+import { getDocs, collection } from 'firebase/firestore';
 import Post from './Post';
 import Header from './Header';
+import PostSubmission from './PostSubmission';
 
 const StyledHome = styled.div`
   display: flex;
@@ -20,31 +21,28 @@ const HomePostList = styled.div`
 
 const Home = () => {
   const [posts, setPosts] = useState([]);
-  const [isUpdated, setIsUpdated] = useState(false);
 
   useEffect(() => {
-    const q = query(collectionGroup(db, 'posts'));
-    const unsub = onSnapshot(q, (querySnapShot) => {
-      const newPosts = [];
-      querySnapShot.docChanges().forEach((change) => {
-        if (change.type === 'added') {
-          newPosts.push({ ...change.doc.data(), id: change.doc.id });
-        }
-      });
-      setPosts(newPosts);
-      setIsUpdated(true);
-    });
-    return () => unsub();
+    // const queryPosts = async () => {
+    //   try {
+    //     const querySnapshot = await getDocs(collection(db, 'posts'));
+    //     let tempPosts = [];
+    //     querySnapshot.forEach((doc) => {
+    //       tempPosts.push(doc.data());
+    //     });
+    //     setPosts(tempPosts);
+    //   } catch (error) {
+    //     console.log('Something went wrong!', error);
+    //   }
+    // };
+    // queryPosts();
   }, []);
+
+  console.log(posts);
 
   return (
     <StyledHome>
-      <Header />
-      <HomePostList>
-        {isUpdated
-          ? posts.map((post) => <Post key={post.id} post={post} />)
-          : null}
-      </HomePostList>
+      <HomePostList></HomePostList>
     </StyledHome>
   );
 };
