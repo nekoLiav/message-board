@@ -8,6 +8,7 @@ const StyledPost = styled.div`
   color: white;
   width: 100%;
   padding: 0.3rem 0;
+  border: 1px solid grey;
 
   &:hover {
     background: #333333;

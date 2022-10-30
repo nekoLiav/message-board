@@ -3,25 +3,20 @@ import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { db } from '../../firebase/firebase-config';
 import { collectionGroup, query, onSnapshot } from 'firebase/firestore';
-import Sidebar from '../Sidebar';
 import Post from '../Post';
+import Header from '../Header';
+import Sidebar from '../Sidebar';
 
 const StyledHome = styled.div`
   display: flex;
-  flex-direction: column;
   height: 100%;
-  width: 100%;
   background: black;
+  border: 1px solid grey;
 `;
 
-const View = styled.div`
-  display: flex;
-  height: 100%;
-`;
-
-const HomeList = styled.div`
-  height: 100%;
-  width: 100%;
+const HomePostList = styled.div`
+  flex-grow: 1;
+  border: 1px solid grey;
 `;
 
 const Home = () => {
@@ -40,19 +35,18 @@ const Home = () => {
       setPosts(newPosts);
       setIsUpdated(true);
     });
-    // return () => unsub();
+    return () => unsub();
   }, []);
 
   return (
     <StyledHome>
-      <View>
-        <HomeList>
-          {isUpdated
-            ? posts.map((post) => <Post key={post.id} post={post} />)
-            : null}
-        </HomeList>
-        <Sidebar />
-      </View>
+      <Header />
+      <HomePostList>
+        {isUpdated
+          ? posts.map((post) => <Post key={post.id} post={post} />)
+          : null}
+      </HomePostList>
+      <Sidebar />
     </StyledHome>
   );
 };

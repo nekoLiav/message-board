@@ -1,18 +1,17 @@
-import { Outlet } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import styled from 'styled-components';
-import Header from './components/Header';
+import Home from './components/views/Home';
 
 const StyledApp = styled.div`
-  display: flex;
-  flex-direction: column;
   height: 100%;
 `;
 
 function App() {
   return (
     <StyledApp>
-      <Header />
-      <Outlet />
+      <Routes>
+        <Route exact path="/" element={<Home />}></Route>
+      </Routes>
     </StyledApp>
   );
 }
