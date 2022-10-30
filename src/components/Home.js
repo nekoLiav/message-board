@@ -1,11 +1,11 @@
 /* eslint-disable no-unused-vars */
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { db } from '../../firebase/firebase-config';
+import { db } from '../firebase/firebase-config';
 import { collectionGroup, query, onSnapshot } from 'firebase/firestore';
-import Post from '../Post';
-import Header from '../Header';
-import Sidebar from '../Sidebar';
+import Post from './Post';
+import Header from './Header';
+import Sidebar from './Sidebar';
 
 const StyledHome = styled.div`
   display: flex;

@@ -1,6 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
 import styled from 'styled-components';
-import Home from './components/views/Home';
+import Home from './components/Home';
 
 const StyledApp = styled.div`
   height: 100%;

@@ -7,17 +7,16 @@ const StyledHeader = styled.div`
   flex-direction: column;
   flex-grow: 1;
   background: black;
-  border: 1px solid grey;
+  align-items: flex-end;
 `;
 
 const HomeLink = styled(Link)`
-  border: 1px solid grey;
+  width: 100px;
 `;
 
 const Logo = styled(SvgComponent)`
   height: 100%;
-  width: 100px;
-  border: 1px solid grey;
+  width: 100%;
 `;
 
 const Header = () => {

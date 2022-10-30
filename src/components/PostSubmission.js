@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { db } from '../../firebase/firebase-config';
+import { db } from '../firebase/firebase-config';
 import { collection, addDoc, onSnapshot, doc } from 'firebase/firestore';
 import { useEffect } from 'react';
 

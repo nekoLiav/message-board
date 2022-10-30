@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { collection, doc, getDoc, addDoc, getDocs } from 'firebase/firestore';
-import { db } from '../../firebase/firebase-config';
+import { db } from '../firebase/firebase-config';
 import { Link } from 'react-router-dom';
 import { formatDistanceToNowStrict } from 'date-fns';
 
