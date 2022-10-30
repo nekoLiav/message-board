@@ -20,10 +20,10 @@ const FieldWrapper = styled.div`
   flex-direction: column;
 `;
 
-const BodyField = styled.input`
+const BodyField = styled.textarea`
   color: white;
   background: black;
-  height: 5rem;
+  max-width: 600px;
 `;
 
 const SubmitButton = styled.button`
@@ -35,11 +35,10 @@ const PostSubmission = (props) => {
     e.preventDefault();
     const body = document.getElementById('body').value;
     const newPost = await addDoc(
-      collection(db, 'posts'),
+      collection(db, 'users', props.user),
       {
         body: body,
         created: Date.now(),
-        by: props.user,
       },
       { merge: true }
     );

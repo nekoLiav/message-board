@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
@@ -117,86 +118,30 @@ const CommentButton = styled.p`
 `;
 
 const Thread = () => {
-  const [postData, setPostData] = useState({
-    content: { title: '', body: '' },
-    metadata: {
-      author: '',
-      ['time-posted']: 0,
-    },
-  });
-  const [comments, setComments] = useState([]);
+  const [postData, setPostData] = useState({});
+  const [replies, setreplies] = useState([]);
   const params = useParams();
+  console.log(params);
 
-  useEffect(() => {
-    const fetchPost = async () => {
-      try {
-        const querySnapshot = await getDoc(
-          doc(db, 'subnublets', params.subnublet, 'posts', params.thread)
-        );
-        let tempPostData = querySnapshot.data();
-        setPostData(tempPostData);
-      } catch (error) {
-        console.log('Something went wrong!', error);
-      }
-    };
-    const fetchComments = async () => {
-      try {
-        const querySnapshot = await getDocs(
-          collection(
-            db,
-            'subnublets',
-            params.subnublet,
-            'posts',
-            params.thread,
-            'comments'
-          )
-        );
-        let tempComments = [];
-        querySnapshot.forEach((doc) => tempComments.push(doc.data()));
-        setComments(tempComments);
-      } catch (error) {
-        console.log('Something went wrong!', error);
-      }
-    };
-    fetchPost();
-    fetchComments();
-  }, []);
+  useEffect(() => {}, []);
 
-  const handleSubmit = () => {
-    const commentText = document.getElementById('commenttext').value;
-    addDoc(
-      collection(
-        db,
-        'subnublets',
-        params.subnublet,
-        'posts',
-        params.thread,
-        'comments'
-      ),
-      {
-        text: commentText,
-      },
-      { merge: true }
-    );
-  };
+  const handleSubmit = () => {};
 
   return (
     <StyledThread>
       <SourcePost>
         <SourcePostInfo>
-          <SourcePostTitle>{postData.content.title}</SourcePostTitle>
-          <SourcePostSubmissionTime>
-            {formatDistanceToNowStrict(postData.metadata['time-posted'])}
-          </SourcePostSubmissionTime>
-          <SourcePostAuthor>{postData.metadata.author}</SourcePostAuthor>
+          <SourcePostTitle></SourcePostTitle>
+          <SourcePostSubmissionTime></SourcePostSubmissionTime>
+          <SourcePostAuthor></SourcePostAuthor>
         </SourcePostInfo>
-        <SourcePostBody>{postData.content.body}</SourcePostBody>
+        <SourcePostBody></SourcePostBody>
       </SourcePost>
       <CommentSubmitForm onSubmit={handleSubmit}>
         <CommentSubmitText id="commenttext" />
         <CommentSubmitButton>submit comment</CommentSubmitButton>
       </CommentSubmitForm>
-      {comments.map((comment) => (
+      {/* {replies.map((comment) => (
         <CommentContainer key={comment.metadata.metadata}>
           <Comment>
             <CommentAuthor to="/">{comment.metadata.author}</CommentAuthor>
@@ -206,7 +151,7 @@ const Thread = () => {
             </CommentButtons>
           </Comment>
         </CommentContainer>
-      ))}
+      ))} */}
     </StyledThread>
   );
 };

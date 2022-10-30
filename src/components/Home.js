@@ -1,8 +1,15 @@
 /* eslint-disable no-unused-vars */
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { db, userID } from '../firebase/firebase-config';
-import { getDocs, collection } from 'firebase/firestore';
+import { db } from '../firebase/firebase-config';
+import {
+  getDocs,
+  collection,
+  addDoc,
+  collectionGroup,
+  query,
+  where,
+} from 'firebase/firestore';
 import Post from './Post';
 import Header from './Header';
 import PostSubmission from './PostSubmission';
@@ -11,7 +18,7 @@ import PropTypes from 'prop-types';
 const StyledHome = styled.div`
   display: grid;
   grid-auto-flow: column;
-  grid-auto-columns: 1fr;
+  grid-template-columns: 1fr minmax(min-content, 600px) 1fr;
   height: 100%;
   background: black;
   border: 1px solid grey;
@@ -36,12 +43,20 @@ const Home = (props) => {
   useEffect(() => {
     const queryPosts = async () => {
       try {
-        const querySnapshot = await getDocs(collection(db, 'posts'));
+        const fetchedPosts = query(
+          collectionGroup(db, 'posts'),
+          where('type', '==', 'submission')
+        );
+        const querySnapshot = await getDocs(fetchedPosts);
         let tempPosts = [];
         querySnapshot.forEach((doc) => {
-          tempPosts.push(doc.data());
+          tempPosts.push({
+            ...doc.data(),
+            id: doc.id,
+            name: doc.name,
+          });
         });
-        setPosts(tempPosts);
+        setPosts(tempPosts.sort((a, b) => a.created - b.created));
         setIsUpdated(true);
       } catch (error) {
         console.log('Something went wrong!', error);
@@ -54,10 +69,10 @@ const Home = (props) => {
     <StyledHome>
       <Header />
       <HomeMain>
-        <PostSubmission user={props.user.id} />
+        {props.isLoggedIn ? <PostSubmission user={props.user.id} /> : null}
         <HomePosts>
           {isUpdated
-            ? posts.map((post, index) => <Post key={index} post={post} />)
+            ? posts.map((post) => <Post key={post.id} post={post} />)
             : null}
         </HomePosts>
       </HomeMain>

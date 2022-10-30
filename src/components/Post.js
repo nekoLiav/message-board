@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { formatDistanceToNowStrict } from 'date-fns';
-// import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const StyledPost = styled.div`
   display: flex;
@@ -16,22 +16,28 @@ const StyledPost = styled.div`
   }
 `;
 
-const Info = styled.div`
-  color: white;
-`;
+const Info = styled.div``;
 
 const Body = styled.p`
-  color: white;
   padding: 5px 0;
 `;
 
 const Post = (props) => {
+  const navigate = useNavigate();
+
   const body = props.post.body;
   const created = formatDistanceToNowStrict(props.post.created);
   const createdString = `${created.split(' ')[0]}${created.split(' ')[1][0]}`;
-  const by = props.post.by;
+  const by = props.post.author;
+  const post = props.post.id;
+
+  const handleClick = (clickEvent) => {
+    clickEvent.preventDefault();
+    navigate(`/user/${by}/submissions/${post}`);
+  };
+
   return (
-    <StyledPost>
+    <StyledPost onClick={handleClick}>
       <Info>{`${by} - ${createdString}`}</Info>
       <Body>{body}</Body>
     </StyledPost>
@@ -42,7 +48,8 @@ Post.propTypes = {
   post: PropTypes.shape({
     body: PropTypes.string,
     created: PropTypes.number,
-    by: PropTypes.string,
+    author: PropTypes.string,
+    id: PropTypes.string,
   }),
 };
 
