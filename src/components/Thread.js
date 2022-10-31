@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
@@ -11,7 +10,6 @@ import {
   getDocs,
 } from 'firebase/firestore';
 import { db } from '../firebase/firebase-config';
-import { Link } from 'react-router-dom';
 import { formatDistanceToNowStrict } from 'date-fns';
 import Header from './Header';
 import PostSubmission from './PostSubmission';
@@ -98,8 +96,6 @@ const Thread = () => {
     };
     queryReplies();
   }, []);
-
-  const handleSubmit = () => {};
 
   return (
     <StyledThread>

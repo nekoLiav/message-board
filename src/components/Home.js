@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { db } from '../firebase/firebase-config';
@@ -42,6 +41,7 @@ const Home = (props) => {
   const [isUpdated, setIsUpdated] = useState(false);
 
   useEffect(() => {
+    // eslint-disable-next-line no-unused-vars
     const populateDummyDatabase = async () => {
       for (let i = 0; i < 10; i++) {
         const usersRef = collection(db, 'users');
@@ -50,7 +50,7 @@ const Home = (props) => {
         });
 
         const postsRef = collection(db, 'users', user.id, 'posts');
-        const post = await addDoc(postsRef, {
+        addDoc(postsRef, {
           authorID: user.id,
           authorName: `Test Name ${i}`,
           body: `Submission ${i}`,

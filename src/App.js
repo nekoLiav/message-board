@@ -1,9 +1,7 @@
-/* eslint-disable no-unused-vars */
 import { useEffect, useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { signInAnonymously, onAuthStateChanged } from 'firebase/auth';
-import { getDoc, setDoc, doc } from 'firebase/firestore';
-import { db, auth } from './firebase/firebase-config';
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from './firebase/firebase-config';
 import styled from 'styled-components';
 import Home from './components/Home';
 import Thread from './components/Thread';

@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import styled from 'styled-components';
 import { db } from '../firebase/firebase-config';
 import { collection, addDoc } from 'firebase/firestore';
@@ -70,14 +69,14 @@ const PostSubmission = (props) => {
     e.preventDefault();
     const body = document.getElementById('body').value;
     if (props.type === 'submission') {
-      const newPost = await addDoc(
+      addDoc(
         collection(db, 'users', props.user),
         { ...props.post, type: 'submission' },
         { merge: true }
       );
     }
     if (props.type === 'reply') {
-      const newReply = await addDoc(
+      addDoc(
         collection(db, 'users', params.user, 'posts'),
         { ...props.post, type: 'reply', body: body, parent: params.post },
         { merge: true }
