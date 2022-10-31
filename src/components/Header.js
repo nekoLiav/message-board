@@ -7,12 +7,10 @@ const StyledHeader = styled.div`
   flex-direction: column;
   background: black;
   align-items: flex-end;
-  border: 1px solid grey;
   flex-grow: 1;
 `;
 
 const HomeLink = styled(Link)`
-  border: 1px solid grey;
   width: 100px;
 `;
 

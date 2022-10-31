@@ -7,27 +7,52 @@ import PropTypes from 'prop-types';
 const StyledPostSubmission = styled.div`
   display: flex;
   flex-direction: column;
-  border: 1px solid grey;
+  position: sticky;
+  top: 0;
+  background: black;
+  border-width: 0 1px 0 1px;
+  border-style: solid;
+  border-color: grey;
 `;
 
 const PostSubmissionForm = styled.form`
   display: flex;
   flex-direction: column;
+  padding: 1rem;
 `;
 
-const FieldWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
+const FieldWrapper = styled.div``;
 
 const BodyField = styled.textarea`
   color: white;
   background: black;
-  max-width: 600px;
+  min-height: 100px;
+  width: 100%;
+  resize: none;
+  border: none;
+  font-size: 1.5rem;
+
+  &:focus {
+    outline: none;
+  }
 `;
 
 const SubmitButton = styled.button`
+  background: rgb(0, 255, 255);
+  background: linear-gradient(
+    90deg,
+    rgba(0, 255, 255, 1) 0%,
+    rgba(255, 0, 255, 1) 100%
+  );
+  border: none;
+  border-radius: 10px;
   width: 10rem;
+  height: 3rem;
+  font-size: 1.5rem;
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const PostSubmission = (props) => {
@@ -48,7 +73,11 @@ const PostSubmission = (props) => {
     <StyledPostSubmission>
       <PostSubmissionForm onSubmit={handleSubmission}>
         <FieldWrapper>
-          <BodyField name="body" id="body"></BodyField>
+          <BodyField
+            name="body"
+            id="body"
+            placeholder="sup? wanna post something?"
+          ></BodyField>
         </FieldWrapper>
         <SubmitButton type="submit">submit post</SubmitButton>
       </PostSubmissionForm>

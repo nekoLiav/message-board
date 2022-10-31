@@ -9,7 +9,10 @@ const StyledPost = styled.div`
   color: white;
   width: 100%;
   height: max-content;
-  border: 1px solid grey;
+  border-width: 0 1px 1px 1px;
+  border-color: grey;
+  border-style: solid;
+  min-height: 100px;
 
   &:hover {
     background: #333333;

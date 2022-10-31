@@ -21,20 +21,21 @@ const StyledHome = styled.div`
   grid-template-columns: 1fr minmax(min-content, 600px) 1fr;
   height: 100%;
   background: black;
-  border: 1px solid grey;
+  overflow: auto;
 `;
 
 const HomeMain = styled.div`
-  border: 1px solid grey;
+  display: flex;
+  flex-direction: column;
 `;
 
 const HomePosts = styled.div`
-  border: 1px solid grey;
+  border-top-width: 1px;
+  border-top-color: grey;
+  border-top-style: solid;
 `;
 
-const HomeAside = styled.div`
-  border: 1px solid grey;
-`;
+const HomeAside = styled.div``;
 
 const Home = (props) => {
   const [posts, setPosts] = useState([]);

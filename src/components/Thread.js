@@ -16,12 +16,9 @@ const StyledThread = styled.div`
   grid-template-columns: 1fr minmax(min-content, 600px) 1fr;
   height: 100%;
   background: black;
-  border: 1px solid grey;
 `;
 
-const ThreadMain = styled.div`
-  border: 1px solid grey;
-`;
+const ThreadMain = styled.div``;
 
 const SourcePost = styled.div``;
 
@@ -29,9 +26,7 @@ const SourcePostInfo = styled.div``;
 
 const SourcePostBody = styled.p``;
 
-const ThreadAside = styled.div`
-  border: 1px solid grey;
-`;
+const ThreadAside = styled.div``;
 
 const Thread = () => {
   const [post, setPost] = useState(null);
