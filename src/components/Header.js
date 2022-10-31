@@ -12,6 +12,8 @@ const StyledHeader = styled.div`
 
 const HomeLink = styled(Link)`
   width: 100px;
+  position: sticky;
+  top: 0;
 `;
 
 const Logo = styled(SvgComponent)`

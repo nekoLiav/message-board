@@ -19,7 +19,15 @@ const StyledPost = styled.div`
   }
 `;
 
-const Info = styled.div``;
+const Info = styled.div`
+  display: flex;
+`;
+
+const Author = styled.p``;
+
+const Created = styled.p`
+  color: grey;
+`;
 
 const Body = styled.p`
   padding: 5px 0;
@@ -42,7 +50,10 @@ const Post = (props) => {
 
   return (
     <StyledPost onClick={handleClick}>
-      <Info>{`${authorName} - ${createdString}`}</Info>
+      <Info>
+        <Author>{authorName}&nbsp;</Author>
+        <Created>&#x2022;&nbsp;{createdString}</Created>
+      </Info>
       <Body>{body}</Body>
     </StyledPost>
   );

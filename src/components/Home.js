@@ -87,7 +87,7 @@ const Home = (props) => {
       <Header />
       <HomeMain>
         {props.isLoggedIn ? (
-          <PostSubmission user={props.user.id} />
+          <PostSubmission user={props.user.id} type={'submission'} />
         ) : (
           <PostSubmission />
         )}

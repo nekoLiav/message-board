@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { db } from '../firebase/firebase-config';
 import { collection, addDoc } from 'firebase/firestore';
 import PropTypes from 'prop-types';
+import { useParams } from 'react-router-dom';
 
 const StyledPostSubmission = styled.div`
   display: flex;
@@ -56,37 +57,56 @@ const SubmitButton = styled.button`
 `;
 
 const PostSubmission = (props) => {
+  const params = useParams();
+
+  const postString =
+    props.type === 'submission'
+      ? 'sup? wanna post something?'
+      : 'sup? wanna reply to this?';
+  const buttonString =
+    props.type === 'submission' ? 'submit post' : 'submit reply';
+
   const handleSubmission = async (e) => {
     e.preventDefault();
     const body = document.getElementById('body').value;
-    const newPost = await addDoc(
-      collection(db, 'users', props.user),
-      {
-        body: body,
-        created: Date.now(),
-      },
-      { merge: true }
-    );
+    if (props.type === 'submission') {
+      const newPost = await addDoc(
+        collection(db, 'users', props.user),
+        { ...props.post, type: 'submission' },
+        { merge: true }
+      );
+    }
+    if (props.type === 'reply') {
+      const newReply = await addDoc(
+        collection(db, 'users', params.user, 'posts'),
+        { ...props.post, type: 'reply', body: body, parent: params.post },
+        { merge: true }
+      );
+    }
   };
 
   return (
     <StyledPostSubmission>
       <PostSubmissionForm onSubmit={handleSubmission}>
         <FieldWrapper>
-          <BodyField
-            name="body"
-            id="body"
-            placeholder="sup? wanna post something?"
-          ></BodyField>
+          <BodyField name="body" id="body" placeholder={postString}></BodyField>
         </FieldWrapper>
-        <SubmitButton type="submit">submit post</SubmitButton>
+        <SubmitButton type="submit">{buttonString}</SubmitButton>
       </PostSubmissionForm>
     </StyledPostSubmission>
   );
 };
 
 PostSubmission.propTypes = {
+  post: PropTypes.shape({
+    authorID: PropTypes.string,
+    authorName: PropTypes.string,
+    body: PropTypes.string,
+    created: PropTypes.number,
+    type: PropTypes.string,
+  }),
   user: PropTypes.string,
+  type: PropTypes.string,
 };
 
 export default PostSubmission;
