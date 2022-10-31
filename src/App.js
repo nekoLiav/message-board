@@ -36,10 +36,7 @@ function App() {
           path="/"
           element={<Home isLoggedIn={isLoggedIn} user={user} />}
         ></Route>
-        <Route
-          path="/user/:user/submissions/:submission"
-          element={<Thread />}
-        ></Route>
+        <Route path="/user/:user/post/:post" element={<Thread />}></Route>
       </Routes>
     </StyledApp>
   );

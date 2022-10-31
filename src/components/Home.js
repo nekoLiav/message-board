@@ -41,6 +41,23 @@ const Home = (props) => {
   const [isUpdated, setIsUpdated] = useState(false);
 
   useEffect(() => {
+    const populateDummyDatabase = async () => {
+      for (let i = 0; i < 10; i++) {
+        const usersRef = collection(db, 'users');
+        const user = await addDoc(usersRef, {
+          name: `Test Name ${i}`,
+        });
+
+        const postsRef = collection(db, 'users', user.id, 'posts');
+        const post = await addDoc(postsRef, {
+          authorID: user.id,
+          authorName: `Test Name ${i}`,
+          body: `Submission ${i}`,
+          created: Date.now(),
+          type: 'submission',
+        });
+      }
+    };
     const queryPosts = async () => {
       try {
         const fetchedPosts = query(
@@ -52,8 +69,7 @@ const Home = (props) => {
         querySnapshot.forEach((doc) => {
           tempPosts.push({
             ...doc.data(),
-            id: doc.id,
-            name: doc.name,
+            postID: doc.id,
           });
         });
         setPosts(tempPosts.sort((a, b) => a.created - b.created));
@@ -69,10 +85,14 @@ const Home = (props) => {
     <StyledHome>
       <Header />
       <HomeMain>
-        {props.isLoggedIn ? <PostSubmission user={props.user.id} /> : null}
+        {props.isLoggedIn ? (
+          <PostSubmission user={props.user.id} />
+        ) : (
+          <PostSubmission />
+        )}
         <HomePosts>
           {isUpdated
-            ? posts.map((post) => <Post key={post.id} post={post} />)
+            ? posts.map((post) => <Post key={post.postID} post={post} />)
             : null}
         </HomePosts>
       </HomeMain>

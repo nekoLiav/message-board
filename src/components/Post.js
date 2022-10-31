@@ -28,17 +28,18 @@ const Post = (props) => {
   const body = props.post.body;
   const created = formatDistanceToNowStrict(props.post.created);
   const createdString = `${created.split(' ')[0]}${created.split(' ')[1][0]}`;
-  const by = props.post.author;
-  const post = props.post.id;
+  const authorName = props.post.authorName;
+  const authorID = props.post.authorID;
+  const postID = props.post.postID;
 
   const handleClick = (clickEvent) => {
     clickEvent.preventDefault();
-    navigate(`/user/${by}/submissions/${post}`);
+    navigate(`/user/${authorID}/post/${postID}`);
   };
 
   return (
     <StyledPost onClick={handleClick}>
-      <Info>{`${by} - ${createdString}`}</Info>
+      <Info>{`${authorName} - ${createdString}`}</Info>
       <Body>{body}</Body>
     </StyledPost>
   );
@@ -46,10 +47,11 @@ const Post = (props) => {
 
 Post.propTypes = {
   post: PropTypes.shape({
+    authorName: PropTypes.string,
+    authorID: PropTypes.string,
     body: PropTypes.string,
     created: PropTypes.number,
-    author: PropTypes.string,
-    id: PropTypes.string,
+    postID: PropTypes.string,
   }),
 };
 
