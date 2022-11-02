@@ -27,3 +27,4 @@ yarn-error.log*
 /functions
 /old
 testdata.json
+/saved-database-stuff
