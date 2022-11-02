@@ -42,10 +42,12 @@ const Post = (props) => {
   const authorName = props.post.authorName;
   const authorID = props.post.authorID;
   const postID = props.post.postID;
+  const replyID = props.post.replyID;
+  const postReplyID = props.post.postID === undefined ? replyID : postID;
 
   const handleClick = (clickEvent) => {
     clickEvent.preventDefault();
-    navigate(`/user/${authorID}/post/${postID}`);
+    navigate(`/user/${authorID}/post/${postReplyID}`);
   };
 
   return (
@@ -66,6 +68,7 @@ Post.propTypes = {
     body: PropTypes.string,
     created: PropTypes.number,
     postID: PropTypes.string,
+    replyID: PropTypes.string,
   }),
 };
 

@@ -68,7 +68,7 @@ const Thread = () => {
         const querySnapshot = await getDoc(
           doc(db, 'users', params.user, 'posts', params.post)
         );
-        setPost(querySnapshot.data());
+        setPost({ ...querySnapshot.data(), postID: querySnapshot.id });
         setPostLoaded(true);
       } catch (error) {
         console.log('Something went wrong!', error);
@@ -95,13 +95,13 @@ const Thread = () => {
       }
     };
     queryReplies();
-  }, []);
+  }, [params]);
 
   return (
     <StyledThread>
       <Header />
-      <ThreadMain>
-        {postLoaded ? (
+      {postLoaded ? (
+        <ThreadMain key={post.postID}>
           <SourcePost>
             <SourcePostInfo>
               <SourcePostAuthor>{post.authorName}&nbsp;</SourcePostAuthor>
@@ -111,14 +111,16 @@ const Thread = () => {
             </SourcePostInfo>
             <SourcePostBody>{post.body}</SourcePostBody>
           </SourcePost>
-        ) : null}
-        <PostSubmission type={'reply'} post={post} />
-        <Replies>
-          {repliesLoaded
-            ? replies.map((reply) => <Post key={reply.replyID} post={reply} />)
-            : null}
-        </Replies>
-      </ThreadMain>
+          <PostSubmission type={'reply'} post={post} />
+          <Replies>
+            {repliesLoaded
+              ? replies.map((reply) => (
+                  <Post key={reply.replyID} post={reply} />
+                ))
+              : null}
+          </Replies>
+        </ThreadMain>
+      ) : null}
       <ThreadAside />
     </StyledThread>
   );

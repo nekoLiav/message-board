@@ -7,8 +7,6 @@ import { useParams } from 'react-router-dom';
 const StyledPostSubmission = styled.div`
   display: flex;
   flex-direction: column;
-  position: sticky;
-  top: 0;
   background: black;
   border-width: 0 1px 0 1px;
   border-style: solid;

@@ -1,18 +1,22 @@
+/* eslint-disable no-unused-vars */
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { db } from '../firebase/firebase-config';
 import {
   getDocs,
-  collection,
-  addDoc,
   collectionGroup,
   query,
   where,
+  doc,
+  setDoc,
+  collection,
+  addDoc,
 } from 'firebase/firestore';
 import Post from './Post';
 import Header from './Header';
 import PostSubmission from './PostSubmission';
 import PropTypes from 'prop-types';
+import testdata from '../testdata.json';
 
 const StyledHome = styled.div`
   display: grid;
@@ -34,6 +38,35 @@ const HomePosts = styled.div`
   border-top-style: solid;
 `;
 
+// add users to mock
+
+// testdata.users.forEach((user) => {
+//   addDoc(collection(db, 'users'), user);
+// });
+
+// add posts to mock
+
+// testdata.users.forEach((user) => {
+//   let i = 0;
+//   let p = 0;
+//   const metadata = {
+//     ...testdata.posts[p].metadata,
+//     user_id: user.user_id,
+//     user_name: user.user_name,
+//     user_handle: user.user_handle,
+//     user_avatar: user.user_avatar,
+//   };
+//   while (p < i + 10) {
+//     addDoc(collection(db, 'posts'), {
+//       ...testdata.posts[p],
+//       metadata,
+//     });
+//     p++;
+//   }
+//   p = 0;
+//   i += 10;
+// });
+
 const HomeAside = styled.div``;
 
 const Home = (props) => {
@@ -41,37 +74,16 @@ const Home = (props) => {
   const [isUpdated, setIsUpdated] = useState(false);
 
   useEffect(() => {
-    // eslint-disable-next-line no-unused-vars
-    const populateDummyDatabase = async () => {
-      for (let i = 0; i < 10; i++) {
-        const usersRef = collection(db, 'users');
-        const user = await addDoc(usersRef, {
-          name: `Test Name ${i}`,
-        });
-
-        const postsRef = collection(db, 'users', user.id, 'posts');
-        addDoc(postsRef, {
-          authorID: user.id,
-          authorName: `Test Name ${i}`,
-          body: `Submission ${i}`,
-          created: Date.now(),
-          type: 'submission',
-        });
-      }
-    };
     const queryPosts = async () => {
       try {
         const fetchedPosts = query(
           collectionGroup(db, 'posts'),
-          where('type', '==', 'submission')
+          where('parent', '!=', false)
         );
         const querySnapshot = await getDocs(fetchedPosts);
         let tempPosts = [];
         querySnapshot.forEach((doc) => {
-          tempPosts.push({
-            ...doc.data(),
-            postID: doc.id,
-          });
+          console.log(doc.data());
         });
         setPosts(tempPosts.sort((a, b) => a.created - b.created));
         setIsUpdated(true);

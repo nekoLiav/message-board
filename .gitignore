@@ -26,4 +26,4 @@ yarn-error.log*
 
 /functions
 /old
-populateDB.mjs
+testdata.json
