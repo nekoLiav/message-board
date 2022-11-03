@@ -4,19 +4,20 @@ import styled from 'styled-components';
 import { db } from '../firebase/firebase-config';
 import {
   getDocs,
-  collectionGroup,
   query,
   where,
-  doc,
-  setDoc,
   collection,
-  addDoc,
+  limit,
+  setDoc,
+  doc,
 } from 'firebase/firestore';
 import Post from './Post';
 import Header from './Header';
 import PostSubmission from './PostSubmission';
 import PropTypes from 'prop-types';
-import testdata from '../testdata.json';
+import UserData from '../Users.json';
+import PostData from '../Posts.json';
+import ReplyData from '../Replies.json';
 
 const StyledHome = styled.div`
   display: grid;
@@ -38,34 +39,30 @@ const HomePosts = styled.div`
   border-top-style: solid;
 `;
 
-// add users to mock
+const populateDB = () => {
+  let randomUserIDs = [];
+  UserData.forEach((user) => {
+    let n = 0;
+    const newUserDoc = doc(collection(db, 'users'));
+    randomUserIDs.push(newUserDoc.id);
+    setDoc(newUserDoc, user);
+    for (let i = 0; i < 10; i++) {
+      const newPostDoc = doc(collection(db, 'posts'));
+      setDoc(newPostDoc, { ...PostData[i + n * 10], user: newUserDoc.id });
+    }
+    n++;
+  });
+  for (let i = 0; i < ReplyData.length; i++) {
+    const newReplyDoc = doc(collection(db, 'posts'));
+    setDoc(newReplyDoc, {
+      ...ReplyData[i],
+      user: randomUserIDs[Math.floor(Math.random() * randomUserIDs.length)],
+      parent: randomUserIDs[Math.floor(Math.random() * randomUserIDs.length)],
+    });
+  }
+};
 
-// testdata.users.forEach((user) => {
-//   addDoc(collection(db, 'users'), user);
-// });
-
-// add posts to mock
-
-// testdata.users.forEach((user) => {
-//   let i = 0;
-//   let p = 0;
-//   const metadata = {
-//     ...testdata.posts[p].metadata,
-//     user_id: user.user_id,
-//     user_name: user.user_name,
-//     user_handle: user.user_handle,
-//     user_avatar: user.user_avatar,
-//   };
-//   while (p < i + 10) {
-//     addDoc(collection(db, 'posts'), {
-//       ...testdata.posts[p],
-//       metadata,
-//     });
-//     p++;
-//   }
-//   p = 0;
-//   i += 10;
-// });
+// populateDB();
 
 const HomeAside = styled.div``;
 
@@ -76,16 +73,21 @@ const Home = (props) => {
   useEffect(() => {
     const queryPosts = async () => {
       try {
-        const fetchedPosts = query(
-          collectionGroup(db, 'posts'),
-          where('parent', '!=', false)
+        const q = query(
+          collection(db, 'posts'),
+          where('is_reply', '==', 'false'),
+          limit(10)
         );
-        const querySnapshot = await getDocs(fetchedPosts);
+        const querySnapshot = await getDocs(q);
         let tempPosts = [];
         querySnapshot.forEach((doc) => {
-          console.log(doc.data());
+          tempPosts.push({ ...doc.data(), id: doc.id });
         });
-        setPosts(tempPosts.sort((a, b) => a.created - b.created));
+        setPosts(
+          tempPosts.sort(
+            (a, b) => Number(a.date_created) - Number(b.date_created)
+          )
+        );
         setIsUpdated(true);
       } catch (error) {
         console.log('Something went wrong!', error);
@@ -105,7 +107,7 @@ const Home = (props) => {
         )}
         <HomePosts>
           {isUpdated
-            ? posts.map((post) => <Post key={post.postID} post={post} />)
+            ? posts.map((post) => <Post key={post.id} post={post} />)
             : null}
         </HomePosts>
       </HomeMain>
