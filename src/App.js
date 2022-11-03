@@ -1,10 +1,12 @@
+/* eslint-disable no-unused-vars */
 import { useEffect, useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { onAuthStateChanged } from 'firebase/auth';
-import { auth } from './firebase/firebase-config';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { auth, db } from './firebase/firebase-config';
 import styled from 'styled-components';
 import Home from './components/Home';
 import Thread from './components/Thread';
+import { doc, getDoc } from 'firebase/firestore';
 
 const StyledApp = styled.div`
   height: 100%;
@@ -15,15 +17,16 @@ function App() {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        console.log('User is logged in!');
-        setUser(user.uid);
+    signInWithEmailAndPassword(auth, 'peepee@poopoo.com', '123456')
+      .then(async (userCredential) => {
+        const docRef = doc(db, 'users', userCredential.user.uid);
+        const docSnap = await getDoc(docRef);
+        setUser(docSnap.data());
         setIsLoggedIn(true);
-      } else {
-        console.log('User is logged out.');
-      }
-    });
+      })
+      .catch((error) => {
+        console.log('Something went wrong!', error);
+      });
   }, []);
 
   return (

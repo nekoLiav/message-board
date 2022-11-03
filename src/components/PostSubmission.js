@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import styled from 'styled-components';
 import { db } from '../firebase/firebase-config';
 import { collection, addDoc } from 'firebase/firestore';
@@ -6,11 +7,14 @@ import { useParams } from 'react-router-dom';
 
 const StyledPostSubmission = styled.div`
   display: flex;
-  flex-direction: column;
   background: black;
-  border-width: 0 1px 0 1px;
-  border-style: solid;
-  border-color: grey;
+`;
+
+const UserAvatar = styled.img`
+  max-height: 50px;
+  max-width: 50px;
+  border-radius: 100%;
+  margin: 1rem;
 `;
 
 const PostSubmissionForm = styled.form`
@@ -28,7 +32,7 @@ const BodyField = styled.textarea`
   width: 100%;
   resize: none;
   border: none;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
 
   &:focus {
     outline: none;
@@ -43,10 +47,11 @@ const SubmitButton = styled.button`
     rgba(255, 0, 255, 1) 100%
   );
   border: none;
-  border-radius: 10px;
-  width: 10rem;
-  height: 3rem;
-  font-size: 1.5rem;
+  height: 30px;
+  width: 100px;
+  border-radius: 15px;
+
+  font-size: 1.2rem;
 
   &:hover {
     cursor: pointer;
@@ -55,55 +60,29 @@ const SubmitButton = styled.button`
 
 const PostSubmission = (props) => {
   const params = useParams();
-
-  const postString =
-    props.type === 'submission'
-      ? 'sup? wanna post something?'
-      : 'sup? wanna reply to this?';
-  const buttonString =
-    props.type === 'submission' ? 'submit post' : 'submit reply';
+  console.log(params);
 
   const handleSubmission = async (e) => {
     e.preventDefault();
-    const body = document.getElementById('body').value;
-    if (props.type === 'submission') {
-      addDoc(
-        collection(db, 'users', props.user),
-        { ...props.post, type: 'submission' },
-        { merge: true }
-      );
-    }
-    if (props.type === 'reply') {
-      addDoc(
-        collection(db, 'users', params.user, 'posts'),
-        { ...props.post, type: 'reply', body: body, parent: params.post },
-        { merge: true }
-      );
-    }
   };
 
   return (
     <StyledPostSubmission>
+      <UserAvatar src={props.user.avatar} />
       <PostSubmissionForm onSubmit={handleSubmission}>
         <FieldWrapper>
-          <BodyField name="body" id="body" placeholder={postString}></BodyField>
+          <BodyField name="body" id="body" placeholder="..."></BodyField>
         </FieldWrapper>
-        <SubmitButton type="submit">{buttonString}</SubmitButton>
+        <SubmitButton type="submit">submit</SubmitButton>
       </PostSubmissionForm>
     </StyledPostSubmission>
   );
 };
 
 PostSubmission.propTypes = {
-  post: PropTypes.shape({
-    authorID: PropTypes.string,
-    authorName: PropTypes.string,
-    body: PropTypes.string,
-    created: PropTypes.number,
-    type: PropTypes.string,
+  user: PropTypes.shape({
+    avatar: PropTypes.string,
   }),
-  user: PropTypes.string,
-  type: PropTypes.string,
 };
 
 export default PostSubmission;

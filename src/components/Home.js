@@ -18,6 +18,7 @@ import PropTypes from 'prop-types';
 import UserData from '../Users.json';
 import PostData from '../Posts.json';
 import ReplyData from '../Replies.json';
+import SpecialUserData from '../SpecialUsers.json';
 
 const StyledHome = styled.div`
   display: grid;
@@ -26,11 +27,34 @@ const StyledHome = styled.div`
   height: 100%;
   background: black;
   overflow: auto;
+  color: white;
 `;
 
 const HomeMain = styled.div`
   display: flex;
   flex-direction: column;
+  border-width: 0 1px 0 1px;
+  border-style: solid;
+  border-color: grey;
+`;
+
+const HomeLoc = styled.p`
+  font-weight: bold;
+  font-size: 1.5rem;
+  margin-left: 1rem;
+`;
+
+const Container = styled.div``;
+
+const HomeInfo = styled.div`
+  display: flex;
+  margin-left: 1rem;
+`;
+
+const UserName = styled.p``;
+
+const UserHandle = styled.p`
+  color: grey;
 `;
 
 const HomePosts = styled.div`
@@ -62,6 +86,13 @@ const populateDB = () => {
   }
 };
 
+const populateSpecialDB = () => {
+  SpecialUserData.forEach((specialUser) => {
+    setDoc(doc(db, 'users', specialUser.id), specialUser);
+  });
+};
+
+// populateSpecialDB();
 // populateDB();
 
 const HomeAside = styled.div``;
@@ -100,11 +131,16 @@ const Home = (props) => {
     <StyledHome>
       <Header />
       <HomeMain>
+        <HomeLoc>Home</HomeLoc>
         {props.isLoggedIn ? (
-          <PostSubmission user={props.user.id} type={'submission'} />
-        ) : (
-          <PostSubmission />
-        )}
+          <Container>
+            <HomeInfo>
+              <UserName>{props.user.name}</UserName>
+              <UserHandle>&nbsp;{`@${props.user.handle}`}</UserHandle>
+            </HomeInfo>
+            <PostSubmission user={props.user} />
+          </Container>
+        ) : null}
         <HomePosts>
           {isUpdated
             ? posts.map((post) => <Post key={post.id} post={post} />)
@@ -120,6 +156,8 @@ Home.propTypes = {
   isLoggedIn: PropTypes.bool,
   user: PropTypes.shape({
     id: PropTypes.string,
+    name: PropTypes.string,
+    handle: PropTypes.string,
   }),
 };
 

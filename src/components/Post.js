@@ -12,13 +12,15 @@ const StyledPost = styled.div`
   color: white;
   width: 100%;
   height: max-content;
-  border-width: 0 1px 1px 1px;
+  border-width: 0 0 1px 0;
   border-color: grey;
   border-style: solid;
   min-height: 100px;
+  transition: 0.2s;
 
   &:hover {
-    background: #333333;
+    background: #111111;
+    cursor: pointer;
   }
 `;
 
@@ -27,6 +29,11 @@ const Container = styled.div``;
 const Info = styled.div`
   display: flex;
   padding: 5px;
+`;
+
+const UserAvatar = styled.img`
+  background: #111111;
+  border-radius: 100%;
 `;
 
 const UserName = styled.p``;
@@ -85,6 +92,7 @@ function Post(props) {
       {postLoaded ? (
         <Container>
           <Info>
+            <UserAvatar src={userData.avatar} />
             <UserName>{userData.name}&nbsp;</UserName>
             <UserHandle>{`@${userData.handle}`}`&nbsp;</UserHandle>
             <DateCreated>&#x2022;&nbsp;{createdString}</DateCreated>
