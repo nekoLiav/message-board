@@ -24,15 +24,24 @@ const StyledPost = styled.div`
   }
 `;
 
-const Container = styled.div``;
+const Container = styled.div`
+  display: flex;
+`;
+
+const Container2 = styled.div`
+  display: flex;
+`;
 
 const Info = styled.div`
   display: flex;
+  flex-direction: column;
   padding: 5px;
 `;
 
 const UserAvatar = styled.img`
   background: #111111;
+  width: 50px;
+  height: 50px;
   border-radius: 100%;
 `;
 
@@ -58,6 +67,18 @@ const Img = styled.img`
   border-radius: 10px;
   max-height: 400px;
 `;
+
+const Info2 = styled.div`
+  display: flex;
+  justify-content: space-evenly;
+  color: grey;
+`;
+
+const Comments = styled.div``;
+
+const Likes = styled.div``;
+
+const Shares = styled.div``;
 
 function Post(props) {
   const [userData, setUserData] = useState(null);
@@ -91,18 +112,25 @@ function Post(props) {
     <StyledPost onClick={handleClick}>
       {postLoaded ? (
         <Container>
+          <UserAvatar src={userData.avatar} />
           <Info>
-            <UserAvatar src={userData.avatar} />
-            <UserName>{userData.name}&nbsp;</UserName>
-            <UserHandle>{`@${userData.handle}`}`&nbsp;</UserHandle>
-            <DateCreated>&#x2022;&nbsp;{createdString}</DateCreated>
+            <Container2>
+              <UserName>{userData.name}&nbsp;</UserName>
+              <UserHandle>{`@${userData.handle}`}`&nbsp;</UserHandle>
+              <DateCreated>&#x2022;&nbsp;{createdString}</DateCreated>
+            </Container2>
+            <Body>
+              <Text>{props.post.text}</Text>
+              {props.post.img_url !== null ? (
+                <Img src={props.post.img_url} />
+              ) : null}
+            </Body>
+            <Info2>
+              <Comments>-- 123</Comments>
+              <Shares>-- 123</Shares>
+              <Likes>-- 123</Likes>
+            </Info2>
           </Info>
-          <Body>
-            <Text>{props.post.text}</Text>
-            {props.post.img_url !== null ? (
-              <Img src={props.post.img_url} />
-            ) : null}
-          </Body>
         </Container>
       ) : null}
     </StyledPost>
