@@ -60,7 +60,6 @@ const SubmitButton = styled.button`
 
 const PostSubmission = (props) => {
   const params = useParams();
-  console.log(params);
 
   const handleSubmission = async (e) => {
     e.preventDefault();

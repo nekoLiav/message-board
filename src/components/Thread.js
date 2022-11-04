@@ -13,6 +13,7 @@ import { db } from '../firebase/firebase-config';
 import Header from './Header';
 import PostSubmission from './PostSubmission';
 import Post from './Post';
+import PropTypes from 'prop-types';
 
 const StyledThread = styled.div`
   color: white;
@@ -26,6 +27,9 @@ const StyledThread = styled.div`
 
 const ThreadMain = styled.div`
   background: black;
+  border-width: 0 1px 0 1px;
+  border-style: solid;
+  border-color: grey;
 `;
 
 const Replies = styled.div`
@@ -38,7 +42,7 @@ const ThreadAside = styled.div`
   background: black;
 `;
 
-const Thread = () => {
+const Thread = (props) => {
   const [post, setPost] = useState(null);
   const [postLoaded, setPostLoaded] = useState(false);
   const [replies, setreplies] = useState(null);
@@ -83,7 +87,7 @@ const Thread = () => {
       {postLoaded ? (
         <ThreadMain>
           <Post post={post} />
-          <PostSubmission type={'reply'} post={post} />
+          <PostSubmission post={post} user={props.user} />
           <Replies>
             {repliesLoaded
               ? replies.map((reply) => <Post key={reply.id} post={reply} />)
@@ -94,6 +98,10 @@ const Thread = () => {
       <ThreadAside />
     </StyledThread>
   );
+};
+
+Thread.propTypes = {
+  user: PropTypes.object,
 };
 
 export default Thread;

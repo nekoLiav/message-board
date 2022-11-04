@@ -106,7 +106,7 @@ const Home = (props) => {
       try {
         const q = query(
           collection(db, 'posts'),
-          where('is_reply', '==', 'false'),
+          where('flags', 'array-contains', 'is_reply'),
           limit(10)
         );
         const querySnapshot = await getDocs(q);

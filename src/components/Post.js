@@ -17,6 +17,7 @@ const StyledPost = styled.div`
   border-style: solid;
   min-height: 100px;
   transition: 0.2s;
+  max-width: 600px;
 
   &:hover {
     background: #111111;
@@ -26,6 +27,8 @@ const StyledPost = styled.div`
 
 const Container = styled.div`
   display: flex;
+  margin-left: 1rem;
+  margin-top: 5px;
 `;
 
 const Container2 = styled.div`
@@ -35,7 +38,9 @@ const Container2 = styled.div`
 const Info = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 5px;
+  margin-left: 1rem;
+  margin-right: 5px;
+  width: 100%;
 `;
 
 const UserAvatar = styled.img`
@@ -55,17 +60,17 @@ const DateCreated = styled.p`
   color: grey;
 `;
 
-const Body = styled.div`
-  padding: 5px;
-`;
+const Body = styled.div``;
 
 const Text = styled.p`
-  padding-bottom: 5px;
+  margin-top: 5px;
 `;
 
 const Img = styled.img`
   border-radius: 10px;
-  max-height: 400px;
+  max-height: 500px;
+  margin-top: 5px;
+  max-width: 100%;
 `;
 
 const Info2 = styled.div`
@@ -74,11 +79,38 @@ const Info2 = styled.div`
   color: grey;
 `;
 
-const Comments = styled.div``;
+const CommentContainer = styled.div`
+  border-radius: 100%;
+  padding: 5px;
+  &:hover {
+    background: rgba(0, 255, 255, 0.1);
+    color: #00ffff;
+  }
+`;
 
-const Likes = styled.div``;
+const CommentCount = styled.p``;
 
-const Shares = styled.div``;
+const ShareContainer = styled.div`
+  border-radius: 100%;
+  padding: 5px;
+  &:hover {
+    background: rgba(128, 0, 255, 0.1);
+    color: #8000ff;
+  }
+`;
+
+const ShareCount = styled.p``;
+
+const LikeContainer = styled.div`
+  border-radius: 100%;
+  padding: 5px;
+  &:hover {
+    background: rgba(255, 0, 255, 0.1);
+    color: #ff00ff;
+  }
+`;
+
+const LikeCount = styled.p``;
 
 function Post(props) {
   const [userData, setUserData] = useState(null);
@@ -100,7 +132,7 @@ function Post(props) {
 
   const navigate = useNavigate();
 
-  const created = formatDistanceToNowStrict(Number(props.post.date_created));
+  const created = formatDistanceToNowStrict(Number(props.post.date_posted));
   const createdString = `${created.split(' ')[0]}${created.split(' ')[1][0]}`;
 
   const handleClick = (clickEvent) => {
@@ -121,14 +153,18 @@ function Post(props) {
             </Container2>
             <Body>
               <Text>{props.post.text}</Text>
-              {props.post.img_url !== null ? (
-                <Img src={props.post.img_url} />
-              ) : null}
+              {props.post.img !== null ? <Img src={props.post.img} /> : null}
             </Body>
             <Info2>
-              <Comments>-- 123</Comments>
-              <Shares>-- 123</Shares>
-              <Likes>-- 123</Likes>
+              <CommentContainer>
+                <CommentCount>-- 123</CommentCount>
+              </CommentContainer>
+              <ShareContainer>
+                <ShareCount>-- 123</ShareCount>
+              </ShareContainer>
+              <LikeContainer>
+                <LikeCount>-- 123</LikeCount>
+              </LikeContainer>
             </Info2>
           </Info>
         </Container>
@@ -139,9 +175,9 @@ function Post(props) {
 
 Post.propTypes = {
   post: PropTypes.shape({
-    date_created: PropTypes.string,
+    date_posted: PropTypes.string,
     id: PropTypes.string,
-    img_url: PropTypes.string,
+    img: PropTypes.string,
     is_reply: PropTypes.string,
     text: PropTypes.string,
     user: PropTypes.string,
