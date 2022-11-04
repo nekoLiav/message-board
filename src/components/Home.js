@@ -10,6 +10,7 @@ import {
   limit,
   setDoc,
   doc,
+  orderBy,
 } from 'firebase/firestore';
 import Post from './Post';
 import Header from './Header';
@@ -72,7 +73,11 @@ const populateDB = () => {
     setDoc(newUserDoc, user);
     for (let i = 0; i < 10; i++) {
       const newPostDoc = doc(collection(db, 'posts'));
-      setDoc(newPostDoc, { ...PostData[i + n * 10], user: newUserDoc.id });
+      setDoc(newPostDoc, {
+        ...PostData[i + n * 10],
+        user: newUserDoc.id,
+        date_posted: Number(PostData[i + n * 10].date_posted),
+      });
     }
     n++;
   });
@@ -82,6 +87,7 @@ const populateDB = () => {
       ...ReplyData[i],
       user: randomUserIDs[Math.floor(Math.random() * randomUserIDs.length)],
       parent: randomUserIDs[Math.floor(Math.random() * randomUserIDs.length)],
+      date_posted: Number(ReplyData[i].date_posted),
     });
   }
 };
@@ -104,21 +110,14 @@ const Home = (props) => {
   useEffect(() => {
     const queryPosts = async () => {
       try {
-        const q = query(
-          collection(db, 'posts'),
-          where('flags', 'array-contains', 'is_reply'),
-          limit(10)
-        );
+        const postsRef = collection(db, 'posts');
+        const q = query(postsRef, where('is_reply', '==', false), limit(10));
         const querySnapshot = await getDocs(q);
         let tempPosts = [];
         querySnapshot.forEach((doc) => {
           tempPosts.push({ ...doc.data(), id: doc.id });
         });
-        setPosts(
-          tempPosts.sort(
-            (a, b) => Number(a.date_created) - Number(b.date_created)
-          )
-        );
+        setPosts(tempPosts);
         setIsUpdated(true);
       } catch (error) {
         console.log('Something went wrong!', error);

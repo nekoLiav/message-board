@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import SvgComponent from '../assets/logo.jsx';
+import { ReactComponent as Icon } from '../assets/logo.svg';
 
 const StyledHeader = styled.div`
   display: flex;
@@ -11,14 +11,15 @@ const StyledHeader = styled.div`
 `;
 
 const HomeLink = styled(Link)`
-  width: 100px;
   position: sticky;
   top: 0;
+  max-width: 100px;
+  min-width: 50px;
 `;
 
-const Logo = styled(SvgComponent)`
-  height: 100%;
+const Logo = styled(Icon)`
   width: 100%;
+  height: 100%;
 `;
 
 const Header = () => {

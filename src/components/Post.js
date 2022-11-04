@@ -18,6 +18,8 @@ const StyledPost = styled.div`
   min-height: 100px;
   transition: 0.2s;
   max-width: 600px;
+  max-height: 800px;
+  padding: 1rem;
 
   &:hover {
     background: #111111;
@@ -27,19 +29,18 @@ const StyledPost = styled.div`
 
 const Container = styled.div`
   display: flex;
-  margin-left: 1rem;
-  margin-top: 5px;
+  gap: 1rem;
 `;
 
 const Container2 = styled.div`
   display: flex;
+  margin-top: 0.25rem;
 `;
 
 const Info = styled.div`
   display: flex;
   flex-direction: column;
-  margin-left: 1rem;
-  margin-right: 5px;
+  gap: 0.5rem;
   width: 100%;
 `;
 
@@ -50,7 +51,9 @@ const UserAvatar = styled.img`
   border-radius: 100%;
 `;
 
-const UserName = styled.p``;
+const UserName = styled.p`
+  font-weight: bold;
+`;
 
 const UserHandle = styled.p`
   color: grey;
@@ -62,20 +65,18 @@ const DateCreated = styled.p`
 
 const Body = styled.div``;
 
-const Text = styled.p`
-  margin-top: 5px;
-`;
+const Text = styled.p``;
 
 const Img = styled.img`
-  border-radius: 10px;
-  max-height: 500px;
-  margin-top: 5px;
+  border-radius: 15px;
   max-width: 100%;
+  margin-top: 1rem;
+  border: 1px solid grey;
 `;
 
 const Info2 = styled.div`
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-around;
   color: grey;
 `;
 
@@ -132,7 +133,7 @@ function Post(props) {
 
   const navigate = useNavigate();
 
-  const created = formatDistanceToNowStrict(Number(props.post.date_posted));
+  const created = formatDistanceToNowStrict(props.post.date_posted);
   const createdString = `${created.split(' ')[0]}${created.split(' ')[1][0]}`;
 
   const handleClick = (clickEvent) => {
@@ -148,7 +149,7 @@ function Post(props) {
           <Info>
             <Container2>
               <UserName>{userData.name}&nbsp;</UserName>
-              <UserHandle>{`@${userData.handle}`}`&nbsp;</UserHandle>
+              <UserHandle>{`@${userData.handle}`}&nbsp;</UserHandle>
               <DateCreated>&#x2022;&nbsp;{createdString}</DateCreated>
             </Container2>
             <Body>
@@ -175,10 +176,10 @@ function Post(props) {
 
 Post.propTypes = {
   post: PropTypes.shape({
-    date_posted: PropTypes.string,
+    date_posted: PropTypes.number,
     id: PropTypes.string,
     img: PropTypes.string,
-    is_reply: PropTypes.string,
+    is_reply: PropTypes.bool,
     text: PropTypes.string,
     user: PropTypes.string,
   }),
