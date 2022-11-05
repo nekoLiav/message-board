@@ -5,7 +5,7 @@ import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth, db } from './firebase/firebase-config';
 import styled from 'styled-components';
 import Home from './components/Home';
-import Thread from './components/Thread';
+import PostView from './components/PostView';
 import { doc, getDoc } from 'firebase/firestore';
 
 const StyledApp = styled.div`
@@ -39,7 +39,7 @@ function App() {
         ></Route>
         <Route
           path="/user/:user/post/:post"
-          element={<Thread user={user} />}
+          element={<PostView user={user} />}
         ></Route>
       </Routes>
     </StyledApp>

@@ -15,7 +15,7 @@ import PostSubmission from './PostSubmission';
 import Post from './Post';
 import PropTypes from 'prop-types';
 
-const StyledThread = styled.div`
+const StyledPostView = styled.div`
   color: white;
   display: grid;
   grid-auto-flow: column;
@@ -25,7 +25,7 @@ const StyledThread = styled.div`
   background: black;
 `;
 
-const ThreadMain = styled.div`
+const PostViewMain = styled.div`
   background: black;
   border-width: 0 1px 0 1px;
   border-style: solid;
@@ -34,17 +34,13 @@ const ThreadMain = styled.div`
 
 const Parents = styled.div``;
 
-const Replies = styled.div`
-  border-top-width: 1px;
-  border-top-color: grey;
-  border-top-style: solid;
-`;
+const Replies = styled.div``;
 
-const ThreadAside = styled.div`
+const PostViewAside = styled.div`
   background: black;
 `;
 
-const Thread = (props) => {
+const PostView = (props) => {
   const [post, setPost] = useState(null);
   const [postLoaded, setPostLoaded] = useState(false);
   const [parents, setParents] = useState([]);
@@ -87,9 +83,9 @@ const Thread = (props) => {
   }, [params]);
 
   return (
-    <StyledThread>
+    <StyledPostView>
       <Header />
-      <ThreadMain>
+      <PostViewMain>
         {parentsLoaded ? (
           <Parents>
             {parents.map((parent) => (
@@ -108,14 +104,14 @@ const Thread = (props) => {
             ))}
           </Replies>
         ) : null}
-      </ThreadMain>
-      <ThreadAside />
-    </StyledThread>
+      </PostViewMain>
+      <PostViewAside />
+    </StyledPostView>
   );
 };
 
-Thread.propTypes = {
+PostView.propTypes = {
   user: PropTypes.object,
 };
 
-export default Thread;
+export default PostView;
