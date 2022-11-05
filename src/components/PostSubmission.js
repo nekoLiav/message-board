@@ -1,9 +1,11 @@
 /* eslint-disable no-unused-vars */
 import styled from 'styled-components';
 import { db } from '../firebase/firebase-config';
-import { collection, addDoc } from 'firebase/firestore';
+import { collection, addDoc, setDoc, doc } from 'firebase/firestore';
 import PropTypes from 'prop-types';
 import { useParams } from 'react-router-dom';
+import { useState } from 'react';
+import { useEffect } from 'react';
 
 const StyledPostSubmission = styled.div`
   display: flex;
@@ -59,10 +61,41 @@ const SubmitButton = styled.button`
 `;
 
 const PostSubmission = (props) => {
-  const params = useParams();
-
   const handleSubmission = async (e) => {
     e.preventDefault();
+    const newPostDoc = doc(collection(db, 'posts'));
+    if (props.type === 'post') {
+      setDoc(newPostDoc, {
+        user_id: props.user.id,
+        post_id: newPostDoc.id,
+        date_posted: Date.now(),
+        img_url: null,
+        vid_url: null,
+        text: e.target[0].value,
+        tags: [],
+        replies: 0,
+        reposts: 0,
+        likes: 0,
+      });
+    }
+    if (props.type === 'reply') {
+      setDoc(newPostDoc, {
+        user_id: props.user.id,
+        post_id: newPostDoc.id,
+        thread_id: props.post.thread_id ? props.post.thread_id : newPostDoc.id,
+        source_post_id: props.post.source_post_id
+          ? props.post.source_post_id
+          : props.post.post_id,
+        date_posted: Date.now(),
+        img_url: null,
+        vid_url: null,
+        text: e.target[0].value,
+        tags: [],
+        replies: 0,
+        reposts: 0,
+        likes: 0,
+      });
+    }
   };
 
   return (
@@ -79,8 +112,19 @@ const PostSubmission = (props) => {
 };
 
 PostSubmission.propTypes = {
+  type: PropTypes.string,
+  post: PropTypes.shape({
+    parents: PropTypes.object,
+    id: PropTypes.string,
+    reply: PropTypes.bool,
+    post_id: PropTypes.string,
+    source_post_id: PropTypes.string,
+    thread_id: PropTypes.string,
+    level: PropTypes.number,
+  }),
   user: PropTypes.shape({
     avatar: PropTypes.string,
+    id: PropTypes.string,
   }),
 };
 

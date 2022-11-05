@@ -32,6 +32,8 @@ const ThreadMain = styled.div`
   border-color: grey;
 `;
 
+const ThreadView = styled.div``;
+
 const Replies = styled.div`
   border-top-width: 1px;
   border-top-color: grey;
@@ -43,36 +45,59 @@ const ThreadAside = styled.div`
 `;
 
 const Thread = (props) => {
-  const [post, setPost] = useState(null);
-  const [postLoaded, setPostLoaded] = useState(false);
-  const [replies, setreplies] = useState(null);
+  const [replyTarget, setReplyTarget] = useState(null);
+  const [sourcePost, setSourcePost] = useState(null);
+  const [sourcePostLoaded, setSourcePostLoaded] = useState(false);
+  const [thread, setThread] = useState([]);
+  const [threadLoaded, setThreadLoaded] = useState(false);
+  const [replies, setReplies] = useState(null);
   const [repliesLoaded, setRepliesLoaded] = useState(false);
   const params = useParams();
 
   useEffect(() => {
-    const getPost = async () => {
+    setSourcePostLoaded(false);
+    setThreadLoaded(false);
+    setRepliesLoaded(false);
+    const getThread = async () => {
       try {
-        const docRef = doc(db, 'posts', params.post);
-        const docSnap = await getDoc(docRef);
-        setPost({ ...docSnap.data(), id: docSnap.id });
-        setPostLoaded(true);
+        const postRef = doc(db, 'posts', params.post);
+        const postSnap = await getDoc(postRef);
+        if (postSnap.data().thread_id) {
+          const sourceRef = doc(db, 'posts', postSnap.data().source_post_id);
+          const sourceSnap = await getDoc(sourceRef);
+          setSourcePost(sourceSnap.data());
+          setReplyTarget(postSnap.data());
+          setSourcePostLoaded(true);
+          const q = query(
+            collection(db, 'posts'),
+            where('thread_id', '==', postSnap.data().thread_id)
+          );
+          const querySnapshot = await getDocs(q);
+          let tempThread = [];
+          querySnapshot.forEach((doc) => tempThread.push(doc.data()));
+          setThread(tempThread);
+          setThreadLoaded(true);
+        } else {
+          setSourcePost(postSnap.data());
+          setReplyTarget(postSnap.data());
+          setSourcePostLoaded(true);
+          setThreadLoaded(true);
+        }
       } catch (error) {
         console.log('Something went wrong!', error);
       }
     };
-    getPost();
+    getThread();
     const getReplies = async () => {
       try {
         const q = query(
           collection(db, 'posts'),
-          where('parent', '==', params.user)
+          where(`source_post_id`, '==', params.post)
         );
-        let tempReplies = [];
         const querySnapShot = await getDocs(q);
-        querySnapShot.forEach((doc) =>
-          tempReplies.push({ ...doc.data(), id: doc.id })
-        );
-        setreplies(tempReplies);
+        let tempReplies = [];
+        querySnapShot.forEach((doc) => tempReplies.push(doc.data()));
+        setReplies(tempReplies);
         setRepliesLoaded(true);
       } catch (error) {
         console.log('Something went wrong!', error);
@@ -84,17 +109,32 @@ const Thread = (props) => {
   return (
     <StyledThread>
       <Header />
-      {postLoaded ? (
-        <ThreadMain>
-          <Post post={post} />
-          <PostSubmission post={post} user={props.user} />
+      <ThreadMain>
+        {sourcePostLoaded && threadLoaded ? (
+          <Post post={sourcePost} threadView={thread.length > 0} />
+        ) : null}
+        {threadLoaded && thread.length > 0 ? (
+          <ThreadView>
+            {thread.map((post, index) => (
+              <Post
+                key={post.post_id}
+                post={post}
+                threadView={index !== thread.length - 1}
+              />
+            ))}
+          </ThreadView>
+        ) : null}
+        {sourcePostLoaded ? (
+          <PostSubmission post={replyTarget} user={props.user} type={'reply'} />
+        ) : null}
+        {repliesLoaded ? (
           <Replies>
-            {repliesLoaded
-              ? replies.map((reply) => <Post key={reply.id} post={reply} />)
-              : null}
+            {replies.map((reply) => (
+              <Post key={reply.post_id} post={reply} />
+            ))}
           </Replies>
-        </ThreadMain>
-      ) : null}
+        ) : null}
+      </ThreadMain>
       <ThreadAside />
     </StyledThread>
   );

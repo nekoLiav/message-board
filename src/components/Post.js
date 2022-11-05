@@ -8,18 +8,14 @@ import { db } from '../firebase/firebase-config';
 
 const StyledPost = styled.div`
   display: flex;
-  flex-direction: column;
   color: white;
-  width: 100%;
-  height: max-content;
   border-width: 0 0 1px 0;
   border-color: grey;
   border-style: solid;
-  min-height: 100px;
   transition: 0.2s;
   max-width: 600px;
   max-height: 800px;
-  padding: 1rem;
+  width: 100%;
 
   &:hover {
     background: #111111;
@@ -29,26 +25,40 @@ const StyledPost = styled.div`
 
 const Container = styled.div`
   display: flex;
-  gap: 1rem;
+  width: 100%;
 `;
 
 const Container2 = styled.div`
   display: flex;
-  margin-top: 0.25rem;
+  width: 100%;
+`;
+
+const Container3 = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 7px;
 `;
 
 const Info = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
   width: 100%;
+  padding: 1rem;
+  gap: 0.5rem;
 `;
 
 const UserAvatar = styled.img`
-  background: #111111;
-  width: 50px;
   height: 50px;
+  width: 50px;
   border-radius: 100%;
+`;
+
+const Linker = styled.div`
+  border: 1px solid grey;
+  width: 1px;
+  height: 100%;
+  margin-top: 7px;
 `;
 
 const UserName = styled.p`
@@ -63,7 +73,9 @@ const DateCreated = styled.p`
   color: grey;
 `;
 
-const Body = styled.div``;
+const Body = styled.div`
+  width: 100%;
+`;
 
 const Text = styled.p``;
 
@@ -116,11 +128,12 @@ const LikeCount = styled.p``;
 function Post(props) {
   const [userData, setUserData] = useState(null);
   const [postLoaded, setPostLoaded] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getUser = async () => {
       try {
-        const docRef = doc(db, 'users', props.post.user);
+        const docRef = doc(db, 'users', props.post.user_id);
         const docSnap = await getDoc(docRef);
         setUserData(docSnap.data());
         setPostLoaded(true);
@@ -131,30 +144,36 @@ function Post(props) {
     getUser();
   }, []);
 
-  const navigate = useNavigate();
-
-  const created = formatDistanceToNowStrict(props.post.date_posted);
-  const createdString = `${created.split(' ')[0]}${created.split(' ')[1][0]}`;
-
   const handleClick = (clickEvent) => {
     clickEvent.preventDefault();
-    navigate(`/user/${props.post.user}/post/${props.post.id}`);
+    navigate(`/user/${props.post.user_id}/post/${props.post.post_id}`);
   };
 
   return (
-    <StyledPost onClick={handleClick}>
+    <StyledPost
+      style={props.threadView ? { borderWidth: '0' } : {}}
+      onClick={handleClick}
+    >
       {postLoaded ? (
         <Container>
-          <UserAvatar src={userData.avatar} />
+          <Container3>
+            <UserAvatar src={userData.avatar} />
+            {props.threadView ? <Linker /> : null}
+          </Container3>
           <Info>
             <Container2>
               <UserName>{userData.name}&nbsp;</UserName>
               <UserHandle>{`@${userData.handle}`}&nbsp;</UserHandle>
-              <DateCreated>&#x2022;&nbsp;{createdString}</DateCreated>
+              <DateCreated>
+                &#x2022;&nbsp;
+                {formatDistanceToNowStrict(props.post.date_posted)}
+              </DateCreated>
             </Container2>
             <Body>
               <Text>{props.post.text}</Text>
-              {props.post.img !== null ? <Img src={props.post.img} /> : null}
+              {props.post.img_url !== null ? (
+                <Img src={props.post.img_url} />
+              ) : null}
             </Body>
             <Info2>
               <CommentContainer>
@@ -177,12 +196,14 @@ function Post(props) {
 Post.propTypes = {
   post: PropTypes.shape({
     date_posted: PropTypes.number,
+    post_id: PropTypes.string,
     id: PropTypes.string,
-    img: PropTypes.string,
-    is_reply: PropTypes.bool,
+    img_url: PropTypes.string,
+    reply: PropTypes.bool,
     text: PropTypes.string,
-    user: PropTypes.string,
+    user_id: PropTypes.string,
   }),
+  threadView: PropTypes.bool,
 };
 
 export default Post;

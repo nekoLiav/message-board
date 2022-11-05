@@ -111,11 +111,11 @@ const Home = (props) => {
     const queryPosts = async () => {
       try {
         const postsRef = collection(db, 'posts');
-        const q = query(postsRef, where('is_reply', '==', false), limit(10));
+        const q = query(postsRef, orderBy('date_posted', 'desc'), limit(10));
         const querySnapshot = await getDocs(q);
         let tempPosts = [];
         querySnapshot.forEach((doc) => {
-          tempPosts.push({ ...doc.data(), id: doc.id });
+          tempPosts.push(doc.data());
         });
         setPosts(tempPosts);
         setIsUpdated(true);
@@ -137,12 +137,14 @@ const Home = (props) => {
               <UserName>{props.user.name}</UserName>
               <UserHandle>&nbsp;{`@${props.user.handle}`}</UserHandle>
             </HomeInfo>
-            <PostSubmission user={props.user} />
+            <PostSubmission user={props.user} type={'post'} />
           </Container>
         ) : null}
         <HomePosts>
           {isUpdated
-            ? posts.map((post) => <Post key={post.id} post={post} />)
+            ? posts.map((post) => (
+                <Post key={post.post_id} post={post} user={props.user} />
+              ))
             : null}
         </HomePosts>
       </HomeMain>
