@@ -75,7 +75,7 @@ const Thread = (props) => {
       // load replies to main post
       const repliesRef = query(
         collection(db, 'posts'),
-        where('parent_ids', 'array-contains', params.post)
+        where('direct_parent', '==', params.post)
       );
       const repliesSnap = await getDocs(repliesRef);
       let tempReplies = [];

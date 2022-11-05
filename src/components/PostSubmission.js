@@ -80,6 +80,7 @@ const PostSubmission = (props) => {
       const updatedTemplate = {
         ...postTemplate,
         parent_ids: [...props.post.parent_ids, props.post.post_id],
+        direct_parent: props.post.post_id,
         is_reply: true,
       };
       setDoc(newPostDoc, updatedTemplate);
