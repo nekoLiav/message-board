@@ -1,11 +1,7 @@
-/* eslint-disable no-unused-vars */
 import styled from 'styled-components';
 import { db } from '../firebase/firebase-config';
-import { collection, addDoc, setDoc, doc } from 'firebase/firestore';
+import { collection, setDoc, doc } from 'firebase/firestore';
 import PropTypes from 'prop-types';
-import { useParams } from 'react-router-dom';
-import { useState } from 'react';
-import { useEffect } from 'react';
 
 const StyledPostSubmission = styled.div`
   display: flex;
@@ -16,13 +12,15 @@ const UserAvatar = styled.img`
   max-height: 50px;
   max-width: 50px;
   border-radius: 100%;
-  margin: 1rem;
+  margin-top: 7px;
+  margin-left: 1rem;
 `;
 
 const PostSubmissionForm = styled.form`
   display: flex;
   flex-direction: column;
   padding: 1rem;
+  width: 100%;
 `;
 
 const FieldWrapper = styled.div``;
@@ -64,37 +62,29 @@ const PostSubmission = (props) => {
   const handleSubmission = async (e) => {
     e.preventDefault();
     const newPostDoc = doc(collection(db, 'posts'));
-    if (props.type === 'post') {
-      setDoc(newPostDoc, {
-        user_id: props.user.id,
-        post_id: newPostDoc.id,
-        date_posted: Date.now(),
-        img_url: null,
-        vid_url: null,
-        text: e.target[0].value,
-        tags: [],
-        replies: 0,
-        reposts: 0,
-        likes: 0,
-      });
-    }
-    if (props.type === 'reply') {
-      setDoc(newPostDoc, {
-        user_id: props.user.id,
-        post_id: newPostDoc.id,
-        thread_id: props.post.thread_id ? props.post.thread_id : newPostDoc.id,
-        source_post_id: props.post.source_post_id
-          ? props.post.source_post_id
-          : props.post.post_id,
-        date_posted: Date.now(),
-        img_url: null,
-        vid_url: null,
-        text: e.target[0].value,
-        tags: [],
-        replies: 0,
-        reposts: 0,
-        likes: 0,
-      });
+    const postTemplate = {
+      user_id: props.user.id,
+      post_id: newPostDoc.id,
+      parent_ids: [],
+      date_posted: Date.now(),
+      img_url: null,
+      vid_url: null,
+      text: e.target[0].value,
+      tags: [],
+      replies: 0,
+      reposts: 0,
+      likes: 0,
+      is_reply: false,
+    };
+    if (props.post !== undefined) {
+      const updatedTemplate = {
+        ...postTemplate,
+        parent_ids: [...props.post.parent_ids, props.post.post_id],
+        is_reply: true,
+      };
+      setDoc(newPostDoc, updatedTemplate);
+    } else {
+      setDoc(newPostDoc, postTemplate);
     }
   };
 
@@ -114,13 +104,9 @@ const PostSubmission = (props) => {
 PostSubmission.propTypes = {
   type: PropTypes.string,
   post: PropTypes.shape({
-    parents: PropTypes.object,
-    id: PropTypes.string,
-    reply: PropTypes.bool,
     post_id: PropTypes.string,
-    source_post_id: PropTypes.string,
-    thread_id: PropTypes.string,
-    level: PropTypes.number,
+    parent_ids: PropTypes.array,
+    is_reply: PropTypes.bool,
   }),
   user: PropTypes.shape({
     avatar: PropTypes.string,

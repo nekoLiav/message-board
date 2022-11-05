@@ -7,10 +7,8 @@ import {
   query,
   where,
   collection,
-  limit,
   setDoc,
   doc,
-  orderBy,
 } from 'firebase/firestore';
 import Post from './Post';
 import Header from './Header';
@@ -105,49 +103,42 @@ const HomeAside = styled.div``;
 
 const Home = (props) => {
   const [posts, setPosts] = useState([]);
-  const [isUpdated, setIsUpdated] = useState(false);
+  const [homeUpdated, setHomeUpdated] = useState(false);
 
   useEffect(() => {
-    const queryPosts = async () => {
-      try {
-        const postsRef = collection(db, 'posts');
-        const q = query(postsRef, orderBy('date_posted', 'desc'), limit(10));
-        const querySnapshot = await getDocs(q);
-        let tempPosts = [];
-        querySnapshot.forEach((doc) => {
-          tempPosts.push(doc.data());
-        });
-        setPosts(tempPosts);
-        setIsUpdated(true);
-      } catch (error) {
-        console.log('Something went wrong!', error);
-      }
-    };
-    queryPosts();
+    (async () => {
+      const postsRef = query(
+        collection(db, 'posts'),
+        where('is_reply', '==', false)
+      );
+      const postsSnap = await getDocs(postsRef);
+      let tempPosts = [];
+      postsSnap.forEach((post) => tempPosts.push(post.data()));
+      setPosts(tempPosts);
+      setHomeUpdated(true);
+    })();
   }, []);
 
   return (
     <StyledHome>
       <Header />
-      <HomeMain>
-        <HomeLoc>Home</HomeLoc>
-        {props.isLoggedIn ? (
+      {homeUpdated ? (
+        <HomeMain>
+          <HomeLoc>Home</HomeLoc>
           <Container>
             <HomeInfo>
               <UserName>{props.user.name}</UserName>
               <UserHandle>&nbsp;{`@${props.user.handle}`}</UserHandle>
             </HomeInfo>
-            <PostSubmission user={props.user} type={'post'} />
+            <PostSubmission user={props.user} />
           </Container>
-        ) : null}
-        <HomePosts>
-          {isUpdated
-            ? posts.map((post) => (
-                <Post key={post.post_id} post={post} user={props.user} />
-              ))
-            : null}
-        </HomePosts>
-      </HomeMain>
+          <HomePosts>
+            {posts.map((post) => (
+              <Post key={post.post_id} post={post} />
+            ))}
+          </HomePosts>
+        </HomeMain>
+      ) : null}
       <HomeAside />
     </StyledHome>
   );

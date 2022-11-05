@@ -38,6 +38,7 @@ const Container3 = styled.div`
   flex-direction: column;
   align-items: center;
   margin-top: 7px;
+  margin-left: 1rem;
 `;
 
 const Info = styled.div`
