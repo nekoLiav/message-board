@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { formatDistanceToNowStrict } from 'date-fns';
+import { formatDistanceToNowStrict as fD } from 'date-fns';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { doc, getDoc } from 'firebase/firestore';
@@ -9,8 +9,11 @@ import PostAvatar from './PostAvatar';
 import PostUser from './PostUser';
 import PostEngagement from './PostEngagement';
 import PostContent from './PostContent';
+import PostLinker from './PostLinker';
 
-const StyledPost = styled.div`
+const StyledPost = styled.div``;
+
+const PostContainer = styled.div`
   display: flex;
   color: white;
   border-width: 0 0 1px 0;
@@ -27,11 +30,6 @@ const StyledPost = styled.div`
   }
 `;
 
-const Container = styled.div`
-  display: flex;
-  width: 100%;
-`;
-
 const Container2 = styled.div`
   display: flex;
   width: 100%;
@@ -41,7 +39,6 @@ const Container3 = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 7px;
   margin-left: 1rem;
 `;
 
@@ -53,34 +50,26 @@ const Info = styled.div`
   gap: 0.5rem;
 `;
 
-const Linker = styled.div`
-  border: 1px solid grey;
-  width: 1px;
-  height: 100%;
-  margin-top: 7px;
-`;
-
-const DateCreated = styled.p`
+const DatePosted = styled.p`
   color: grey;
 `;
 
 function Post(props) {
-  const [userData, setUserData] = useState(null);
+  const [postUser, setPostUser] = useState(null);
   const [postLoaded, setPostLoaded] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const getUser = async () => {
+    (async () => {
       try {
         const docRef = doc(db, 'users', props.post.user_id);
         const docSnap = await getDoc(docRef);
-        setUserData(docSnap.data());
+        setPostUser(docSnap.data());
         setPostLoaded(true);
       } catch (error) {
         console.log('Something went wrong!', error);
       }
-    };
-    getUser();
+    })();
   }, []);
 
   const handleClick = (e) => {
@@ -89,23 +78,23 @@ function Post(props) {
   };
 
   return (
-    <StyledPost
-      style={props.threadView ? { borderWidth: '0' } : {}}
-      onClick={handleClick}
-    >
+    <StyledPost>
       {postLoaded ? (
-        <Container>
+        <PostContainer
+          style={props.chained ? { borderWidth: '0' } : {}}
+          onClick={handleClick}
+        >
           <Container3>
-            <PostAvatar src={userData.avatar} handle={userData.handle} />
-            {props.threadView ? <Linker /> : null}
+            <PostAvatar src={postUser.avatar} handle={postUser.handle} />
+            {props.chained ? <PostLinker /> : null}
           </Container3>
           <Info>
             <Container2>
-              <PostUser name={userData.name} handle={userData.handle} />
-              <DateCreated>
+              <PostUser name={postUser.name} handle={postUser.handle} />
+              <DatePosted>
                 &#x2022;&nbsp;
-                {formatDistanceToNowStrict(props.post.date_posted)}
-              </DateCreated>
+                {fD(props.post.date_posted)}
+              </DatePosted>
             </Container2>
             <PostContent
               text={props.post.text}
@@ -118,7 +107,7 @@ function Post(props) {
               likes={props.post.likes}
             />
           </Info>
-        </Container>
+        </PostContainer>
       ) : null}
     </StyledPost>
   );
@@ -128,6 +117,7 @@ Post.propTypes = {
   post: PropTypes.shape({
     date_posted: PropTypes.number,
     post_id: PropTypes.string,
+    parent_ids: PropTypes.array,
     text: PropTypes.string,
     img_url: PropTypes.string,
     vid_url: PropTypes.string,
@@ -136,7 +126,7 @@ Post.propTypes = {
     reposts: PropTypes.number,
     likes: PropTypes.number,
   }),
-  threadView: PropTypes.bool,
+  chained: PropTypes.bool,
 };
 
 export default Post;

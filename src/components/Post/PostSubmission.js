@@ -2,25 +2,19 @@ import styled from 'styled-components';
 import { db } from '../../firebase/firebase-config';
 import { collection, setDoc, doc } from 'firebase/firestore';
 import PropTypes from 'prop-types';
+import PostAvatar from './PostAvatar';
 
 const StyledPostSubmission = styled.div`
   display: flex;
   background: black;
-`;
-
-const UserAvatar = styled.img`
-  max-height: 50px;
-  max-width: 50px;
-  border-radius: 100%;
-  margin-top: 7px;
   margin-left: 1rem;
 `;
 
 const PostSubmissionForm = styled.form`
   display: flex;
   flex-direction: column;
-  padding: 1rem;
-  width: 100%;
+  margin: 1rem;
+  flex-grow: 1;
 `;
 
 const FieldWrapper = styled.div``;
@@ -29,10 +23,12 @@ const BodyField = styled.textarea`
   color: white;
   background: black;
   min-height: 100px;
-  width: 100%;
   resize: none;
   border: none;
-  font-size: 1.2rem;
+  font-size: 1rem;
+  width: 100%;
+  height: 100%;
+  padding: 0;
 
   &:focus {
     outline: none;
@@ -91,7 +87,7 @@ const PostSubmission = (props) => {
 
   return (
     <StyledPostSubmission>
-      <UserAvatar src={props.user.avatar} />
+      <PostAvatar src={props.user.avatar} />
       <PostSubmissionForm onSubmit={handleSubmission}>
         <FieldWrapper>
           <BodyField name="body" id="body" placeholder="..."></BodyField>

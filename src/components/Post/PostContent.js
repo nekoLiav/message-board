@@ -17,7 +17,6 @@ const Img = styled.img`
 const Vid = styled.p``;
 
 const PostContent = (props) => {
-  console.log(props);
   return (
     <StyledPostContent>
       <Content>

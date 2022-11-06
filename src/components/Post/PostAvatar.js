@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 const StyledPostAvatar = styled(Link)`
   width: 50px;
   height: 50px;
+  margin-top: 5px;
 `;
 const Avatar = styled.img`
   width: 100%;
