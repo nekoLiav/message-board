@@ -10,8 +10,8 @@ import {
   where,
   getDocs,
 } from 'firebase/firestore';
-import { db } from '../firebase/firebase-config';
-import Header from './Header';
+import { db } from '../../firebase/firebase-config';
+import Header from '../Header';
 import PostSubmission from './PostSubmission';
 import Post from './Post';
 import PropTypes from 'prop-types';

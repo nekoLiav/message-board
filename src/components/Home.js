@@ -10,9 +10,9 @@ import {
   setDoc,
   doc,
 } from 'firebase/firestore';
-import Post from './Post';
+import Post from './Post/Post';
 import Header from './Header';
-import PostSubmission from './PostSubmission';
+import PostSubmission from './Post/PostSubmission';
 import PropTypes from 'prop-types';
 import UserData from '../Users.json';
 import PostData from '../Posts.json';

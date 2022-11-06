@@ -4,7 +4,7 @@ import { formatDistanceToNowStrict } from 'date-fns';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { doc, getDoc } from 'firebase/firestore';
-import { db } from '../firebase/firebase-config';
+import { db } from '../../firebase/firebase-config';
 import PostAvatar from './PostAvatar';
 import PostUser from './PostUser';
 import PostEngagement from './PostEngagement';

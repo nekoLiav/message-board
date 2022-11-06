@@ -5,7 +5,7 @@ import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth, db } from './firebase/firebase-config';
 import styled from 'styled-components';
 import Home from './components/Home';
-import PostView from './components/PostView';
+import PostView from './components/Post/PostView';
 import { doc, getDoc } from 'firebase/firestore';
 
 const StyledApp = styled.div`
