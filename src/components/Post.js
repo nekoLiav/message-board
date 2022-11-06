@@ -7,6 +7,7 @@ import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../firebase/firebase-config';
 import PostAvatar from './PostAvatar';
 import PostUser from './PostUser';
+import PostEngagement from './PostEngagement';
 
 const StyledPost = styled.div`
   display: flex;
@@ -75,45 +76,6 @@ const Img = styled.img`
   border: 1px solid grey;
 `;
 
-const Info2 = styled.div`
-  display: flex;
-  justify-content: space-around;
-  color: grey;
-`;
-
-const CommentContainer = styled.div`
-  border-radius: 100%;
-  padding: 5px;
-  &:hover {
-    background: rgba(0, 255, 255, 0.1);
-    color: #00ffff;
-  }
-`;
-
-const CommentCount = styled.p``;
-
-const ShareContainer = styled.div`
-  border-radius: 100%;
-  padding: 5px;
-  &:hover {
-    background: rgba(128, 0, 255, 0.1);
-    color: #8000ff;
-  }
-`;
-
-const ShareCount = styled.p``;
-
-const LikeContainer = styled.div`
-  border-radius: 100%;
-  padding: 5px;
-  &:hover {
-    background: rgba(255, 0, 255, 0.1);
-    color: #ff00ff;
-  }
-`;
-
-const LikeCount = styled.p``;
-
 function Post(props) {
   const [userData, setUserData] = useState(null);
   const [postLoaded, setPostLoaded] = useState(false);
@@ -163,17 +125,11 @@ function Post(props) {
                 <Img src={props.post.img_url} />
               ) : null}
             </Body>
-            <Info2>
-              <CommentContainer>
-                <CommentCount id="reply">-- {props.post.replies}</CommentCount>
-              </CommentContainer>
-              <ShareContainer>
-                <ShareCount id="repost">-- {props.post.reposts}</ShareCount>
-              </ShareContainer>
-              <LikeContainer>
-                <LikeCount id="like">-- {props.post.likes}</LikeCount>
-              </LikeContainer>
-            </Info2>
+            <PostEngagement
+              replies={props.post.replies}
+              reposts={props.post.reposts}
+              likes={props.post.likes}
+            />
           </Info>
         </Container>
       ) : null}
