@@ -1,8 +1,7 @@
 import styled from 'styled-components';
-import { db } from '../firebase/firebase-config';
-import { collection, setDoc, doc } from 'firebase/firestore';
 import PropTypes from 'prop-types';
 import PostAvatar from './Post/PostAvatar';
+import { submitPost } from '../DB/submitPost.js';
 
 const StyledPostSubmission = styled.div`
   display: flex;
@@ -56,40 +55,10 @@ const SubmitButton = styled.button`
 `;
 
 const PostSubmission = (props) => {
-  const handleSubmission = async (e) => {
-    e.preventDefault();
-    const newPostDoc = doc(collection(db, 'posts'));
-    const postTemplate = {
-      user_id: props.id,
-      post_id: newPostDoc.id,
-      parent_ids: [],
-      date_posted: Date.now(),
-      img_url: null,
-      vid_url: null,
-      text: e.target[0].value,
-      tags: [],
-      replies: 0,
-      reposts: 0,
-      likes: 0,
-      is_reply: false,
-    };
-    if (props.post !== undefined) {
-      const updatedTemplate = {
-        ...postTemplate,
-        parent_ids: [...props.post.parent_ids, props.post.post_id],
-        direct_parent: props.post.post_id,
-        is_reply: true,
-      };
-      setDoc(newPostDoc, updatedTemplate);
-    } else {
-      setDoc(newPostDoc, postTemplate);
-    }
-  };
-
   return (
     <StyledPostSubmission>
       <PostAvatar avatar={props.avatar} />
-      <PostSubmissionForm onSubmit={handleSubmission}>
+      <PostSubmissionForm onSubmit={(e) => submitPost(e, props)}>
         <FieldWrapper>
           <BodyField name="body" id="body" placeholder="..."></BodyField>
         </FieldWrapper>
@@ -100,14 +69,7 @@ const PostSubmission = (props) => {
 };
 
 PostSubmission.propTypes = {
-  type: PropTypes.string,
-  post: PropTypes.shape({
-    post_id: PropTypes.string,
-    parent_ids: PropTypes.array,
-    is_reply: PropTypes.bool,
-  }),
   avatar: PropTypes.string,
-  id: PropTypes.string,
 };
 
 export default PostSubmission;
