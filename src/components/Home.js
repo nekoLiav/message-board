@@ -19,6 +19,7 @@ import ReplyData from '../Replies.json';
 import SpecialUserData from '../SpecialUsers.json';
 import PostUser from './Post/PostUser';
 import Post from './Post/Post';
+import { getHomePosts } from '../DB/getHomePosts';
 
 const StyledHome = styled.div`
   display: grid;
@@ -96,14 +97,8 @@ const Home = (props) => {
 
   useEffect(() => {
     (async () => {
-      const postsRef = query(
-        collection(db, 'posts'),
-        where('is_reply', '==', false)
-      );
-      const postsSnap = await getDocs(postsRef);
-      let tempPosts = [];
-      postsSnap.forEach((post) => tempPosts.push(post.data()));
-      setHomePosts(tempPosts);
+      const homePostData = await getHomePosts();
+      setHomePosts(homePostData);
       setHomeUpdated(true);
     })();
   }, []);
