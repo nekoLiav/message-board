@@ -4,7 +4,7 @@ import { Routes, Route, useLocation } from 'react-router-dom';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth, db } from './firebase/firebase-config';
 import styled from 'styled-components';
-import Home from './components/Home';
+import Home from './components/Home/Home';
 import PostView from './components/PostView';
 import { doc, getDoc } from 'firebase/firestore';
 
