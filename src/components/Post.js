@@ -8,6 +8,7 @@ import { db } from '../firebase/firebase-config';
 import PostAvatar from './PostAvatar';
 import PostUser from './PostUser';
 import PostEngagement from './PostEngagement';
+import PostContent from './PostContent';
 
 const StyledPost = styled.div`
   display: flex;
@@ -63,19 +64,6 @@ const DateCreated = styled.p`
   color: grey;
 `;
 
-const Body = styled.div`
-  width: 100%;
-`;
-
-const Text = styled.p``;
-
-const Img = styled.img`
-  border-radius: 15px;
-  max-width: 100%;
-  margin-top: 1rem;
-  border: 1px solid grey;
-`;
-
 function Post(props) {
   const [userData, setUserData] = useState(null);
   const [postLoaded, setPostLoaded] = useState(false);
@@ -119,12 +107,11 @@ function Post(props) {
                 {formatDistanceToNowStrict(props.post.date_posted)}
               </DateCreated>
             </Container2>
-            <Body>
-              <Text>{props.post.text}</Text>
-              {props.post.img_url !== null ? (
-                <Img src={props.post.img_url} />
-              ) : null}
-            </Body>
+            <PostContent
+              text={props.post.text}
+              img_url={props.post.img_url}
+              vid_url={props.post.vid_url}
+            />
             <PostEngagement
               replies={props.post.replies}
               reposts={props.post.reposts}
@@ -141,9 +128,9 @@ Post.propTypes = {
   post: PropTypes.shape({
     date_posted: PropTypes.number,
     post_id: PropTypes.string,
-    id: PropTypes.string,
-    img_url: PropTypes.string,
     text: PropTypes.string,
+    img_url: PropTypes.string,
+    vid_url: PropTypes.string,
     user_id: PropTypes.string,
     replies: PropTypes.number,
     reposts: PropTypes.number,

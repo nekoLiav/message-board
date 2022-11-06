@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 const StyledPostEngagement = styled.div`
   display: grid;
   grid-auto-flow: column;
+  font-size: 0.8rem;
 `;
 
 const Replies = styled.div`
