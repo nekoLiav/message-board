@@ -11,18 +11,16 @@ import PostEngagement from './PostEngagement';
 import PostContent from './PostContent';
 import PostLinker from './PostLinker';
 
-const StyledPost = styled.div``;
-
-const PostContainer = styled.div`
+const StyledPost = styled.div`
   display: flex;
+  max-width: 600px;
+  max-height: 800px;
+  min-height: 100px;
   color: white;
   border-width: 0 0 1px 0;
   border-color: grey;
   border-style: solid;
   transition: 0.2s;
-  max-width: 600px;
-  max-height: 800px;
-  width: 100%;
 
   &:hover {
     background: #111111;
@@ -30,24 +28,31 @@ const PostContainer = styled.div`
   }
 `;
 
-const Container2 = styled.div`
+const PostMain = styled.div`
   display: flex;
-  width: 100%;
+  flex-grow: 1;
 `;
 
-const Container3 = styled.div`
+const PostLeft = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-left: 1rem;
+  margin-top: 0.5rem;
+  margin-left: 0.5rem;
+  gap: 0.5rem;
 `;
 
-const Info = styled.div`
+const PostRight = styled.div`
   display: flex;
   flex-direction: column;
-  width: 100%;
-  padding: 1rem;
+  flex-grow: 1;
   gap: 0.5rem;
+  padding: 0.5rem;
+  margin-right: 0.5rem;
+`;
+
+const PostRightTop = styled.div`
+  display: flex;
 `;
 
 const DatePosted = styled.p`
@@ -78,24 +83,23 @@ function Post(props) {
   };
 
   return (
-    <StyledPost>
+    <StyledPost
+      style={props.chained ? { borderWidth: '0' } : {}}
+      onClick={handleClick}
+    >
       {postLoaded ? (
-        <PostContainer
-          style={props.chained ? { borderWidth: '0' } : {}}
-          onClick={handleClick}
-        >
-          <Container3>
+        <PostMain>
+          <PostLeft>
             <PostAvatar src={postUser.avatar} handle={postUser.handle} />
             {props.chained ? <PostLinker /> : null}
-          </Container3>
-          <Info>
-            <Container2>
+          </PostLeft>
+          <PostRight>
+            <PostRightTop>
               <PostUser name={postUser.name} handle={postUser.handle} />
               <DatePosted>
-                &#x2022;&nbsp;
-                {fD(props.post.date_posted)}
+                &#x2022;&nbsp;{fD(props.post.date_posted)}
               </DatePosted>
-            </Container2>
+            </PostRightTop>
             <PostContent
               text={props.post.text}
               img_url={props.post.img_url}
@@ -106,8 +110,8 @@ function Post(props) {
               reposts={props.post.reposts}
               likes={props.post.likes}
             />
-          </Info>
-        </PostContainer>
+          </PostRight>
+        </PostMain>
       ) : null}
     </StyledPost>
   );

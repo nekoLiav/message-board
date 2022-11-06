@@ -52,11 +52,9 @@ const PostView = (props) => {
   const [parentsLoaded, setParentsLoaded] = useState(false);
   const [replies, setReplies] = useState([]);
   const [repliesLoaded, setRepliesLoaded] = useState(false);
-  const [locationKey, setLocationKey] = useState(null);
   const params = useParams();
 
   useEffect(() => {
-    console.log(params.post);
     (async () => {
       // load main post
       const postRef = doc(db, 'posts', params.post);
@@ -96,7 +94,7 @@ const PostView = (props) => {
         {parentsLoaded ? (
           <Parents key={params.post}>
             {parents.map((parent) => (
-              <Post key={parent.post_id} post={parent} threadView={true} />
+              <Post key={parent.post_id} post={parent} chained={true} />
             ))}
           </Parents>
         ) : null}
@@ -105,7 +103,7 @@ const PostView = (props) => {
             id={`${post.post_id}`}
             key={post.pod_id}
             post={post}
-            threadView={parentsLoaded}
+            chained={false}
           />
         ) : null}
         {postLoaded ? <PostSubmission user={props.user} post={post} /> : null}

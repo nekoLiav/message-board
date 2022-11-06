@@ -1,17 +1,23 @@
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
-const StyledPostContent = styled.div``;
+const StyledPostContent = styled.div`
+  height: 100%;
+`;
 
-const Content = styled.div``;
+const Content = styled.div`
+  height: 100%;
+`;
 
-const Text = styled.p``;
+const Text = styled.p`
+  overflow-wrap: anywhere;
+`;
 
 const Img = styled.img`
+  margin-top: 0.5rem;
+  border: 1px solid grey;
   border-radius: 15px;
   max-width: 100%;
-  margin-top: 1rem;
-  border: 1px solid grey;
 `;
 
 const Vid = styled.p``;
