@@ -63,16 +63,14 @@ const PostView = (props) => {
       setPostLoaded(true);
       // load parent posts up to and including the root post
       const parentRefs = postSnap.data().parent_ids;
-      if (postLoaded && parentRefs.length > 0) {
-        let tempParents = [];
-        parentRefs.forEach(async (parent) => {
-          const parentRef = doc(db, 'posts', parent);
-          const parentSnap = await getDoc(parentRef);
-          tempParents.push(parentSnap.data());
-        });
-        setParents(tempParents);
-        setParentsLoaded(true);
-      }
+      let tempParents = [];
+      parentRefs.forEach(async (parent) => {
+        const parentRef = doc(db, 'posts', parent);
+        const parentSnap = await getDoc(parentRef);
+        tempParents.push(parentSnap.data());
+      });
+      setParents(tempParents);
+      setParentsLoaded(true);
       // load replies to main post
       const repliesRef = query(
         collection(db, 'posts'),
@@ -80,7 +78,11 @@ const PostView = (props) => {
       );
       const repliesSnap = await getDocs(repliesRef);
       let tempReplies = [];
-      repliesSnap.forEach((reply) => tempReplies.push(reply.data()));
+      repliesSnap.forEach((reply) => {
+        if (reply.data().direct_parent !== postSnap.direct_parent) {
+          tempReplies.push(reply.data());
+        }
+      });
       setReplies(tempReplies);
       setRepliesLoaded(true);
     })();
@@ -92,20 +94,13 @@ const PostView = (props) => {
       <Header />
       <PostViewMain>
         {parentsLoaded ? (
-          <Parents key={params.post}>
+          <Parents key={parents.length}>
             {parents.map((parent) => (
               <Post key={parent.post_id} post={parent} chained={true} />
             ))}
           </Parents>
         ) : null}
-        {postLoaded ? (
-          <Post
-            id={`${post.post_id}`}
-            key={post.pod_id}
-            post={post}
-            chained={false}
-          />
-        ) : null}
+        {postLoaded ? <Post post={post} chained={false} /> : null}
         {postLoaded ? <PostSubmission user={props.user} post={post} /> : null}
         {repliesLoaded ? (
           <Replies>
