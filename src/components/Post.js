@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../firebase/firebase-config';
+import UserAvatar from './UserAvatar';
 
 const StyledPost = styled.div`
   display: flex;
@@ -47,12 +48,6 @@ const Info = styled.div`
   width: 100%;
   padding: 1rem;
   gap: 0.5rem;
-`;
-
-const UserAvatar = styled.img`
-  height: 50px;
-  width: 50px;
-  border-radius: 100%;
 `;
 
 const Linker = styled.div`
