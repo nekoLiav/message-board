@@ -10,10 +10,10 @@ import {
   where,
   getDocs,
 } from 'firebase/firestore';
-import { db } from '../../firebase/firebase-config';
-import Header from '../Header';
-import PostSubmission from './PostSubmission';
-import Post from './Post';
+import { db } from '../firebase/firebase-config';
+import Header from './Header';
+import PostSubmission from './Post/PostSubmission';
+import Post from './Post/Post';
 import PropTypes from 'prop-types';
 
 const StyledPostView = styled.div`
