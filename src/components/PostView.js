@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
@@ -34,7 +35,11 @@ const PostViewMain = styled.div`
 
 const Parents = styled.div``;
 
-const Replies = styled.div``;
+const Replies = styled.div`
+  border-top-width: 1px;
+  border-top-color: grey;
+  border-top-style: solid;
+`;
 
 const PostViewAside = styled.div`
   background: black;
@@ -47,9 +52,11 @@ const PostView = (props) => {
   const [parentsLoaded, setParentsLoaded] = useState(false);
   const [replies, setReplies] = useState([]);
   const [repliesLoaded, setRepliesLoaded] = useState(false);
+  const [locationKey, setLocationKey] = useState(null);
   const params = useParams();
 
   useEffect(() => {
+    console.log(params.post);
     (async () => {
       // load main post
       const postRef = doc(db, 'posts', params.post);
@@ -58,7 +65,7 @@ const PostView = (props) => {
       setPostLoaded(true);
       // load parent posts up to and including the root post
       const parentRefs = postSnap.data().parent_ids;
-      if (parentRefs.length > 0) {
+      if (postLoaded && parentRefs.length > 0) {
         let tempParents = [];
         parentRefs.forEach(async (parent) => {
           const parentRef = doc(db, 'posts', parent);
@@ -87,14 +94,19 @@ const PostView = (props) => {
       <Header />
       <PostViewMain>
         {parentsLoaded ? (
-          <Parents>
+          <Parents key={params.post}>
             {parents.map((parent) => (
               <Post key={parent.post_id} post={parent} threadView={true} />
             ))}
           </Parents>
         ) : null}
         {postLoaded ? (
-          <Post key={post.post_id} post={post} threadView={parentsLoaded} />
+          <Post
+            id={`${post.post_id}`}
+            key={post.pod_id}
+            post={post}
+            threadView={parentsLoaded}
+          />
         ) : null}
         {postLoaded ? <PostSubmission user={props.user} post={post} /> : null}
         {repliesLoaded ? (

@@ -145,9 +145,9 @@ function Post(props) {
     getUser();
   }, []);
 
-  const handleClick = (clickEvent) => {
-    clickEvent.preventDefault();
-    navigate(`/user/${props.post.user_id}/post/${props.post.post_id}`);
+  const handleClick = (e) => {
+    e.preventDefault();
+    navigate(`/${props.post.user_id}/post/${props.post.post_id}`);
   };
 
   return (
@@ -178,13 +178,13 @@ function Post(props) {
             </Body>
             <Info2>
               <CommentContainer>
-                <CommentCount>-- 123</CommentCount>
+                <CommentCount id="reply">-- {props.post.replies}</CommentCount>
               </CommentContainer>
               <ShareContainer>
-                <ShareCount>-- 123</ShareCount>
+                <ShareCount id="repost">-- {props.post.reposts}</ShareCount>
               </ShareContainer>
               <LikeContainer>
-                <LikeCount>-- 123</LikeCount>
+                <LikeCount id="like">-- {props.post.likes}</LikeCount>
               </LikeContainer>
             </Info2>
           </Info>
@@ -200,9 +200,11 @@ Post.propTypes = {
     post_id: PropTypes.string,
     id: PropTypes.string,
     img_url: PropTypes.string,
-    reply: PropTypes.bool,
     text: PropTypes.string,
     user_id: PropTypes.string,
+    replies: PropTypes.number,
+    reposts: PropTypes.number,
+    likes: PropTypes.number,
   }),
   threadView: PropTypes.bool,
 };

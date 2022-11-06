@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { useEffect, useState } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth, db } from './firebase/firebase-config';
 import styled from 'styled-components';
@@ -15,6 +15,7 @@ const StyledApp = styled.div`
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState(null);
+  const location = useLocation();
 
   useEffect(() => {
     signInWithEmailAndPassword(auth, 'peepee@poopoo.com', '123456')
@@ -33,14 +34,13 @@ function App() {
     <StyledApp>
       <Routes>
         <Route
-          exact
           path="/"
           element={<Home isLoggedIn={isLoggedIn} user={user} />}
-        ></Route>
+        />
         <Route
-          path="/user/:user/post/:post"
-          element={<PostView user={user} />}
-        ></Route>
+          path="/:user/post/:post"
+          element={<PostView user={user} key={location.key} />}
+        />
       </Routes>
     </StyledApp>
   );
