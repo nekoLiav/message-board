@@ -56,30 +56,32 @@ const PostView = (props) => {
 
   useEffect(() => {
     (async () => {
-      // load main post
+      // load main post from url
       const postRef = doc(db, 'posts', params.post);
       const postSnap = await getDoc(postRef);
-      setPost(postSnap.data());
+      const postData = postSnap.data();
+      setPost(postData);
       setPostLoaded(true);
-      // load parent posts up to and including the root post
-      const parentRefs = postSnap.data().parent_ids;
+      // load parent posts through to the "root" post
+      // this is the post chain/thread to link together
+      const parentRefs = postData.parent_ids;
       let tempParents = [];
       parentRefs.forEach(async (parent) => {
         const parentRef = doc(db, 'posts', parent);
-        const parentSnap = await getDoc(parentRef);
-        tempParents.push(parentSnap.data());
+        const parentSnaps = await getDoc(parentRef);
+        tempParents.push(parentSnaps.data());
       });
       setParents(tempParents);
       setParentsLoaded(true);
       // load replies to main post
-      const repliesRef = query(
+      const replyRefs = query(
         collection(db, 'posts'),
-        where('direct_parent', '==', params.post)
+        where('direct_parent', '==', postData.post_id)
       );
-      const repliesSnap = await getDocs(repliesRef);
+      const replySnaps = await getDocs(replyRefs);
       let tempReplies = [];
-      repliesSnap.forEach((reply) => {
-        if (reply.data().direct_parent !== postSnap.direct_parent) {
+      replySnaps.forEach((reply) => {
+        if (reply.data().direct_parent !== postData.direct_parent) {
           tempReplies.push(reply.data());
         }
       });
@@ -93,22 +95,26 @@ const PostView = (props) => {
     <StyledPostView>
       <Header />
       <PostViewMain>
-        {parentsLoaded ? (
-          <Parents key={parents.length}>
-            {parents.map((parent) => (
-              <Post key={parent.post_id} post={parent} chained={true} />
-            ))}
-          </Parents>
-        ) : null}
-        {postLoaded ? <Post post={post} chained={false} /> : null}
-        {postLoaded ? <PostSubmission user={props.user} post={post} /> : null}
-        {repliesLoaded ? (
-          <Replies>
-            {replies.map((reply) => (
-              <Post key={reply.post_id} post={reply} />
-            ))}
-          </Replies>
-        ) : null}
+        <Parents>
+          {parentsLoaded && parents.length
+            ? parents.map((parent) => (
+                <Post key={parent.post_id} post={parent} chained={true} />
+              ))
+            : null}
+        </Parents>
+        {postLoaded && <Post post={post} />}
+        {postLoaded && (
+          <PostSubmission
+            post={post}
+            id={props.user.id}
+            avatar={props.user.avatar}
+          />
+        )}
+        <Replies>
+          {repliesLoaded && replies.length
+            ? replies.map((reply) => <Post key={reply.post_id} post={reply} />)
+            : null}
+        </Replies>
       </PostViewMain>
       <PostViewAside />
     </StyledPostView>

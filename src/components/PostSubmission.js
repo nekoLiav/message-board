@@ -7,13 +7,14 @@ import PostAvatar from './Post/PostAvatar';
 const StyledPostSubmission = styled.div`
   display: flex;
   background: black;
-  margin-left: 1rem;
+  border-bottom: 1px solid grey;
+  padding: 0.5rem;
+  gap: 0.5rem;
 `;
 
 const PostSubmissionForm = styled.form`
   display: flex;
   flex-direction: column;
-  margin: 1rem;
   flex-grow: 1;
 `;
 
@@ -59,7 +60,7 @@ const PostSubmission = (props) => {
     e.preventDefault();
     const newPostDoc = doc(collection(db, 'posts'));
     const postTemplate = {
-      user_id: props.user.id,
+      user_id: props.id,
       post_id: newPostDoc.id,
       parent_ids: [],
       date_posted: Date.now(),
@@ -87,7 +88,7 @@ const PostSubmission = (props) => {
 
   return (
     <StyledPostSubmission>
-      <PostAvatar src={props.user.avatar} />
+      <PostAvatar avatar={props.avatar} />
       <PostSubmissionForm onSubmit={handleSubmission}>
         <FieldWrapper>
           <BodyField name="body" id="body" placeholder="..."></BodyField>
@@ -105,10 +106,8 @@ PostSubmission.propTypes = {
     parent_ids: PropTypes.array,
     is_reply: PropTypes.bool,
   }),
-  user: PropTypes.shape({
-    avatar: PropTypes.string,
-    id: PropTypes.string,
-  }),
+  avatar: PropTypes.string,
+  id: PropTypes.string,
 };
 
 export default PostSubmission;

@@ -15,14 +15,14 @@ const Avatar = styled.img`
 const PostAvatar = (props) => {
   return (
     <StyledPostAvatar to={`/${props.handle}`}>
-      <Avatar src={props.src} />
+      <Avatar src={props.avatar} />
     </StyledPostAvatar>
   );
 };
 
 PostAvatar.propTypes = {
   handle: PropTypes.string,
-  src: PropTypes.string,
+  avatar: PropTypes.string,
 };
 
 export default PostAvatar;

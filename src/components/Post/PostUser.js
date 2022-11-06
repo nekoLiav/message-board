@@ -29,7 +29,9 @@ const PostUser = (props) => {
   return (
     <StyledPostUser>
       <UserName to={`/${props.handle}`}>{props.name}&nbsp;</UserName>
-      <UserHandle to={`/${props.handle}`}>{props.handle}&nbsp;</UserHandle>
+      <UserHandle to={`/${props.handle}`}>
+        {`@${props.handle}`}&nbsp;
+      </UserHandle>
     </StyledPostUser>
   );
 };

@@ -10,7 +10,6 @@ import {
   setDoc,
   doc,
 } from 'firebase/firestore';
-import Post from '../Post/Post';
 import Header from '../Header';
 import PostSubmission from '../PostSubmission';
 import PropTypes from 'prop-types';
@@ -18,6 +17,8 @@ import UserData from '../../Users.json';
 import PostData from '../../Posts.json';
 import ReplyData from '../../Replies.json';
 import SpecialUserData from '../../SpecialUsers.json';
+import PostUser from '../Post/PostUser';
+import Post from '../Post/Post';
 
 const StyledHome = styled.div`
   display: grid;
@@ -37,30 +38,18 @@ const HomeMain = styled.div`
   border-color: grey;
 `;
 
-const HomeLoc = styled.p`
-  font-weight: bold;
-  font-size: 1.5rem;
-  margin-left: 1rem;
-`;
-
-const Container = styled.div``;
-
 const HomeInfo = styled.div`
   display: flex;
-  margin-left: 1rem;
+  align-items: baseline;
+  height: 27px;
 `;
 
-const UserName = styled.p``;
-
-const UserHandle = styled.p`
-  color: grey;
+const HomeName = styled.p`
+  font-weight: bold;
+  font-size: 1.5rem;
 `;
 
-const HomePosts = styled.div`
-  border-top-width: 1px;
-  border-top-color: grey;
-  border-top-style: solid;
-`;
+const HomePosts = styled.div``;
 
 const populateDB = () => {
   let randomUserIDs = [];
@@ -102,7 +91,7 @@ const populateSpecialDB = () => {
 const HomeAside = styled.div``;
 
 const Home = (props) => {
-  const [posts, setPosts] = useState([]);
+  const [homePosts, setHomePosts] = useState([]);
   const [homeUpdated, setHomeUpdated] = useState(false);
 
   useEffect(() => {
@@ -114,7 +103,7 @@ const Home = (props) => {
       const postsSnap = await getDocs(postsRef);
       let tempPosts = [];
       postsSnap.forEach((post) => tempPosts.push(post.data()));
-      setPosts(tempPosts);
+      setHomePosts(tempPosts);
       setHomeUpdated(true);
     })();
   }, []);
@@ -124,16 +113,13 @@ const Home = (props) => {
       <Header />
       {homeUpdated ? (
         <HomeMain>
-          <HomeLoc>Home</HomeLoc>
-          <Container>
-            <HomeInfo>
-              <UserName>{props.user.name}</UserName>
-              <UserHandle>&nbsp;{`@${props.user.handle}`}</UserHandle>
-            </HomeInfo>
-            <PostSubmission user={props.user} />
-          </Container>
+          <HomeInfo>
+            <HomeName>Home&nbsp;&#x2022;&nbsp;</HomeName>
+            <PostUser name={props.user.name} handle={props.user.handle} />
+          </HomeInfo>
+          <PostSubmission id={props.user.id} avatar={props.user.avatar} />
           <HomePosts>
-            {posts.map((post) => (
+            {homePosts.map((post) => (
               <Post key={post.post_id} post={post} />
             ))}
           </HomePosts>
@@ -145,11 +131,11 @@ const Home = (props) => {
 };
 
 Home.propTypes = {
-  isLoggedIn: PropTypes.bool,
   user: PropTypes.shape({
     id: PropTypes.string,
     name: PropTypes.string,
     handle: PropTypes.string,
+    avatar: PropTypes.string,
   }),
 };
 

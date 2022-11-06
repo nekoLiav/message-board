@@ -90,7 +90,7 @@ function Post(props) {
       {postLoaded ? (
         <PostMain>
           <PostLeft>
-            <PostAvatar src={postUser.avatar} handle={postUser.handle} />
+            <PostAvatar avatar={postUser.avatar} handle={postUser.handle} />
             {props.chained ? <PostLinker /> : null}
           </PostLeft>
           <PostRight>

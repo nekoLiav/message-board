@@ -13,7 +13,6 @@ const StyledApp = styled.div`
 `;
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState(null);
   const location = useLocation();
 
@@ -23,7 +22,6 @@ function App() {
         const docRef = doc(db, 'users', userCredential.user.uid);
         const docSnap = await getDoc(docRef);
         setUser(docSnap.data());
-        setIsLoggedIn(true);
       })
       .catch((error) => {
         console.log('Something went wrong!', error);
@@ -33,13 +31,12 @@ function App() {
   return (
     <StyledApp>
       <Routes>
-        <Route
-          path="/"
-          element={<Home isLoggedIn={isLoggedIn} user={user} />}
-        />
+        <Route path="/" element={user !== null ? <Home user={user} /> : null} />
         <Route
           path="/:user/post/:post"
-          element={<PostView user={user} key={location.key} />}
+          element={
+            user !== null ? <PostView user={user} key={location.key} /> : null
+          }
         />
       </Routes>
     </StyledApp>
