@@ -1,8 +1,8 @@
 import styled from 'styled-components';
-import { db } from '../../firebase/firebase-config';
+import { db } from '../firebase/firebase-config';
 import { collection, setDoc, doc } from 'firebase/firestore';
 import PropTypes from 'prop-types';
-import PostAvatar from './PostAvatar';
+import PostAvatar from './Post/PostAvatar';
 
 const StyledPostSubmission = styled.div`
   display: flex;
