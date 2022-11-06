@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-const StyledUserAvatar = styled(Link)`
+const StyledPostAvatar = styled(Link)`
   width: 50px;
   height: 50px;
 `;
@@ -12,16 +12,17 @@ const Avatar = styled.img`
   border-radius: 100%;
 `;
 
-const UserAvatar = (props) => {
+const PostAvatar = (props) => {
   return (
-    <StyledUserAvatar to="/">
+    <StyledPostAvatar to={`/${props.handle}`}>
       <Avatar src={props.src} />
-    </StyledUserAvatar>
+    </StyledPostAvatar>
   );
 };
 
-UserAvatar.propTypes = {
+PostAvatar.propTypes = {
+  handle: PropTypes.string,
   src: PropTypes.string,
 };
 
-export default UserAvatar;
+export default PostAvatar;

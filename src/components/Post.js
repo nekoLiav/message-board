@@ -5,7 +5,8 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../firebase/firebase-config';
-import UserAvatar from './UserAvatar';
+import PostAvatar from './PostAvatar';
+import PostUser from './PostUser';
 
 const StyledPost = styled.div`
   display: flex;
@@ -55,14 +56,6 @@ const Linker = styled.div`
   width: 1px;
   height: 100%;
   margin-top: 7px;
-`;
-
-const UserName = styled.p`
-  font-weight: bold;
-`;
-
-const UserHandle = styled.p`
-  color: grey;
 `;
 
 const DateCreated = styled.p`
@@ -153,13 +146,12 @@ function Post(props) {
       {postLoaded ? (
         <Container>
           <Container3>
-            <UserAvatar src={userData.avatar} />
+            <PostAvatar src={userData.avatar} handle={userData.handle} />
             {props.threadView ? <Linker /> : null}
           </Container3>
           <Info>
             <Container2>
-              <UserName>{userData.name}&nbsp;</UserName>
-              <UserHandle>{`@${userData.handle}`}&nbsp;</UserHandle>
+              <PostUser name={userData.name} handle={userData.handle} />
               <DateCreated>
                 &#x2022;&nbsp;
                 {formatDistanceToNowStrict(props.post.date_posted)}
