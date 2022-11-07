@@ -15,9 +15,15 @@ const Replies = styled.div`
   }
 `;
 
-const RepliesIcon = styled.p``;
+const RepliesIcon = styled.p`
+  font-weight: bold;
+  font-size: 0.75rem;
+`;
 
-const RepliesCount = styled.p``;
+const RepliesCount = styled.p`
+  font-weight: bold;
+  font-size: 0.75rem;
+`;
 
 const Reposts = styled.div`
   display: flex;
@@ -27,9 +33,15 @@ const Reposts = styled.div`
   }
 `;
 
-const RepostsIcon = styled.p``;
+const RepostsIcon = styled.p`
+  font-weight: bold;
+  font-size: 0.75rem;
+`;
 
-const RepostsCount = styled.p``;
+const RepostsCount = styled.p`
+  font-weight: bold;
+  font-size: 0.75rem;
+`;
 
 const Likes = styled.div`
   display: flex;
@@ -39,9 +51,15 @@ const Likes = styled.div`
   }
 `;
 
-const LikesIcon = styled.p``;
+const LikesIcon = styled.p`
+  font-weight: bold;
+  font-size: 0.75rem;
+`;
 
-const LikesCount = styled.p``;
+const LikesCount = styled.p`
+  font-weight: bold;
+  font-size: 0.75rem;
+`;
 
 const PostEngagement = (props) => {
   return (
