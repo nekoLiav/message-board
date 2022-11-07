@@ -3,13 +3,12 @@ import PropTypes from 'prop-types';
 import { formatDistanceToNowStrict as fD } from 'date-fns';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { doc, getDoc } from 'firebase/firestore';
-import { db } from '../../firebase/firebase-config';
 import PostAvatar from './PostAvatar';
 import PostUser from './PostUser';
 import PostEngagement from './PostEngagement';
 import PostContent from './PostContent';
 import PostLinker from './PostLinker';
+import { getUser } from '../../DB/getUser';
 
 const StyledPost = styled.div`
   display: flex;
@@ -66,14 +65,9 @@ function Post(props) {
 
   useEffect(() => {
     (async () => {
-      try {
-        const docRef = doc(db, 'users', props.post.user_id);
-        const docSnap = await getDoc(docRef);
-        setPostUser(docSnap.data());
-        setPostLoaded(true);
-      } catch (error) {
-        console.log('Something went wrong!', error);
-      }
+      const userData = await getUser(props.post.user_id);
+      setPostUser(userData);
+      setPostLoaded(true);
     })();
   }, []);
 
@@ -84,14 +78,14 @@ function Post(props) {
 
   return (
     <StyledPost
-      style={props.chained ? { borderWidth: '0' } : {}}
+      style={props.chain ? { borderWidth: '0' } : {}}
       onClick={handleClick}
     >
       {postLoaded ? (
         <PostMain>
           <PostLeft>
             <PostAvatar avatar={postUser.avatar} handle={postUser.handle} />
-            {props.chained ? <PostLinker /> : null}
+            {props.chain ? <PostLinker /> : null}
           </PostLeft>
           <PostRight>
             <PostRightTop>
@@ -130,7 +124,7 @@ Post.propTypes = {
     reposts: PropTypes.number,
     likes: PropTypes.number,
   }),
-  chained: PropTypes.bool,
+  chain: PropTypes.bool,
 };
 
 export default Post;

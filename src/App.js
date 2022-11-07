@@ -1,12 +1,11 @@
-/* eslint-disable no-unused-vars */
 import { useEffect, useState } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import { auth, db } from './firebase/firebase-config';
+import { auth } from './firebase/firebase-config';
 import styled from 'styled-components';
 import Home from './components/Home';
 import PostView from './components/PostView';
-import { doc, getDoc } from 'firebase/firestore';
+import { getUser } from './DB/getUser';
 
 const StyledApp = styled.div`
   height: 100%;
@@ -19,9 +18,9 @@ function App() {
   useEffect(() => {
     signInWithEmailAndPassword(auth, 'peepee@poopoo.com', '123456')
       .then(async (userCredential) => {
-        const docRef = doc(db, 'users', userCredential.user.uid);
-        const docSnap = await getDoc(docRef);
-        setUser(docSnap.data());
+        const id = await userCredential.user.uid;
+        const userData = await getUser(id);
+        setUser(userData);
       })
       .catch((error) => {
         console.log('Something went wrong!', error);

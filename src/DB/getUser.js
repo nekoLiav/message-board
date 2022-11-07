@@ -1,11 +1,11 @@
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../firebase/firebase-config';
 
-export const getPost = async (id) => {
+export const getUser = async (uid) => {
   try {
-    const postRef = doc(db, 'posts', id);
-    const postSnap = await getDoc(postRef);
-    return postSnap.data();
+    const userRef = doc(db, 'users', uid);
+    const userSnap = await getDoc(userRef);
+    return userSnap.data();
   } catch (error) {
     console.log('Something went wrong!', error);
   }

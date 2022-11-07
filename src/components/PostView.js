@@ -76,9 +76,7 @@ const PostView = (props) => {
       <PostViewMain>
         <Parents>
           {parentsLoaded && parents.length
-            ? parents.map((parent) => (
-                <Post key={parent.post_id} post={parent} chained={true} />
-              ))
+            ? parents.map((p) => <Post key={p.post_id} post={p} chain={true} />)
             : null}
         </Parents>
         {postLoaded && <Post post={post} />}
@@ -91,7 +89,7 @@ const PostView = (props) => {
         )}
         <Replies>
           {repliesLoaded && replies.length
-            ? replies.map((reply) => <Post key={reply.post_id} post={reply} />)
+            ? replies.map((r) => <Post key={r.post_id} post={r} />)
             : null}
         </Replies>
       </PostViewMain>
