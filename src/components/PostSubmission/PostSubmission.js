@@ -48,11 +48,17 @@ const SubmitButton = styled.button`
   width: 100px;
   border-radius: 15px;
 
-  font-size: 1.2rem;
+  font-size: 1.25rem;
+  font-weight: bold;
+  text-shadow: 1px 1px 5px #333333;
 
   &:hover {
     cursor: pointer;
     filter: brightness(110%);
+  }
+
+  &:active {
+    filter: brightness(90%);
   }
 `;
 

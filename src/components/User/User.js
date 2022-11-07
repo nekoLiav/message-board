@@ -7,6 +7,7 @@ import { useEffect } from 'react';
 import { getUserPosts } from './getUserPosts';
 import Post from '../Post/Post';
 import UserInfo from './UserInfo';
+import { format } from 'date-fns';
 
 const StyledUser = styled.div`
   display: grid;
@@ -28,61 +29,61 @@ const UserMain = styled.div`
 
 const UserProfile = styled.div`
   display: grid;
-  grid-template-columns: min-content repeat(3, 1fr);
-  grid-template-rows: repeat(8, minmax(1rem, 1fr));
+  grid-template-columns: min-content repeat(5, 1fr);
+  grid-template-rows: repeat(12, minmax(25px, 1fr));
+  border-width: 0 0 1px 0;
+  border-style: solid;
+  border-color: grey;
   max-height: 300px;
 `;
 
 const UserBanner = styled.div`
   background: ${(props) => props.color};
   grid-column-start: 1;
-  grid-column-end: 5;
+  grid-column-end: 7;
   grid-row-start: 2;
-  grid-row-end: 6;
-`;
-
-const UserContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-  padding: 1rem;
-  grid-row-start: 3;
-  grid-row-end: 9;
-  grid-column-start: 1;
-  grid-column-end: 1;
+  grid-row-end: 8;
 `;
 
 const UserBlurb = styled.p`
   align-self: center;
-  grid-row-start: 6;
-  grid-row-end: 7;
+  grid-row-start: 8;
+  grid-row-end: 9;
   grid-column-start: 2;
-  grid-column-end: 6;
+  grid-column-end: 7;
 `;
 
 const UserPostCount = styled.p`
   align-self: center;
   grid-column-start: 2;
   grid-column-end: 3;
-  grid-row-start: 8;
-  grid-row-end: 9;
+  grid-row-start: 12;
+  grid-row-end: 13;
+  font-size: 0.75rem;
+  font-weight: bold;
+  color: grey;
 `;
 
 const UserFollowerCount = styled.p`
   align-self: center;
-  grid-column-start: 3;
-  grid-column-end: 4;
-  grid-row-start: 8;
-  grid-row-end: 9;
+  grid-column-start: 4;
+  grid-column-end: 5;
+  grid-row-start: 12;
+  grid-row-end: 13;
+  font-size: 0.75rem;
+  font-weight: bold;
+  color: grey;
 `;
 
 const UserFollowingCount = styled.p`
   align-self: center;
-  grid-column-start: 4;
-  grid-column-end: 5;
-  grid-row-start: 8;
-  grid-row-end: 9;
+  grid-column-start: 6;
+  grid-column-end: 7;
+  grid-row-start: 12;
+  grid-row-end: 13;
+  font-size: 0.75rem;
+  font-weight: bold;
+  color: grey;
 `;
 
 const FollowButton = styled.button`
@@ -99,16 +100,32 @@ const FollowButton = styled.button`
   border-radius: 15px;
   transition: 0.2s;
   grid-column-start: 2;
-  grid-column-end: 3;
-  grid-row-start: 7;
-  grid-row-end: 8;
+  grid-column-end: 4;
+  grid-row-start: 10;
+  grid-row-end: 11;
 
-  font-size: 1.2rem;
+  font-size: 1.25rem;
+  font-weight: bold;
+  text-shadow: 1px 1px 5px #333333;
 
   &:hover {
     cursor: pointer;
     filter: brightness(110%);
   }
+
+  &:active {
+    filter: brightness(90%);
+  }
+`;
+
+const UserJoined = styled.p`
+  color: grey;
+  font-weight: bold;
+  font-size: 0.75rem;
+  grid-column-start: 5;
+  grid-column-end: 7;
+  grid-row-start: 10;
+  grid-row-end: 11;
 `;
 
 const UserPosts = styled.div``;
@@ -133,10 +150,8 @@ const User = (props) => {
       <UserMain>
         <UserProfile>
           <UserBanner color={props.user.profile_color} />
-          <UserContainer>
-            <UserAvatar avatar={props.user.avatar} handle={props.user.handle} />
-            <UserInfo name={props.user.name} handle={props.user.handle} />
-          </UserContainer>
+          <UserAvatar avatar={props.user.avatar} handle={props.user.handle} />
+          <UserInfo name={props.user.name} handle={props.user.handle} />
           <UserBlurb>{props.user.blurb}</UserBlurb>
           <UserPostCount>{props.user.post_count}&nbsp;Posts</UserPostCount>
           <UserFollowerCount>
@@ -146,6 +161,10 @@ const User = (props) => {
             {props.user.following_count}&nbsp;Follows
           </UserFollowingCount>
           <FollowButton>Follow</FollowButton>
+          <UserJoined>
+            Joined&nbsp;
+            {format(new Date(props.user.birthday * 1000), 'MMMM, dd yyyy')}
+          </UserJoined>
         </UserProfile>
         <UserPosts>
           {userPostsLoaded &&
@@ -168,6 +187,7 @@ User.propTypes = {
     post_count: PropTypes.number,
     follower_count: PropTypes.number,
     following_count: PropTypes.number,
+    birthday: PropTypes.number,
   }),
 };
 
