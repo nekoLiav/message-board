@@ -3,19 +3,14 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 const StyledUserAvatar = styled(Link)`
-  width: 100px;
-  height: 100px;
-  grid-column-start: 1;
-  grid-column-end: 1;
-  grid-row-start: 3;
-  grid-row-end: 5;
-  justify-content: center;
-  align-items: center;
+  width: 150px;
+  height: 150px;
 `;
 
 const Avatar = styled.img`
-  width: 100px;
+  width: 150px;
   border-radius: 100%;
+  border: 2px solid grey;
 `;
 
 const UserAvatar = (props) => {

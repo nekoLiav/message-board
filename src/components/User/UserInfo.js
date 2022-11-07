@@ -5,12 +5,6 @@ import { Link } from 'react-router-dom';
 const StyledUserInfo = styled.div`
   display: flex;
   flex-direction: column;
-  grid-column-start: 1;
-  grid-column-end: 2;
-  grid-row-start: 5;
-  griw-row-end: 6;
-  justify-content: center;
-  align-items: center;
 `;
 
 const UserName = styled(Link)`

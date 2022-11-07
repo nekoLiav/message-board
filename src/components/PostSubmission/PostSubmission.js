@@ -36,12 +36,13 @@ const BodyField = styled.textarea`
 `;
 
 const SubmitButton = styled.button`
-  background: rgb(0, 255, 255);
+  color: white;
   background: linear-gradient(
     90deg,
     rgba(0, 255, 255, 1) 0%,
     rgba(255, 0, 255, 1) 100%
   );
+  transition: 0.2s;
   border: none;
   height: 30px;
   width: 100px;
@@ -51,6 +52,7 @@ const SubmitButton = styled.button`
 
   &:hover {
     cursor: pointer;
+    filter: brightness(110%);
   }
 `;
 
@@ -62,7 +64,7 @@ const PostSubmission = (props) => {
         <FieldWrapper>
           <BodyField name="body" id="body" placeholder="..."></BodyField>
         </FieldWrapper>
-        <SubmitButton type="submit">submit</SubmitButton>
+        <SubmitButton type="submit">Submit</SubmitButton>
       </PostSubmissionForm>
     </StyledPostSubmission>
   );
