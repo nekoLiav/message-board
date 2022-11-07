@@ -1,5 +1,12 @@
-/* eslint-disable no-unused-vars */
 import styled from 'styled-components';
+import Header from '../Header';
+import PropTypes from 'prop-types';
+import UserAvatar from './UserAvatar';
+import { useState } from 'react';
+import { useEffect } from 'react';
+import { getUserPosts } from './getUserPosts';
+import Post from '../Post/Post';
+import UserInfo from './UserInfo';
 
 const StyledUser = styled.div`
   display: grid;
@@ -19,15 +26,18 @@ const UserMain = styled.div`
   border-color: grey;
 `;
 
-const UserInfo = styled.div`
-  display: flex;
-  align-items: baseline;
-  height: 27px;
+const UserProfile = styled.div`
+  display: grid;
+  grid-template-columns: min-content repeat(2, 1fr);
+  grid-template-rows: repeat(5, 1fr);
 `;
 
-const UserName = styled.p`
-  font-weight: bold;
-  font-size: 1.5rem;
+const UserBanner = styled.div`
+  background: ${(props) => props.color};
+  grid-column-start: 1;
+  grid-column-end: 4;
+  grid-row-start: 2;
+  grid-row-end: 4;
 `;
 
 const UserPosts = styled.div``;
@@ -35,7 +45,45 @@ const UserPosts = styled.div``;
 const UserAside = styled.div``;
 
 const User = (props) => {
-  return <StyledUser></StyledUser>;
+  const [userPosts, setUserPosts] = useState();
+  const [userPostsLoaded, setUserPostsLoaded] = useState();
+
+  useEffect(() => {
+    (async () => {
+      const userPostData = await getUserPosts(props.user.id);
+      setUserPosts(userPostData);
+      setUserPostsLoaded(true);
+    })();
+  }, []);
+
+  console.log(props);
+  return (
+    <StyledUser>
+      <Header />
+      <UserMain>
+        <UserProfile>
+          <UserBanner color={props.user.profile_color} />
+          <UserAvatar avatar={props.user.avatar} handle={props.user.handle} />
+          <UserInfo name={props.user.name} handle={props.user.handle} />
+        </UserProfile>
+        <UserPosts>
+          {userPostsLoaded &&
+            userPosts.map((post) => <Post key={post.post_id} post={post} />)}
+        </UserPosts>
+      </UserMain>
+      <UserAside />
+    </StyledUser>
+  );
+};
+
+User.propTypes = {
+  user: PropTypes.shape({
+    id: PropTypes.string,
+    name: PropTypes.string,
+    handle: PropTypes.string,
+    avatar: PropTypes.string,
+    profile_color: PropTypes.string,
+  }),
 };
 
 export default User;

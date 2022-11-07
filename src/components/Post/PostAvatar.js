@@ -8,7 +8,6 @@ const StyledPostAvatar = styled(Link)`
 `;
 const Avatar = styled.img`
   width: 50px;
-  width: 50px;
   border-radius: 100%;
 `;
 
