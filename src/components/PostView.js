@@ -79,7 +79,7 @@ const PostView = (props) => {
             ? parents.map((p) => <Post key={p.post_id} post={p} chain={true} />)
             : null}
         </Parents>
-        {postLoaded && <Post post={post} />}
+        {postLoaded && <Post post={post} main={true} />}
         {postLoaded && (
           <PostSubmission
             post={post}

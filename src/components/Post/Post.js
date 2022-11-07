@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { formatDistanceToNowStrict as fD } from 'date-fns';
+import { formatDistanceToNowStrict as f } from 'date-fns';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import PostAvatar from './PostAvatar';
@@ -16,13 +16,14 @@ const StyledPost = styled.div`
   max-height: 800px;
   min-height: 100px;
   color: white;
-  border-width: 0 0 1px 0;
+  transition: 0.2s;
   border-color: grey;
   border-style: solid;
-  transition: 0.2s;
+  border-bottom-width: ${(props) => (props.chain ? '0' : '1px')};
+  background: ${(props) => (props.main ? '#111111' : 'black')};
 
   &:hover {
-    background: #111111;
+    background: ${(props) => (props.main ? '#222222' : '#111111')};
     cursor: pointer;
   }
 `;
@@ -77,22 +78,17 @@ function Post(props) {
   };
 
   return (
-    <StyledPost
-      style={props.chain ? { borderWidth: '0' } : {}}
-      onClick={handleClick}
-    >
-      {postLoaded ? (
+    <StyledPost chain={props.chain} main={props.main} onClick={handleClick}>
+      {postLoaded && (
         <PostMain>
           <PostLeft>
             <PostAvatar avatar={postUser.avatar} handle={postUser.handle} />
-            {props.chain ? <PostLinker /> : null}
+            {props.chain && <PostLinker />}
           </PostLeft>
           <PostRight>
             <PostRightTop>
               <PostUser name={postUser.name} handle={postUser.handle} />
-              <DatePosted>
-                &#x2022;&nbsp;{fD(props.post.date_posted)}
-              </DatePosted>
+              <DatePosted>&#x2022;&nbsp;{f(props.post.date_posted)}</DatePosted>
             </PostRightTop>
             <PostContent
               text={props.post.text}
@@ -106,7 +102,7 @@ function Post(props) {
             />
           </PostRight>
         </PostMain>
-      ) : null}
+      )}
     </StyledPost>
   );
 }
@@ -125,6 +121,7 @@ Post.propTypes = {
     likes: PropTypes.number,
   }),
   chain: PropTypes.bool,
+  main: PropTypes.bool,
 };
 
 export default Post;

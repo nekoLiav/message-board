@@ -114,8 +114,8 @@ const Home = (props) => {
           </HomeInfo>
           <PostSubmission id={props.user.id} avatar={props.user.avatar} />
           <HomePosts>
-            {homePosts.map((post) => (
-              <Post key={post.post_id} post={post} />
+            {homePosts.map((p) => (
+              <Post key={p.post_id} post={p} />
             ))}
           </HomePosts>
         </HomeMain>
