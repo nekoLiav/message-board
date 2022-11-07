@@ -1,5 +1,5 @@
 import { query, collection, where, getDocs } from 'firebase/firestore';
-import { db } from '../firebase/firebase-config';
+import { db } from '../../firebase/firebase-config';
 
 export const getReplies = async (post_id, direct_parent_id) => {
   let replyPosts = [];

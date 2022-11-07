@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import PostAvatar from './Post/PostAvatar';
-import { submitPost } from '../DB/submitPost.js';
+import PostAvatar from '../Post/PostAvatar';
+import { submitPost } from './submitPost.js';
 
 const StyledPostSubmission = styled.div`
   display: flex;

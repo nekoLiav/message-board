@@ -1,5 +1,5 @@
 import { doc, collection, setDoc } from 'firebase/firestore';
-import { db } from '../firebase/firebase-config';
+import { db } from '../../firebase/firebase-config';
 
 export const submitPost = (e, props) => {
   e.preventDefault();

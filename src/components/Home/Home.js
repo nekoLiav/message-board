@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { db } from '../firebase/firebase-config';
+import { db } from '../../firebase/firebase-config';
 import {
   getDocs,
   query,
@@ -10,16 +10,16 @@ import {
   setDoc,
   doc,
 } from 'firebase/firestore';
-import Header from './Header';
-import PostSubmission from './PostSubmission';
+import Header from '../Header';
+import PostSubmission from '../PostSubmission/PostSubmission';
 import PropTypes from 'prop-types';
-import UserData from '../Users.json';
-import PostData from '../Posts.json';
-import ReplyData from '../Replies.json';
-import SpecialUserData from '../SpecialUsers.json';
-import PostUser from './Post/PostUser';
-import Post from './Post/Post';
-import { getHomePosts } from '../DB/getHomePosts';
+import UserData from '../../Users.json';
+import PostData from '../../Posts.json';
+import ReplyData from '../../Replies.json';
+import SpecialUserData from '../../SpecialUsers.json';
+import PostUser from '../Post/PostUser';
+import Post from '../Post/Post';
+import { getHomePosts } from './getHomePosts';
 
 const StyledHome = styled.div`
   display: grid;

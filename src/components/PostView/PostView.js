@@ -2,13 +2,13 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import Header from './Header';
-import PostSubmission from './PostSubmission';
-import Post from './Post/Post';
+import Header from '../Header';
+import PostSubmission from '../PostSubmission/PostSubmission';
+import Post from '../Post/Post';
 import PropTypes from 'prop-types';
-import { getPost } from '../DB/getPost';
-import { getParents } from '../DB/getParents';
-import { getReplies } from '../DB/getReplies';
+import { getPost } from './getPost';
+import { getParents } from './getParents';
+import { getReplies } from './getReplies';
 
 const StyledPostView = styled.div`
   color: white;

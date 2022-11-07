@@ -8,7 +8,7 @@ import PostUser from './PostUser';
 import PostEngagement from './PostEngagement';
 import PostContent from './PostContent';
 import PostLinker from './PostLinker';
-import { getUser } from '../../DB/getUser';
+import { getUser } from '../../Helpers/getUser';
 
 const StyledPost = styled.div`
   display: flex;

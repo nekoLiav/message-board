@@ -1,5 +1,5 @@
 import { doc, getDoc } from 'firebase/firestore';
-import { db } from '../firebase/firebase-config';
+import { db } from '../../firebase/firebase-config';
 
 export const getParents = (parent_ids) => {
   const parentPosts = [];

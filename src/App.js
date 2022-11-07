@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from './firebase/firebase-config';
 import styled from 'styled-components';
-import Home from './components/Home';
-import PostView from './components/PostView';
-import { getUser } from './DB/getUser';
+import Home from './components/Home/Home';
+import PostView from './components/PostView/PostView';
+import { getUser } from './Helpers/getUser';
 
 const StyledApp = styled.div`
   height: 100%;
@@ -30,7 +30,14 @@ function App() {
   return (
     <StyledApp>
       <Routes>
-        <Route path="/" element={user !== null ? <Home user={user} /> : null} />
+        <Route
+          path="/"
+          element={user !== null ? <Navigate to="/home" /> : null}
+        />
+        <Route
+          path="/home"
+          element={user !== null ? <Home user={user} /> : null}
+        />
         <Route
           path="/:user/post/:post"
           element={
