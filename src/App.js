@@ -5,6 +5,7 @@ import { auth } from './firebase/firebase-config';
 import styled from 'styled-components';
 import Home from './components/Home/Home';
 import PostView from './components/PostView/PostView';
+import User from './components/User/User';
 import { getUser } from './Helpers/getUser';
 
 const StyledApp = styled.div`
@@ -37,6 +38,10 @@ function App() {
         <Route
           path="/home"
           element={user !== null ? <Home user={user} /> : null}
+        />
+        <Route
+          path="/:user"
+          element={user !== null ? <User user={user} /> : null}
         />
         <Route
           path="/:user/post/:post"

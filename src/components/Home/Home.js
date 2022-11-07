@@ -52,6 +52,8 @@ const HomeName = styled.p`
 
 const HomePosts = styled.div``;
 
+const HomeAside = styled.div``;
+
 const populateDB = () => {
   let randomUserIDs = [];
   UserData.forEach((user) => {
@@ -89,8 +91,6 @@ const populateSpecialDB = () => {
 // populateSpecialDB();
 // populateDB();
 
-const HomeAside = styled.div``;
-
 const Home = (props) => {
   const [homePosts, setHomePosts] = useState([]);
   const [homeUpdated, setHomeUpdated] = useState(false);
@@ -112,7 +112,11 @@ const Home = (props) => {
             <HomeName>Home&nbsp;&#x2022;&nbsp;</HomeName>
             <PostUser name={props.user.name} handle={props.user.handle} />
           </HomeInfo>
-          <PostSubmission id={props.user.id} avatar={props.user.avatar} />
+          <PostSubmission
+            id={props.user.id}
+            handle={props.user.handle}
+            avatar={props.user.avatar}
+          />
           <HomePosts>
             {homePosts.map((p) => (
               <Post key={p.post_id} post={p} />

@@ -57,7 +57,7 @@ const SubmitButton = styled.button`
 const PostSubmission = (props) => {
   return (
     <StyledPostSubmission>
-      <PostAvatar avatar={props.avatar} />
+      <PostAvatar avatar={props.avatar} handle={props.handle} />
       <PostSubmissionForm onSubmit={(e) => submitPost(e, props)}>
         <FieldWrapper>
           <BodyField name="body" id="body" placeholder="..."></BodyField>
@@ -70,6 +70,7 @@ const PostSubmission = (props) => {
 
 PostSubmission.propTypes = {
   avatar: PropTypes.string,
+  handle: PropTypes.string,
 };
 
 export default PostSubmission;

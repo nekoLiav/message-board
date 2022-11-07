@@ -85,6 +85,7 @@ const PostView = (props) => {
             post={post}
             id={props.user.id}
             avatar={props.user.avatar}
+            handle={props.user.handle}
           />
         )}
         <Replies>
