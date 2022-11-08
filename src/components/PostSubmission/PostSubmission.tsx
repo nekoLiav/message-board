@@ -65,7 +65,7 @@ const SubmitButton = styled.button`
 
 const PostSubmissionPropTypes = {
   user: UserType.isRequired,
-  post: PostType.isRequired,
+  post: PostType,
 };
 
 type PostSubmissionProps = InferProps<typeof PostSubmissionPropTypes>;

@@ -4,9 +4,9 @@ import { InferProps } from 'prop-types';
 import { UserType, PostType } from '../../Types/PropTypes';
 
 type submitPostArgs = {
-  e: Event;
-  user: InferProps<typeof UserType>;
-  post: InferProps<typeof PostType>;
+  e: Required<Event>;
+  user: Required<InferProps<typeof UserType>>;
+  post: Required<InferProps<typeof PostType>>;
 };
 
 export const submitPost = (e, { user }, { post }: submitPostArgs) => {

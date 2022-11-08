@@ -27,3 +27,4 @@ yarn-error.log*
 /functions
 /saved-database-stuff
 /src/*.json
+PopulateDB.js
