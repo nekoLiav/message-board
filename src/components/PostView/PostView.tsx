@@ -1,14 +1,14 @@
-/* eslint-disable no-unused-vars */
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import Header from '../Header';
 import PostSubmission from '../PostSubmission/PostSubmission';
 import Post from '../Post/Post';
-import PropTypes from 'prop-types';
+import { InferProps } from 'prop-types';
 import { getPost } from './getPost';
 import { getParents } from './getParents';
 import { getReplies } from './getReplies';
+import { UserType } from '../../Types/PropTypes';
 
 const StyledPostView = styled.div`
   color: white;
@@ -39,7 +39,13 @@ const PostViewAside = styled.div`
   background: black;
 `;
 
-const PostView = (props) => {
+const PostViewPropTypes = {
+  user: UserType.isRequired,
+};
+
+type PostViewProps = InferProps<typeof PostViewPropTypes>;
+
+const PostView = ({ user }: PostViewProps) => {
   const [post, setPost] = useState(null);
   const [postLoaded, setPostLoaded] = useState(false);
   const [parents, setParents] = useState([]);
@@ -80,14 +86,7 @@ const PostView = (props) => {
             : null}
         </Parents>
         {postLoaded && <Post post={post} main={true} />}
-        {postLoaded && (
-          <PostSubmission
-            post={post}
-            id={props.user.id}
-            avatar={props.user.avatar}
-            handle={props.user.handle}
-          />
-        )}
+        {postLoaded && <PostSubmission post={post} user={user} />}
         <Replies>
           {repliesLoaded && replies.length
             ? replies.map((r) => <Post key={r.post_id} post={r} />)
@@ -99,8 +98,6 @@ const PostView = (props) => {
   );
 };
 
-PostView.propTypes = {
-  user: PropTypes.object,
-};
+PostView.propTypes = PostViewPropTypes;
 
 export default PostView;

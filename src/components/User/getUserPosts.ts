@@ -1,7 +1,7 @@
 import { query, collection, where, getDocs } from 'firebase/firestore';
 import { db } from '../../firebase/firebase-config';
 
-export const getUserPosts = async (user_id) => {
+export const getUserPosts = async (user_id: string) => {
   const UserPosts = [];
   try {
     const UserPostRefs = query(

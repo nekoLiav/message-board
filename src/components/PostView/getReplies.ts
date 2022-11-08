@@ -1,7 +1,7 @@
 import { query, collection, where, getDocs } from 'firebase/firestore';
 import { db } from '../../firebase/firebase-config';
 
-export const getReplies = async (post_id, direct_parent_id) => {
+export const getReplies = async (post_id: string, direct_parent_id: string) => {
   let replyPosts = [];
   try {
     const replyRefs = query(

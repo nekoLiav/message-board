@@ -1,7 +1,7 @@
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../../firebase/firebase-config';
 
-export const getParents = (parent_ids) => {
+export const getParents = (parent_ids: string[]) => {
   const parentPosts = [];
   try {
     parent_ids.forEach(async (parent_id) => {
