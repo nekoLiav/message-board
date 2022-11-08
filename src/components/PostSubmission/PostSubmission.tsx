@@ -74,7 +74,7 @@ const PostSubmission = ({ user, post }: PostSubmissionProps) => {
   return (
     <StyledPostSubmission>
       <PostAvatar user={user} />
-      <PostSubmissionForm onSubmit={(e) => submitPost({ e, user, post })}>
+      <PostSubmissionForm onSubmit={(e) => submitPost(e, { user, post })}>
         <FieldWrapper>
           <BodyField name="body" id="body" placeholder="..."></BodyField>
         </FieldWrapper>

@@ -1,15 +1,16 @@
 import { doc, collection, setDoc } from 'firebase/firestore';
-import { db } from '../../firebase/firebase-config';
 import { InferProps } from 'prop-types';
-import { UserType, PostType } from '../../Types/PropTypes';
+import { db } from '../../firebase/firebase-config';
+import { PostType, UserType } from '../../Types/PropTypes';
 
-interface submitPostArgs {
-  e: Required<Event>;
-  user: Required<InferProps<typeof UserType>>;
-  post: Required<InferProps<typeof PostType>>;
-}
+const submitPostArgTypes = {
+  user: UserType,
+  post: PostType,
+};
 
-export const submitPost = ({ e, user, post }: submitPostArgs) => {
+type submitPostArgs = InferProps<typeof submitPostArgTypes>;
+
+export const submitPost = (e: Event, { user, post }: submitPostArgs) => {
   e.preventDefault();
   try {
     const newPostDoc = doc(collection(db, 'posts'));
