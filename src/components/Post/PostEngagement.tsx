@@ -1,5 +1,6 @@
 import styled from 'styled-components';
-import PropTypes from 'prop-types';
+import { InferProps } from 'prop-types';
+import { PostType } from '../../Types/PropTypes';
 
 const StyledPostEngagement = styled.div`
   display: grid;
@@ -61,29 +62,31 @@ const LikesCount = styled.p`
   font-size: 0.75rem;
 `;
 
-const PostEngagement = (props) => {
+const PostEngagementPropTypes = {
+  post: PostType.isRequired,
+};
+
+type PostEngagementProps = InferProps<typeof PostEngagementPropTypes>;
+
+const PostEngagement = ({ post }: PostEngagementProps) => {
   return (
     <StyledPostEngagement>
       <Replies>
         <RepliesIcon>Replies:&nbsp;</RepliesIcon>
-        <RepliesCount>{props.replies}</RepliesCount>
+        <RepliesCount>{post.replies}</RepliesCount>
       </Replies>
       <Reposts>
         <RepostsIcon>Reposts:&nbsp;</RepostsIcon>
-        <RepostsCount>{props.reposts}</RepostsCount>
+        <RepostsCount>{post.reposts}</RepostsCount>
       </Reposts>
       <Likes>
         <LikesIcon>Likes:&nbsp;</LikesIcon>
-        <LikesCount>{props.likes}</LikesCount>
+        <LikesCount>{post.likes}</LikesCount>
       </Likes>
     </StyledPostEngagement>
   );
 };
 
-PostEngagement.propTypes = {
-  replies: PropTypes.number,
-  reposts: PropTypes.number,
-  likes: PropTypes.number,
-};
+PostEngagement.propTypes = PostEngagementPropTypes;
 
 export default PostEngagement;

@@ -1,6 +1,7 @@
 import styled from 'styled-components';
-import PropTypes from 'prop-types';
+import { InferProps } from 'prop-types';
 import { Link } from 'react-router-dom';
+import { UserType } from '../../Types/PropTypes';
 
 const StyledPostUser = styled.div`
   display: flex;
@@ -25,20 +26,21 @@ const UserHandle = styled(Link)`
   }
 `;
 
-const PostUser = (props) => {
+const PostUserPropTypes = {
+  user: UserType.isRequired,
+};
+
+type PostUserProps = InferProps<typeof PostUserPropTypes>;
+
+const PostUser = ({ user }: PostUserProps) => {
   return (
     <StyledPostUser>
-      <UserName to={`/${props.handle}`}>{props.name}&nbsp;</UserName>
-      <UserHandle to={`/${props.handle}`}>
-        {`@${props.handle}`}&nbsp;
-      </UserHandle>
+      <UserName to={`/${user.handle}`}>{user.name}&nbsp;</UserName>
+      <UserHandle to={`/${user.handle}`}>{`@${user.handle}`}&nbsp;</UserHandle>
     </StyledPostUser>
   );
 };
 
-PostUser.propTypes = {
-  name: PropTypes.string,
-  handle: PropTypes.string,
-};
+PostUser.propTypes = PostUserPropTypes;
 
 export default PostUser;

@@ -1,7 +1,8 @@
 import styled from 'styled-components';
-import PropTypes from 'prop-types';
+import { InferProps } from 'prop-types';
 import PostAvatar from '../Post/PostAvatar';
-import { submitPost } from './submitPost.js';
+import { submitPost } from './submitPost';
+import { UserType, PostType } from '../../Types/PropTypes';
 
 const StyledPostSubmission = styled.div`
   display: flex;
@@ -62,11 +63,18 @@ const SubmitButton = styled.button`
   }
 `;
 
-const PostSubmission = (props) => {
+const PostSubmissionPropTypes = {
+  user: UserType.isRequired,
+  post: PostType.isRequired,
+};
+
+type PostSubmissionProps = InferProps<typeof PostSubmissionPropTypes>;
+
+const PostSubmission = ({ user, post }: PostSubmissionProps) => {
   return (
     <StyledPostSubmission>
-      <PostAvatar avatar={props.avatar} handle={props.handle} />
-      <PostSubmissionForm onSubmit={(e) => submitPost(e, props)}>
+      <PostAvatar user={user} />
+      <PostSubmissionForm onSubmit={(e) => submitPost(e, user, post)}>
         <FieldWrapper>
           <BodyField name="body" id="body" placeholder="..."></BodyField>
         </FieldWrapper>
@@ -76,9 +84,6 @@ const PostSubmission = (props) => {
   );
 };
 
-PostSubmission.propTypes = {
-  avatar: PropTypes.string,
-  handle: PropTypes.string,
-};
+PostSubmission.propTypes = PostSubmissionPropTypes;
 
 export default PostSubmission;

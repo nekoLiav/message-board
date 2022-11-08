@@ -1,5 +1,6 @@
 import styled from 'styled-components';
-import PropTypes from 'prop-types';
+import { InferProps } from 'prop-types';
+import * as PropTypes from 'prop-types';
 import { formatDistanceToNowStrict as f } from 'date-fns';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
@@ -9,6 +10,7 @@ import PostEngagement from './PostEngagement';
 import PostContent from './PostContent';
 import PostLinker from './PostLinker';
 import { getUser } from '../../Helpers/getUser';
+import { PostType } from '../../Types/PropTypes';
 
 const StyledPost = styled.div`
   display: flex;
@@ -59,47 +61,47 @@ const DatePosted = styled.p`
   color: grey;
 `;
 
-function Post(props) {
+const PostPropTypes = {
+  post: PostType.isRequired,
+  chain: PropTypes.bool,
+  main: PropTypes.bool,
+};
+
+type PostProps = InferProps<typeof PostPropTypes>;
+
+function Post({ post }, chain, main: PostProps) {
   const [postUser, setPostUser] = useState(null);
   const [postLoaded, setPostLoaded] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
     (async () => {
-      const userData = await getUser(props.post.user_id);
-      setPostUser(userData);
+      const postUserData = await getUser(post.user_id);
+      setPostUser(postUserData);
       setPostLoaded(true);
     })();
   }, []);
 
   const handleClick = (e) => {
     e.preventDefault();
-    navigate(`/${props.post.user_id}/post/${props.post.post_id}`);
+    navigate(`/${post.user_id}/post/${post.post_id}`);
   };
 
   return (
-    <StyledPost chain={props.chain} main={props.main} onClick={handleClick}>
+    <StyledPost chain={chain} main={main} onClick={handleClick}>
       {postLoaded && (
         <PostMain>
           <PostLeft>
-            <PostAvatar avatar={postUser.avatar} handle={postUser.handle} />
-            {props.chain && <PostLinker />}
+            <PostAvatar user={postUser} />
+            {chain && <PostLinker />}
           </PostLeft>
           <PostRight>
             <PostRightTop>
-              <PostUser name={postUser.name} handle={postUser.handle} />
-              <DatePosted>&#x2022;&nbsp;{f(props.post.date_posted)}</DatePosted>
+              <PostUser user={postUser} />
+              <DatePosted>&#x2022;&nbsp;{f(post.date_posted)}</DatePosted>
             </PostRightTop>
-            <PostContent
-              text={props.post.text}
-              img_url={props.post.img_url}
-              vid_url={props.post.vid_url}
-            />
-            <PostEngagement
-              replies={props.post.replies}
-              reposts={props.post.reposts}
-              likes={props.post.likes}
-            />
+            <PostContent post={post} />
+            <PostEngagement post={post} />
           </PostRight>
         </PostMain>
       )}
@@ -107,21 +109,6 @@ function Post(props) {
   );
 }
 
-Post.propTypes = {
-  post: PropTypes.shape({
-    date_posted: PropTypes.number,
-    post_id: PropTypes.string,
-    parent_ids: PropTypes.array,
-    text: PropTypes.string,
-    img_url: PropTypes.string,
-    vid_url: PropTypes.string,
-    user_id: PropTypes.string,
-    replies: PropTypes.number,
-    reposts: PropTypes.number,
-    likes: PropTypes.number,
-  }),
-  chain: PropTypes.bool,
-  main: PropTypes.bool,
-};
+Post.propTypes = PostPropTypes;
 
 export default Post;

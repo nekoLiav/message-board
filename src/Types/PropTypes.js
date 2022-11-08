@@ -14,3 +14,16 @@ export const UserType = PropTypes.shape({
   post_count: PropTypes.number.isRequired,
   profile_color: PropTypes.string.isRequired,
 });
+
+export const PostType = PropTypes.shape({
+  date_posted: PropTypes.number,
+  post_id: PropTypes.string,
+  parent_ids: PropTypes.array,
+  text: PropTypes.string,
+  img_url: PropTypes.string,
+  vid_url: PropTypes.string,
+  user_id: PropTypes.string,
+  replies: PropTypes.number,
+  reposts: PropTypes.number,
+  likes: PropTypes.number,
+});
