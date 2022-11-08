@@ -86,17 +86,18 @@ const UserBlurb = styled.p`
   margin-left: 1rem;
 `;
 
-const UserPostCount = styled.p`
+const UserFollowerCount = styled.p`
   justify-self: center;
+  font-size: 0.75rem;
   grid-column-start: 7;
   grid-column-end: 8;
   grid-row-start: 11;
   grid-row-end: 12;
-  font-weight: bold;
   font-size: 0.75rem;
+  font-weight: bold;
 `;
 
-const UserFollowerCount = styled.p`
+const UserFollowingCount = styled.p`
   justify-self: center;
   font-size: 0.75rem;
   grid-column-start: 7;
@@ -107,15 +108,14 @@ const UserFollowerCount = styled.p`
   font-weight: bold;
 `;
 
-const UserFollowingCount = styled.p`
+const UserPostCount = styled.p`
   justify-self: center;
-  font-size: 0.75rem;
   grid-column-start: 7;
   grid-column-end: 8;
   grid-row-start: 13;
   grid-row-end: 14;
-  font-size: 0.75rem;
   font-weight: bold;
+  font-size: 0.75rem;
 `;
 
 const FollowButton = styled.button`
@@ -151,6 +151,39 @@ const FollowButton = styled.button`
   }
 `;
 
+const DMButton = styled.button`
+  color: white;
+  background: linear-gradient(
+    90deg,
+    rgba(0, 255, 255, 1) 0%,
+    rgba(255, 0, 255, 1) 100%
+  );
+  border: none;
+  height: 2rem;
+  width: 3rem;
+  border-radius: 15px;
+  transition: 0.2s;
+  grid-column-start: 6;
+  grid-column-end: 7;
+  grid-row-start: 9;
+  grid-row-end: 11;
+  align-self: center;
+  justify-self: center;
+
+  font-size: 1.125rem;
+  font-weight: bold;
+  text-shadow: 1px 1px 5px #333333;
+
+  &:hover {
+    cursor: pointer;
+    filter: brightness(110%);
+  }
+
+  &:active {
+    filter: brightness(90%);
+  }
+`;
+
 const UserProfilePropTypes = {
   user: UserType.isRequired,
 };
@@ -163,20 +196,17 @@ const UserProfile = ({ user }: UserProfileProps) => {
       <UserBanner user={user} />
       <UserAvatar src={user.avatar}></UserAvatar>
       <UserName to={`/${user.handle}`}>{user.name}</UserName>
-      <UserHandle to={`/${user.handle}`}>@{user.handle}666666</UserHandle>
-      <UserBlurb>
-        {user.blurb}&nbsp;However, this is a test to take up two grid places.
-        But just out of curiosity, what if I really pushed my luck and tried to
-        fit 3?
-      </UserBlurb>
-      <UserPostCount>{user.post_count}&nbsp;Posts</UserPostCount>
+      <UserHandle to={`/${user.handle}`}>@{user.handle}</UserHandle>
+      <UserBlurb>{user.blurb}</UserBlurb>
       <UserFollowerCount>
-        {user.follower_count}&nbsp;Followers
+        Followers:&nbsp;{user.follower_count}
       </UserFollowerCount>
       <UserFollowingCount>
-        {user.following_count}&nbsp;Follows
+        Following:&nbsp;{user.following_count}
       </UserFollowingCount>
+      <DMButton>DM</DMButton>
       <FollowButton>Follow</FollowButton>
+      <UserPostCount>Posts:&nbsp;{user.post_count}</UserPostCount>
       <UserJoined>
         Joined&nbsp;
         {format(new Date(user.birthday * 1000), 'MMMM, dd yyyy')}

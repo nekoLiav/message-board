@@ -43,13 +43,14 @@ const SubmitButton = styled.button`
     rgba(0, 255, 255, 1) 0%,
     rgba(255, 0, 255, 1) 100%
   );
-  transition: 0.2s;
   border: none;
-  height: 30px;
-  width: 100px;
+  height: 2rem;
+  width: 6rem;
   border-radius: 15px;
+  transition: 0.2s;
+  align-self: end;
 
-  font-size: 1.25rem;
+  font-size: 1.125rem;
   font-weight: bold;
   text-shadow: 1px 1px 5px #333333;
 
