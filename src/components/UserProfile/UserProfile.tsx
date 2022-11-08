@@ -16,7 +16,7 @@ const StyledUserProfile = styled.div`
 `;
 
 const UserBanner = styled.div`
-  background: ${(props) => props.color};
+  background: ${(props) => props.user.profile_color};
   grid-column-start: 1;
   grid-column-end: 7;
   grid-row-start: 2;
