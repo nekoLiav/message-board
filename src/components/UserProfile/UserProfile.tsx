@@ -115,9 +115,9 @@ type UserProfileProps = InferProps<typeof UserProfilePropTypes>;
 const UserProfile = ({ user }: UserProfileProps) => {
   return (
     <StyledUserProfile>
-      <UserBanner color={user.profile_color} />
-      <UserAvatar avatar={user.avatar} handle={user.handle} />
-      <UserInfo name={user.name} handle={user.handle} />
+      <UserBanner user={user} />
+      <UserAvatar user={user} />
+      <UserInfo user={user} />
       <UserBlurb>{user.blurb}</UserBlurb>
       <UserPostCount>{user.post_count}&nbsp;Posts</UserPostCount>
       <UserFollowerCount>

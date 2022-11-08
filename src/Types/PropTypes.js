@@ -1,16 +1,16 @@
 import * as PropTypes from 'prop-types';
 
 export const UserType = PropTypes.shape({
-  avatar: PropTypes.string,
-  birthday: PropTypes.number,
-  blurb: PropTypes.string,
-  email: PropTypes.string,
-  follower_count: PropTypes.number,
-  following_count: PropTypes.number,
-  gender: PropTypes.string,
-  handle: PropTypes.string,
-  id: PropTypes.string,
-  name: PropTypes.string,
+  avatar: PropTypes.string.isRequired,
+  birthday: PropTypes.number.isRequired,
+  blurb: PropTypes.string.isRequired,
+  email: PropTypes.string.isRequired,
+  follower_count: PropTypes.number.isRequired,
+  following_count: PropTypes.number.isRequired,
+  gender: PropTypes.string.isRequired,
+  handle: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
   post_count: PropTypes.number.isRequired,
-  profile_color: PropTypes.string,
+  profile_color: PropTypes.string.isRequired,
 });

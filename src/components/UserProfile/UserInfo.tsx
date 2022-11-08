@@ -1,6 +1,7 @@
 import styled from 'styled-components';
-import PropTypes from 'prop-types';
+import { InferProps } from 'prop-types';
 import { Link } from 'react-router-dom';
+import { UserType } from '../../Types/PropTypes';
 
 const StyledUserInfo = styled.div`
   display: flex;
@@ -33,20 +34,21 @@ const UserHandle = styled(Link)`
   }
 `;
 
-const UserInfo = (props) => {
+const UserInfoPropTypes = {
+  user: UserType.isRequired,
+};
+
+type UserInfoProps = InferProps<typeof UserInfoPropTypes>;
+
+const UserInfo = ({ user }: UserInfoProps) => {
   return (
     <StyledUserInfo>
-      <UserName to={`/${props.handle}`}>{props.name}&nbsp;</UserName>
-      <UserHandle to={`/${props.handle}`}>
-        {`@${props.handle}`}&nbsp;
-      </UserHandle>
+      <UserName to={`/${user.handle}`}>{user.name}&nbsp;</UserName>
+      <UserHandle to={`/${user.handle}`}>{`@${user.handle}`}&nbsp;</UserHandle>
     </StyledUserInfo>
   );
 };
 
-UserInfo.propTypes = {
-  name: PropTypes.string,
-  handle: PropTypes.string,
-};
+UserInfo.propTypes = UserInfoPropTypes;
 
 export default UserInfo;

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import Header from '../Header';
-import * as PropTypes from 'prop-types';
+import { InferProps } from 'prop-types';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { getUserPosts } from './getUserPosts';
@@ -34,7 +34,7 @@ const UserPropTypes = {
   user: UserType.isRequired,
 };
 
-type UserProps = PropTypes.InferProps<typeof UserPropTypes>;
+type UserProps = InferProps<typeof UserPropTypes>;
 
 const User = ({ user }: UserProps) => {
   const [userPosts, setUserPosts] = useState([]);
