@@ -14,9 +14,6 @@ import { PostType } from '../../Types/PropTypes';
 
 const StyledPost = styled.div`
   display: flex;
-  max-width: 600px;
-  max-height: 800px;
-  min-height: 100px;
   color: white;
   transition: 0.2s;
   border-color: grey;
@@ -59,6 +56,7 @@ const PostRightTop = styled.div`
 
 const DatePosted = styled.p`
   color: grey;
+  font-size: 0.875rem;
 `;
 
 const PostPropTypes = {
@@ -69,7 +67,7 @@ const PostPropTypes = {
 
 type PostProps = InferProps<typeof PostPropTypes>;
 
-function Post({ post, chain, main }: PostProps) {
+const Post = ({ post, chain, main }: PostProps) => {
   const [postUser, setPostUser] = useState(null);
   const [postLoaded, setPostLoaded] = useState(false);
   const navigate = useNavigate();
@@ -107,7 +105,7 @@ function Post({ post, chain, main }: PostProps) {
       )}
     </StyledPost>
   );
-}
+};
 
 Post.propTypes = PostPropTypes;
 

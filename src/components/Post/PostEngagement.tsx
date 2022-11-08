@@ -18,12 +18,12 @@ const Replies = styled.div`
 
 const RepliesIcon = styled.p`
   font-weight: bold;
-  font-size: 0.875rem;
+  font-size: 0.75rem;
 `;
 
 const RepliesCount = styled.p`
   font-weight: bold;
-  font-size: 0.875rem;
+  font-size: 0.75rem;
 `;
 
 const Reposts = styled.div`
@@ -36,12 +36,12 @@ const Reposts = styled.div`
 
 const RepostsIcon = styled.p`
   font-weight: bold;
-  font-size: 0.875rem;
+  font-size: 0.75rem;
 `;
 
 const RepostsCount = styled.p`
   font-weight: bold;
-  font-size: 0.875rem;
+  font-size: 0.75rem;
 `;
 
 const Likes = styled.div`
@@ -54,12 +54,12 @@ const Likes = styled.div`
 
 const LikesIcon = styled.p`
   font-weight: bold;
-  font-size: 0.875rem;
+  font-size: 0.75rem;
 `;
 
 const LikesCount = styled.p`
   font-weight: bold;
-  font-size: 0.875rem;
+  font-size: 0.75rem;
 `;
 
 const PostEngagementPropTypes = {

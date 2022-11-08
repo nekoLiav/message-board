@@ -11,6 +11,7 @@ const UserName = styled(Link)`
   font-weight: bold;
   text-decoration: none;
   color: white;
+  font-size: 0.875rem;
 
   &:hover {
     text-decoration: underline;
@@ -20,6 +21,7 @@ const UserName = styled(Link)`
 const UserHandle = styled(Link)`
   color: grey;
   text-decoration: none;
+  font-size: 0.875rem;
 
   &:hover {
     text-decoration: underline;

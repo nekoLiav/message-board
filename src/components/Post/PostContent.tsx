@@ -2,16 +2,13 @@ import styled from 'styled-components';
 import { InferProps } from 'prop-types';
 import { PostType } from '../../Types/PropTypes';
 
-const StyledPostContent = styled.div`
-  height: 100%;
-`;
+const StyledPostContent = styled.div``;
 
-const Content = styled.div`
-  height: 100%;
-`;
+const Content = styled.div``;
 
 const Text = styled.p`
   overflow-wrap: anywhere;
+  font-size: 0.875rem;
 `;
 
 const Img = styled.img`

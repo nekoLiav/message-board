@@ -4,11 +4,16 @@ import { Link } from 'react-router-dom';
 import { UserType } from '../../Types/PropTypes';
 
 const StyledPostAvatar = styled(Link)`
-  width: 50px;
-  height: 50px;
+  max-height: 3rem;
+  max-width: 3rem;
+  max-height: 3rem;
+  max-width: 3rem;
 `;
 const Avatar = styled.img`
-  width: 50px;
+  max-height: 3rem;
+  max-width: 3rem;
+  max-height: 3rem;
+  max-width: 3rem;
   border-radius: 100%;
 `;
 

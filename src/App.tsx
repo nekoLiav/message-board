@@ -12,7 +12,7 @@ const StyledApp = styled.div`
   height: 100%;
 `;
 
-function App() {
+const App = () => {
   const [user, setUser] = useState(null);
   const location = useLocation();
 
@@ -52,6 +52,6 @@ function App() {
       </Routes>
     </StyledApp>
   );
-}
+};
 
 export default App;
