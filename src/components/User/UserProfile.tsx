@@ -172,7 +172,7 @@ const DMButton = styled.button`
 
   font-size: 1.125rem;
   font-weight: bold;
-  text-shadow: 1px 1px 5px #333333;
+  // text-shadow: 1px 1px 5px #333333;
 
   &:hover {
     cursor: pointer;

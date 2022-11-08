@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import { getUserPosts } from './getUserPosts';
 import Post from '../Post/Post';
-import UserProfile from '../UserProfile/UserProfile';
+import UserProfile from './UserProfile';
 import { UserType } from '../../Types/PropTypes';
 
 const StyledUser = styled.div`

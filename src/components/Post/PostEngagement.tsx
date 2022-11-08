@@ -3,9 +3,9 @@ import { InferProps } from 'prop-types';
 import { PostType } from '../../Types/PropTypes';
 
 const StyledPostEngagement = styled.div`
-  display: grid;
-  grid-auto-flow: column;
-  font-size: 0.8rem;
+  display: flex;
+  gap: 5rem;
+  width: 100%;
 `;
 
 const Replies = styled.div`
@@ -18,12 +18,12 @@ const Replies = styled.div`
 
 const RepliesIcon = styled.p`
   font-weight: bold;
-  font-size: 0.75rem;
+  font-size: 0.875rem;
 `;
 
 const RepliesCount = styled.p`
   font-weight: bold;
-  font-size: 0.75rem;
+  font-size: 0.875rem;
 `;
 
 const Reposts = styled.div`
@@ -36,12 +36,12 @@ const Reposts = styled.div`
 
 const RepostsIcon = styled.p`
   font-weight: bold;
-  font-size: 0.75rem;
+  font-size: 0.875rem;
 `;
 
 const RepostsCount = styled.p`
   font-weight: bold;
-  font-size: 0.75rem;
+  font-size: 0.875rem;
 `;
 
 const Likes = styled.div`
@@ -54,12 +54,12 @@ const Likes = styled.div`
 
 const LikesIcon = styled.p`
   font-weight: bold;
-  font-size: 0.75rem;
+  font-size: 0.875rem;
 `;
 
 const LikesCount = styled.p`
   font-weight: bold;
-  font-size: 0.75rem;
+  font-size: 0.875rem;
 `;
 
 const PostEngagementPropTypes = {
