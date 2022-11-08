@@ -69,7 +69,7 @@ const PostPropTypes = {
 
 type PostProps = InferProps<typeof PostPropTypes>;
 
-function Post({ post }, chain, main: PostProps) {
+function Post({ post, chain, main }: PostProps) {
   const [postUser, setPostUser] = useState(null);
   const [postLoaded, setPostLoaded] = useState(false);
   const navigate = useNavigate();
@@ -93,7 +93,7 @@ function Post({ post }, chain, main: PostProps) {
         <PostMain>
           <PostLeft>
             <PostAvatar user={postUser} />
-            {chain && <PostLinker />}
+            {chain === true ? <PostLinker /> : null}
           </PostLeft>
           <PostRight>
             <PostRightTop>
