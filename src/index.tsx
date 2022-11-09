@@ -30,11 +30,11 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: ':user_id',
+        path: ':handle',
         element: <User />,
       },
       {
-        path: ':user_id/post/:post_id',
+        path: ':handle/post/:post_id',
         element: <PostView />,
       },
     ],
