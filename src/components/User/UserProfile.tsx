@@ -190,7 +190,7 @@ type UserProfileProps = InferProps<typeof UserProfilePropTypes>;
 const UserProfile = ({ user }: UserProfileProps) => {
   return (
     <StyledUserProfile>
-      <UserBanner />
+      <UserBanner user={user} />
       <UserAvatar src={user.avatar}></UserAvatar>
       <UserName>{user.name}</UserName>
       <UserHandle>@{user.handle}</UserHandle>
