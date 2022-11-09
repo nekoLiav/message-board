@@ -3,9 +3,9 @@ import { useParams, useRouteLoaderData } from 'react-router-dom';
 import PostSubmission from '../components/PostSubmission';
 import Post from '../components/Post';
 import { InferProps } from 'prop-types';
-import { getPost } from '../functions/getPost';
-import { getParents } from '../functions/getParents';
-import { getReplies } from '../functions/getReplies';
+import { getPost } from '../functions/getPostByID';
+import { getParents } from '../functions/getParentsByIDs';
+import { getReplies } from '../functions/getRepliesByID';
 import { UserType } from '../types/PropTypes';
 import { Div } from '../styles/Div';
 import styled from 'styled-components';
@@ -40,10 +40,7 @@ const PostView = () => {
       setParents(parentData);
       setParentsLoaded(true);
       // load replies to main post
-      const replyData = await getReplies(
-        postData.post_id,
-        postData.direct_parent
-      );
+      const replyData = await getReplies(postData.post_id);
       setReplies(replyData);
       setRepliesLoaded(true);
     })();

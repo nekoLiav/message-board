@@ -1,13 +1,12 @@
 import { useState } from 'react';
 import { useEffect } from 'react';
-import { getUserPosts } from '../functions/getUserPosts';
+import { getUserPosts } from '../functions/getUserPostsByID';
 import Post from '../components/Post';
 import UserProfile from '../components/UserProfile';
 import { Div } from '../styles/Div';
-import { collection, getDocs, query, where } from 'firebase/firestore';
 import { useParams } from 'react-router-dom';
-import { db } from '../functions/firebase-config';
 import styled from 'styled-components';
+import { getUserByHandle } from '../functions/getUserByHandle';
 
 const PostContainer = styled(Div)`
   border-width: 1px 0 0 0;
@@ -22,14 +21,10 @@ const User = () => {
 
   useEffect(() => {
     (async () => {
-      const userRef = query(
-        collection(db, 'users'),
-        where('handle', '==', params.handle)
-      );
-      const userSnap = await getDocs(userRef);
-      setUser(userSnap.docs[0].data());
+      const userData = await getUserByHandle(params.handle);
+      setUser(userData);
       setUserLoaded(true);
-      const userPostData = await getUserPosts(userSnap.docs[0].data().id);
+      const userPostData = await getUserPosts(userData.id);
       setUserPosts(userPostData);
       setUserPostsLoaded(true);
     })();

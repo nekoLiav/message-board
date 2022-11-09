@@ -1,11 +1,11 @@
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from './firebase-config';
 
-export const getParents = (parent_ids: string[]) => {
+export const getParents = (ids: Required<string[]>) => {
   const parentPosts = [];
   try {
-    parent_ids.forEach(async (parent_id) => {
-      const parentRef = doc(db, 'posts', parent_id);
+    ids.forEach(async (id) => {
+      const parentRef = doc(db, 'posts', id);
       const parentSnap = await getDoc(parentRef);
       parentPosts.push(parentSnap.data());
     });

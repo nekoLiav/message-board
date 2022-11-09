@@ -4,7 +4,7 @@ import { db } from './firebase-config';
 import { PostType, UserType } from '../types/PropTypes';
 
 const submitPostArgTypes = {
-  user: UserType,
+  user: UserType.isRequired,
   post: PostType,
 };
 

@@ -1,6 +1,6 @@
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from './firebase-config';
-import { getUser } from './getUser';
+import { getUser } from './getUserByID';
 
 export default signInWithEmailAndPassword(auth, 'peepee@poopoo.com', '123456')
   .then(async (userCredential) => {
