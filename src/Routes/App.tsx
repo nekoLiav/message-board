@@ -13,12 +13,18 @@ const StyledApp = styled(Div)`
   width: 100%;
 `;
 
+const RouteContainer = styled(Div)`
+  border-width: 0 1px 0 1px;
+`;
+
 const App = () => {
   return (
     <ThemeProvider theme={dark}>
       <StyledApp>
         <Header />
-        <Outlet />
+        <RouteContainer>
+          <Outlet />
+        </RouteContainer>
         <Aside />
       </StyledApp>
     </ThemeProvider>

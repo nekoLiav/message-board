@@ -2,18 +2,15 @@ import styled from 'styled-components';
 import { format } from 'date-fns';
 import { InferProps } from 'prop-types';
 import { UserType } from '../../Types/PropTypes';
-import { Link } from 'react-router-dom';
+import { Div } from '../../Styles/Div';
 
-const StyledUserProfile = styled.div`
+const StyledUserProfile = styled(Div)`
   display: grid;
   grid-template-columns: min-content repeat(5, minmax(min-content, 1fr)) min-content;
   grid-template-rows: repeat(13, minmax(1rem, 1.5rem));
-  border-width: 0 0 1px 0;
-  border-style: solid;
-  border-color: grey;
 `;
 
-const UserBanner = styled.div`
+const UserBanner = styled(Div)`
   background: ${(props) => props.user.profile_color};
   grid-column-start: 1;
   grid-column-end: 8;
@@ -35,7 +32,7 @@ const UserAvatar = styled.img`
   margin: 0 1rem;
 `;
 
-const UserName = styled(Link)`
+const UserName = styled.p`
   font-size: 1rem;
   align-self: center;
   font-weight: bold;
@@ -53,7 +50,7 @@ const UserName = styled(Link)`
   }
 `;
 
-const UserHandle = styled(Link)`
+const UserHandle = styled.p`
   color: grey;
   text-decoration: none;
   grid-column-start: 2;
@@ -195,8 +192,8 @@ const UserProfile = ({ user }: UserProfileProps) => {
     <StyledUserProfile>
       <UserBanner user={user} />
       <UserAvatar src={user.avatar}></UserAvatar>
-      <UserName to={`/${user.handle}`}>{user.name}</UserName>
-      <UserHandle to={`/${user.handle}`}>@{user.handle}</UserHandle>
+      <UserName>{user.name}</UserName>
+      <UserHandle>@{user.handle}</UserHandle>
       <UserBlurb>{user.blurb}</UserBlurb>
       <UserFollowerCount>
         Followers:&nbsp;{user.follower_count}

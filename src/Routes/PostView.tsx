@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { useParams, useRouteLoaderData } from 'react-router-dom';
-import styled from 'styled-components';
 import PostSubmission from '../components/PostSubmission/PostSubmission';
 import Post from '../components/Post/Post';
 import { InferProps } from 'prop-types';
@@ -8,22 +7,11 @@ import { getPost } from '../components/PostView/getPost';
 import { getParents } from '../components/PostView/getParents';
 import { getReplies } from '../components/PostView/getReplies';
 import { UserType } from '../Types/PropTypes';
+import { Div } from '../Styles/Div';
+import styled from 'styled-components';
 
-const StyledPostView = styled.div``;
-
-const PostViewMain = styled.div`
-  background: black;
-  border-width: 0 1px 0 1px;
-  border-style: solid;
-  border-color: grey;
-`;
-
-const Parents = styled.div``;
-
-const Replies = styled.div`
-  border-top-width: 1px;
-  border-top-color: grey;
-  border-top-style: solid;
+const PostContainer = styled(Div)`
+  border-width: 1px 0 0 0;
 `;
 
 type DataTypes = {
@@ -63,22 +51,20 @@ const PostView = () => {
   }, [params]);
 
   return (
-    <StyledPostView>
-      <PostViewMain>
-        <Parents>
-          {parentsLoaded && parents.length
-            ? parents.map((p) => <Post key={p.post_id} post={p} chain={true} />)
-            : null}
-        </Parents>
-        {postLoaded && <Post post={post} main={true} />}
-        {postLoaded && <PostSubmission post={post} user={userData} />}
-        <Replies>
-          {repliesLoaded && replies.length
-            ? replies.map((r) => <Post key={r.post_id} post={r} />)
-            : null}
-        </Replies>
-      </PostViewMain>
-    </StyledPostView>
+    <Div>
+      <Div>
+        {parentsLoaded && parents.length
+          ? parents.map((p) => <Post key={p.post_id} post={p} chain={true} />)
+          : null}
+      </Div>
+      {postLoaded && <Post post={post} main={true} />}
+      {postLoaded && <PostSubmission post={post} user={userData} />}
+      <PostContainer>
+        {repliesLoaded && replies.length
+          ? replies.map((r) => <Post key={r.post_id} post={r} />)
+          : null}
+      </PostContainer>
+    </Div>
   );
 };
 

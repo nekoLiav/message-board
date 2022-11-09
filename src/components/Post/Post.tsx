@@ -11,18 +11,17 @@ import PostContent from './PostContent';
 import PostLinker from './PostLinker';
 import { getUser } from '../../Helpers/getUser';
 import { PostType } from '../../Types/PropTypes';
+import { Div } from '../../Styles/Div';
 
-const StyledPost = styled.div`
+const StyledPost = styled(Div)`
   display: flex;
-  color: white;
-  transition: 0.2s;
-  border-color: grey;
-  border-style: solid;
+  background: ${(props) => (props.main ? props.theme.main : props.theme.bg)};
   border-bottom-width: ${(props) => (props.chain ? '0' : '1px')};
-  background: ${(props) => (props.main ? '#111111' : 'black')};
+  transition: 0.2s;
 
   &:hover {
-    background: ${(props) => (props.main ? '#222222' : '#111111')};
+    background: ${(props) =>
+      props.main ? props.theme.mainmo : props.theme.main};
     cursor: pointer;
   }
 `;
@@ -55,7 +54,7 @@ const PostRightTop = styled.div`
 `;
 
 const DatePosted = styled.p`
-  color: grey;
+  color: ${(props) => props.theme.fg2};
   font-size: 0.875rem;
 `;
 
@@ -82,7 +81,7 @@ const Post = ({ post, chain, main }: PostProps) => {
 
   const handleClick = (e) => {
     e.preventDefault();
-    navigate(`/${post.user_id}/post/${post.post_id}`);
+    navigate(`/${postUser.handle}/post/${post.post_id}`);
   };
 
   return (

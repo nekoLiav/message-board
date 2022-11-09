@@ -12,13 +12,14 @@ html {
 }
 
 body {
-  margin: 0;
   font-family: 'Roboto', sans-serif, -apple-system, BlinkMacSystemFont;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   height: 100%;
+  width: 100%;
 }
 
 #root {
   height: 100%;
+  width: 100%;
 }

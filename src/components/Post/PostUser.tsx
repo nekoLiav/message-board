@@ -10,7 +10,7 @@ const StyledPostUser = styled.div`
 const UserName = styled(Link)`
   font-weight: bold;
   text-decoration: none;
-  color: white;
+  color: ${(props) => props.theme.fg};
   font-size: 0.875rem;
 
   &:hover {
@@ -19,7 +19,7 @@ const UserName = styled(Link)`
 `;
 
 const UserHandle = styled(Link)`
-  color: grey;
+  color: ${(props) => props.theme.fg2};
   text-decoration: none;
   font-size: 0.875rem;
 

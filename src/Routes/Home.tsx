@@ -7,29 +7,22 @@ import Post from '../components/Post/Post';
 import { getHomePosts } from '../components/Home/getHomePosts';
 import { UserType } from '../Types/PropTypes';
 import { useRouteLoaderData } from 'react-router-dom';
+import { Div } from '../Styles/Div';
 
-const StyledHome = styled.div``;
-
-const HomeMain = styled.div`
-  display: flex;
-  flex-direction: column;
-  border-width: 0 1px 0 1px;
-  border-style: solid;
-  border-color: grey;
-`;
-
-const HomeInfo = styled.div`
+const HomeInfo = styled(Div)`
   display: flex;
   align-items: baseline;
-  height: 27px;
+  margin-left: 0.5rem;
 `;
 
-const HomeName = styled.p`
+const HomeName = styled(Div)`
   font-weight: bold;
   font-size: 1.5rem;
 `;
 
-const HomePosts = styled.div``;
+const PostContainer = styled(Div)`
+  border-width: 1px 0 0 0;
+`;
 
 type DataTypes = {
   user: InferProps<typeof UserType>;
@@ -49,22 +42,22 @@ const Home = () => {
   }, []);
 
   return (
-    <StyledHome>
+    <Div>
       {homeUpdated ? (
-        <HomeMain>
+        <Div>
           <HomeInfo>
             <HomeName>Home&nbsp;&#x2022;&nbsp;</HomeName>
             <PostUser user={userData} />
           </HomeInfo>
           <PostSubmission user={userData} />
-          <HomePosts>
+          <PostContainer>
             {homePosts.map((p) => (
               <Post key={p.post_id} post={p} />
             ))}
-          </HomePosts>
-        </HomeMain>
+          </PostContainer>
+        </Div>
       ) : null}
-    </StyledHome>
+    </Div>
   );
 };
 

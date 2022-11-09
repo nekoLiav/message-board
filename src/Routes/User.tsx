@@ -1,4 +1,3 @@
-import styled from 'styled-components';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { getUserPosts } from '../components/User/getUserPosts';
@@ -8,16 +7,11 @@ import { Div } from '../Styles/Div';
 import { collection, getDocs, query, where } from 'firebase/firestore';
 import { useParams } from 'react-router-dom';
 import { db } from '../firebase/firebase-config';
+import styled from 'styled-components';
 
-const StyledUser = styled(Div)`
-  display: flex;
-  flex-direction: column;
-  border-width: 0 1px 0 1px;
-  border-style: solid;
-  border-color: grey;
+const PostContainer = styled(Div)`
+  border-width: 1px 0 0 0;
 `;
-
-const UserPosts = styled.div``;
 
 const User = () => {
   const [user, setUser] = useState({});
@@ -42,13 +36,13 @@ const User = () => {
   }, []);
 
   return (
-    <StyledUser>
+    <Div>
       {userLoaded && <UserProfile user={user} />}
-      <UserPosts>
+      <PostContainer>
         {userPostsLoaded &&
           userPosts.map((post) => <Post key={post.post_id} post={post} />)}
-      </UserPosts>
-    </StyledUser>
+      </PostContainer>
+    </Div>
   );
 };
 
