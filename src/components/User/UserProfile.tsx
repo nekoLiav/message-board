@@ -3,6 +3,7 @@ import { format } from 'date-fns';
 import { InferProps } from 'prop-types';
 import { UserType } from '../../Types/PropTypes';
 import { Div } from '../../Styles/Div';
+import { Button } from '../../Styles/Button';
 
 const StyledUserProfile = styled(Div)`
   display: grid;
@@ -115,70 +116,28 @@ const UserPostCount = styled.p`
   font-size: 0.75rem;
 `;
 
-const FollowButton = styled.button`
-  color: white;
-  background: linear-gradient(
-    90deg,
-    rgba(0, 255, 255, 1) 0%,
-    rgba(255, 0, 255, 1) 100%
-  );
-  border: none;
+const FollowButton = styled(Button)`
   height: 2rem;
   width: 6rem;
   border-radius: 15px;
-  transition: 0.2s;
   grid-column-start: 7;
   grid-column-end: 8;
   grid-row-start: 9;
   grid-row-end: 11;
   margin: 0 1rem;
   align-self: center;
-
-  font-size: 1.125rem;
-  font-weight: bold;
-  text-shadow: 1px 1px 5px #333333;
-
-  &:hover {
-    cursor: pointer;
-    filter: brightness(110%);
-  }
-
-  &:active {
-    filter: brightness(90%);
-  }
 `;
 
-const DMButton = styled.button`
-  color: white;
-  background: linear-gradient(
-    90deg,
-    rgba(0, 255, 255, 1) 0%,
-    rgba(255, 0, 255, 1) 100%
-  );
-  border: none;
+const DMButton = styled(Button)`
   height: 2rem;
   width: 3rem;
   border-radius: 15px;
-  transition: 0.2s;
   grid-column-start: 6;
   grid-column-end: 7;
   grid-row-start: 9;
   grid-row-end: 11;
   align-self: center;
   justify-self: center;
-
-  font-size: 1.125rem;
-  font-weight: bold;
-  // text-shadow: 1px 1px 5px #333333;
-
-  &:hover {
-    cursor: pointer;
-    filter: brightness(110%);
-  }
-
-  &:active {
-    filter: brightness(90%);
-  }
 `;
 
 const UserProfilePropTypes = {
