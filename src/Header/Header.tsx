@@ -6,6 +6,10 @@ const StyledHeader = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-end;
+
+  @media (max-width: 350px) {
+    display: none;
+  }
 `;
 
 const HomeLink = styled(Link)`

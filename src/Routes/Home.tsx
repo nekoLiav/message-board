@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import PostSubmission from '../components/PostSubmission/PostSubmission';
 import { InferProps } from 'prop-types';
-import PostUser from '../components/Post/PostUser';
 import Post from '../components/Post/Post';
 import { getHomePosts } from '../components/Home/getHomePosts';
 import { UserType } from '../Types/PropTypes';
@@ -47,7 +46,6 @@ const Home = () => {
         <Div>
           <HomeInfo>
             <HomeName>Home&nbsp;&#x2022;&nbsp;</HomeName>
-            <PostUser user={userData} />
           </HomeInfo>
           <PostSubmission user={userData} />
           <PostContainer>

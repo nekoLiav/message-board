@@ -15,7 +15,12 @@ export const submitPost = (e: Event, { user, post }: submitPostArgs) => {
   try {
     const newPostDoc = doc(collection(db, 'posts'));
     const postTemplate = {
-      user_id: user.id,
+      user_data: {
+        id: user.id,
+        name: user.name,
+        handle: user.handle,
+        avatar: user.avatar,
+      },
       post_id: newPostDoc.id,
       parent_ids: [],
       date_posted: Date.now(),

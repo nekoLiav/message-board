@@ -1,20 +1,16 @@
+/* eslint-disable no-unused-vars */
 import styled from 'styled-components';
 import { InferProps } from 'prop-types';
 import * as PropTypes from 'prop-types';
-import { formatDistanceToNowStrict as f } from 'date-fns';
-import { useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import PostAvatar from './PostAvatar';
-import PostUser from './PostUser';
-import PostEngagement from './PostEngagement';
-import PostContent from './PostContent';
-import PostLinker from './PostLinker';
-import { getUser } from '../../Helpers/getUser';
+import { useNavigate, Link } from 'react-router-dom';
 import { PostType } from '../../Types/PropTypes';
 import { Div } from '../../Styles/Div';
+import { formatDistanceToNowStrict } from 'date-fns';
 
 const StyledPost = styled(Div)`
-  display: flex;
+  display: grid;
+  grid-template-columns: min-content repeat(4, minmax(min-content, 1fr)) 0.5rem;
+  grid-template-rows: repeat(3, 1rem) 1fr 1.5rem;
   background: ${(props) => (props.main ? props.theme.main : props.theme.bg)};
   border-bottom-width: ${(props) => (props.chain ? '0' : '1px')};
   transition: 0.2s;
@@ -26,36 +22,159 @@ const StyledPost = styled(Div)`
   }
 `;
 
-const PostMain = styled.div`
-  display: flex;
-  flex-grow: 1;
+const AvatarLink = styled(Link)`
+  max-width: 3rem;
+  max-height: 3rem;
+  grid-column-start: 1;
+  grid-column-end: 2;
+  grid-row-start: 1;
+  grid-row-end: 3;
+  margin: 0.5rem;
 `;
 
-const PostLeft = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 0.5rem;
-  margin-left: 0.5rem;
-  gap: 0.5rem;
+const Avatar = styled.img`
+  display: block;
+  max-width: 3rem;
+  max-height: 3rem;
+  border-radius: 100%;
 `;
 
-const PostRight = styled.div`
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-  gap: 0.5rem;
-  padding: 0.5rem;
-  margin-right: 0.5rem;
+const Linker = styled.div`
+  display: ${(props) => (props.chain ? 'block' : 'none')};
+  background: ${(props) => props.theme.brd};
+  width: 2px;
+  justify-self: center;
+  grid-column-start: 1;
+  grid-column-end: 2;
+  grid-row-start: 4;
+  grid-row-end: 6;
+  margin-top: 1rem;
 `;
 
-const PostRightTop = styled.div`
+const Info = styled.div`
   display: flex;
+  grid-column-start: 2;
+  grid-column-end: 6;
+  grid-row-start: 1;
+  grid-row-end: 3;
+`;
+
+const UserName = styled(Link)`
+  align-self: center;
+  font-weight: bold;
+  text-decoration: none;
+  color: ${(props) => props.theme.fg};
+  font-size: 0.875rem;
+
+  &:hover {
+    text-decoration: underline;
+  }
+`;
+
+const UserHandle = styled(Link)`
+  align-self: center;
+  color: ${(props) => props.theme.fg2};
+  text-decoration: none;
+  font-size: 0.875rem;
+
+  &:hover {
+    text-decoration: underline;
+  }
 `;
 
 const DatePosted = styled.p`
+  align-self: center;
   color: ${(props) => props.theme.fg2};
   font-size: 0.875rem;
+`;
+
+const Content = styled.div`
+  grid-column-start: 2;
+  grid-column-end: 6;
+  grid-row-start: 3;
+  grid-row-end: 5;
+`;
+
+const Text = styled.p`
+  overflow-wrap: anywhere;
+  font-size: 0.875rem;
+`;
+
+const Img = styled.img`
+  display: block;
+  border: 1px solid grey;
+  border-radius: 15px;
+  max-width: 100%;
+  margin-top: 0.5rem;
+`;
+
+const Replies = styled.div`
+  align-self: center;
+  display: flex;
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 5;
+  grid-row-end: 6;
+
+  &:hover {
+    color: #00ffff;
+  }
+`;
+
+const RepliesIcon = styled.p`
+  font-weight: bold;
+  font-size: 0.75rem;
+`;
+
+const RepliesCount = styled.p`
+  font-weight: bold;
+  font-size: 0.75rem;
+`;
+
+const Reposts = styled.div`
+  align-self: center;
+  display: flex;
+  grid-column-start: 3;
+  grid-column-end: 4;
+  grid-row-start: 5;
+  grid-row-end: 6;
+
+  &:hover {
+    color: #00ff00;
+  }
+`;
+
+const RepostsIcon = styled.p`
+  font-weight: bold;
+  font-size: 0.75rem;
+`;
+
+const RepostsCount = styled.p`
+  font-weight: bold;
+  font-size: 0.75rem;
+`;
+
+const Likes = styled.div`
+  align-self: center;
+  display: flex;
+  grid-column-start: 4;
+  grid-column-end: 5;
+  grid-row-start: 5;
+  grid-row-end: 6;
+
+  &:hover {
+    color: #ff00ff;
+  }
+`;
+
+const LikesIcon = styled.p`
+  font-weight: bold;
+  font-size: 0.75rem;
+`;
+
+const LikesCount = styled.p`
+  font-weight: bold;
+  font-size: 0.75rem;
 `;
 
 const PostPropTypes = {
@@ -67,41 +186,47 @@ const PostPropTypes = {
 type PostProps = InferProps<typeof PostPropTypes>;
 
 const Post = ({ post, chain, main }: PostProps) => {
-  const [postUser, setPostUser] = useState(null);
-  const [postLoaded, setPostLoaded] = useState(false);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    (async () => {
-      const postUserData = await getUser(post.user_id);
-      setPostUser(postUserData);
-      setPostLoaded(true);
-    })();
-  }, []);
 
   const handleClick = (e) => {
     e.preventDefault();
-    navigate(`/${postUser.handle}/post/${post.post_id}`);
+    navigate(`/${post.user_data.handle}/post/${post.post_id}`);
   };
 
   return (
     <StyledPost chain={chain} main={main} onClick={handleClick}>
-      {postLoaded && (
-        <PostMain>
-          <PostLeft>
-            <PostAvatar user={postUser} />
-            {chain === true ? <PostLinker /> : null}
-          </PostLeft>
-          <PostRight>
-            <PostRightTop>
-              <PostUser user={postUser} />
-              <DatePosted>&#x2022;&nbsp;{f(post.date_posted)}</DatePosted>
-            </PostRightTop>
-            <PostContent post={post} />
-            <PostEngagement post={post} />
-          </PostRight>
-        </PostMain>
-      )}
+      <AvatarLink to={`/${post.user_data.handle}`}>
+        <Avatar src={post.user_data.avatar} />
+      </AvatarLink>
+      <Linker chain={chain} />
+      <Info>
+        <UserName to={`/${post.user_data.handle}`}>
+          {post.user_data.name}&nbsp;
+        </UserName>
+        <UserHandle to={`/${post.user_data.handle}`}>
+          {`@${post.user_data.handle}`}&nbsp;
+        </UserHandle>
+        <DatePosted>
+          &#x2022;&nbsp;{formatDistanceToNowStrict(post.date_posted)}
+        </DatePosted>
+      </Info>
+      <Content>
+        <Text>{post.text}</Text>
+        {post.img_url === null ? null : <Img src={post.img_url} />}
+        {post.vid_url === null ? null : <Img src={post.vid_url} />}
+      </Content>
+      <Replies>
+        <RepliesIcon>Replies:&nbsp;</RepliesIcon>
+        <RepliesCount>{post.replies}</RepliesCount>
+      </Replies>
+      <Reposts>
+        <RepostsIcon>Reposts:&nbsp;</RepostsIcon>
+        <RepostsCount>{post.reposts}</RepostsCount>
+      </Reposts>
+      <Likes>
+        <LikesIcon>Likes:&nbsp;</LikesIcon>
+        <LikesCount>{post.likes}</LikesCount>
+      </Likes>
     </StyledPost>
   );
 };

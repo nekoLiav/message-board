@@ -15,13 +15,18 @@ export const UserType = PropTypes.shape({
 });
 
 export const PostType = PropTypes.shape({
+  user_data: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    handle: PropTypes.string.isRequired,
+    avatar: PropTypes.string.isRequired,
+  }),
   date_posted: PropTypes.number.isRequired,
   post_id: PropTypes.string.isRequired,
   parent_ids: PropTypes.array.isRequired,
   text: PropTypes.string.isRequired,
   img_url: PropTypes.string,
   vid_url: PropTypes.string,
-  user_id: PropTypes.string.isRequired,
   replies: PropTypes.number.isRequired,
   reposts: PropTypes.number.isRequired,
   likes: PropTypes.number.isRequired,

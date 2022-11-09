@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import { InferProps } from 'prop-types';
-import PostAvatar from '../Post/PostAvatar';
 import { submitPost } from './submitPost';
 import { UserType, PostType } from '../../Types/PropTypes';
 import { Div } from '../../Styles/Div';
@@ -42,7 +41,6 @@ type PostSubmissionProps = InferProps<typeof PostSubmissionPropTypes>;
 const PostSubmission = ({ user, post }: PostSubmissionProps) => {
   return (
     <StyledPostSubmission>
-      <PostAvatar user={user} />
       <PostSubmissionForm onSubmit={(e) => submitPost(e, { user, post })}>
         <Div>
           <BodyField name="body" id="body" placeholder="..."></BodyField>
