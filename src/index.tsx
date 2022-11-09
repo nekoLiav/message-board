@@ -17,8 +17,8 @@ const router = createBrowserRouter([
     element: <App />,
     id: 'app',
     loader: async () => {
-      const user = await signIn;
-      return user;
+      const clientUser = await signIn;
+      return clientUser;
     },
     children: [
       {

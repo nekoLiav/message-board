@@ -30,7 +30,7 @@ type DataTypes = {
 const Home = () => {
   const [homePosts, setHomePosts] = useState([]);
   const [homeUpdated, setHomeUpdated] = useState(false);
-  const userData: DataTypes['user'] = useRouteLoaderData('app');
+  const clientUser: DataTypes['user'] = useRouteLoaderData('app');
 
   useEffect(() => {
     (async () => {
@@ -47,7 +47,7 @@ const Home = () => {
           <HomeInfo>
             <HomeName>Home&nbsp;&#x2022;&nbsp;</HomeName>
           </HomeInfo>
-          <PostSubmission user={userData} />
+          <PostSubmission user={clientUser} />
           <PostContainer>
             {homePosts.map((p) => (
               <Post key={p.post_id} post={p} />

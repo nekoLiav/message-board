@@ -25,7 +25,7 @@ const PostView = () => {
   const [parentsLoaded, setParentsLoaded] = useState(false);
   const [replies, setReplies] = useState([]);
   const [repliesLoaded, setRepliesLoaded] = useState(false);
-  const userData: DataTypes['user'] = useRouteLoaderData('app');
+  const clientUser: DataTypes['user'] = useRouteLoaderData('app');
   const params = useParams();
 
   useEffect(() => {
@@ -55,7 +55,7 @@ const PostView = () => {
           : null}
       </Div>
       {postLoaded && <Post post={post} main={true} />}
-      {postLoaded && <PostSubmission post={post} user={userData} />}
+      {postLoaded && <PostSubmission post={post} user={clientUser} />}
       <PostContainer>
         {repliesLoaded && replies.length
           ? replies.map((r) => <Post key={r.post_id} post={r} />)
