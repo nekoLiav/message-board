@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { useEffect } from 'react';
-import { getUserPosts } from '../components/User/getUserPosts';
-import Post from '../components/Post/Post';
-import UserProfile from '../components/User/UserProfile';
-import { Div } from '../Styles/Div';
+import { getUserPosts } from '../functions/getUserPosts';
+import Post from '../components/Post';
+import UserProfile from '../components/UserProfile';
+import { Div } from '../styles/Div';
 import { collection, getDocs, query, where } from 'firebase/firestore';
 import { useParams } from 'react-router-dom';
-import { db } from '../firebase/firebase-config';
+import { db } from '../functions/firebase-config';
 import styled from 'styled-components';
 
 const PostContainer = styled(Div)`

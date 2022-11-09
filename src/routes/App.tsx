@@ -1,9 +1,9 @@
 import styled, { ThemeProvider } from 'styled-components';
 import { Outlet } from 'react-router-dom';
-import Header from '../Header/Header';
-import Aside from '../Aside/Aside';
-import dark from '../Themes/Dark';
-import { Div } from '../Styles/Div';
+import Header from '../components/Header';
+import Aside from '../components/Aside';
+import dark from '../themes/Dark';
+import { Div } from '../styles/Div';
 
 const StyledApp = styled(Div)`
   display: grid;

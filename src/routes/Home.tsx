@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import PostSubmission from '../components/PostSubmission/PostSubmission';
+import PostSubmission from '../components/PostSubmission';
 import { InferProps } from 'prop-types';
-import Post from '../components/Post/Post';
-import { getHomePosts } from '../components/Home/getHomePosts';
-import { UserType } from '../Types/PropTypes';
+import Post from '../components/Post';
+import { getHomePosts } from '../functions/getHomePosts';
+import { UserType } from '../types/PropTypes';
 import { useRouteLoaderData } from 'react-router-dom';
-import { Div } from '../Styles/Div';
+import { Div } from '../styles/Div';
 
 const HomeInfo = styled(Div)`
   display: flex;

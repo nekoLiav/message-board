@@ -4,12 +4,12 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './styles/meyer-reset.css';
 import './styles/index.css';
 
-import App from './Routes/App';
-import Home from './Routes/Home';
-import User from './Routes/User';
-import PostView from './Routes/PostView';
+import App from './routes/App';
+import Home from './routes/Home';
+import User from './routes/User';
+import PostView from './routes/PostView';
 
-import signIn from './Helpers/signIn';
+import signIn from './functions/signIn';
 
 const router = createBrowserRouter([
   {

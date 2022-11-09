@@ -3,8 +3,8 @@ import styled from 'styled-components';
 import { InferProps } from 'prop-types';
 import * as PropTypes from 'prop-types';
 import { useNavigate, Link } from 'react-router-dom';
-import { PostType } from '../../Types/PropTypes';
-import { Div } from '../../Styles/Div';
+import { PostType } from '../types/PropTypes';
+import { Div } from '../styles/Div';
 import { formatDistanceToNowStrict } from 'date-fns';
 
 const StyledPost = styled(Div)`

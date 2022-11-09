@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useParams, useRouteLoaderData } from 'react-router-dom';
-import PostSubmission from '../components/PostSubmission/PostSubmission';
-import Post from '../components/Post/Post';
+import PostSubmission from '../components/PostSubmission';
+import Post from '../components/Post';
 import { InferProps } from 'prop-types';
-import { getPost } from '../components/PostView/getPost';
-import { getParents } from '../components/PostView/getParents';
-import { getReplies } from '../components/PostView/getReplies';
-import { UserType } from '../Types/PropTypes';
-import { Div } from '../Styles/Div';
+import { getPost } from '../functions/getPost';
+import { getParents } from '../functions/getParents';
+import { getReplies } from '../functions/getReplies';
+import { UserType } from '../types/PropTypes';
+import { Div } from '../styles/Div';
 import styled from 'styled-components';
 
 const PostContainer = styled(Div)`

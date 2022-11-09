@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 import { format } from 'date-fns';
 import { InferProps } from 'prop-types';
-import { UserType } from '../../Types/PropTypes';
-import { Div } from '../../Styles/Div';
-import { Button } from '../../Styles/Button';
+import { UserType } from '../types/PropTypes';
+import { Div } from '../styles/Div';
+import { Button } from '../styles/Button';
 
 const StyledUserProfile = styled(Div)`
   display: grid;

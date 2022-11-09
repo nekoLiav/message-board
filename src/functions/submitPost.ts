@@ -1,7 +1,7 @@
 import { doc, collection, setDoc } from 'firebase/firestore';
 import { InferProps } from 'prop-types';
-import { db } from '../../firebase/firebase-config';
-import { PostType, UserType } from '../../Types/PropTypes';
+import { db } from './firebase-config';
+import { PostType, UserType } from '../types/PropTypes';
 
 const submitPostArgTypes = {
   user: UserType,

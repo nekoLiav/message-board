@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 import { InferProps } from 'prop-types';
-import { submitPost } from './submitPost';
-import { UserType, PostType } from '../../Types/PropTypes';
-import { Div } from '../../Styles/Div';
-import { Button } from '../../Styles/Button';
-import { TextArea } from '../../Styles/TextArea';
+import { submitPost } from '../functions/submitPost';
+import { UserType, PostType } from '../types/PropTypes';
+import { Div } from '../styles/Div';
+import { Button } from '../styles/Button';
+import { TextArea } from '../styles/TextArea';
 
 const StyledPostSubmission = styled(Div)`
   display: flex;
