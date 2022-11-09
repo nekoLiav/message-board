@@ -27,7 +27,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "emulate": "firebase emulators:start --import=./saved-database-stuff --export-on-exit=./saved-database-stuff",
-    "stopall": "kill -9 $(lsof -ti:3000,4000,4001,4400,4500,5001,8080,9099)",
+    "stopall": "lsof -t -i:4000 -i:5001 -i:8080 -i:9099 | xargs kill -9",
     "update": "ncu --interactive --format group"
   },
   "eslintConfig": {
