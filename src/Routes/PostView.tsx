@@ -1,24 +1,15 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useRouteLoaderData } from 'react-router-dom';
 import styled from 'styled-components';
-import Header from '../Header';
-import PostSubmission from '../PostSubmission/PostSubmission';
-import Post from '../Post/Post';
+import PostSubmission from '../components/PostSubmission/PostSubmission';
+import Post from '../components/Post/Post';
 import { InferProps } from 'prop-types';
-import { getPost } from './getPost';
-import { getParents } from './getParents';
-import { getReplies } from './getReplies';
-import { UserType } from '../../Types/PropTypes';
+import { getPost } from '../components/PostView/getPost';
+import { getParents } from '../components/PostView/getParents';
+import { getReplies } from '../components/PostView/getReplies';
+import { UserType } from '../Types/PropTypes';
 
-const StyledPostView = styled.div`
-  color: white;
-  display: grid;
-  grid-auto-flow: column;
-  grid-template-columns: 1fr minmax(min-content, 600px) 1fr;
-  height: 100%;
-  width: 100%;
-  background: black;
-`;
+const StyledPostView = styled.div``;
 
 const PostViewMain = styled.div`
   background: black;
@@ -35,29 +26,24 @@ const Replies = styled.div`
   border-top-style: solid;
 `;
 
-const PostViewAside = styled.div`
-  background: black;
-`;
-
-const PostViewPropTypes = {
-  user: UserType.isRequired,
+type DataTypes = {
+  user: InferProps<typeof UserType>;
 };
 
-type PostViewProps = InferProps<typeof PostViewPropTypes>;
-
-const PostView = ({ user }: PostViewProps) => {
+const PostView = () => {
   const [post, setPost] = useState(null);
   const [postLoaded, setPostLoaded] = useState(false);
   const [parents, setParents] = useState([]);
   const [parentsLoaded, setParentsLoaded] = useState(false);
   const [replies, setReplies] = useState([]);
   const [repliesLoaded, setRepliesLoaded] = useState(false);
+  const userData: DataTypes['user'] = useRouteLoaderData('app');
   const params = useParams();
 
   useEffect(() => {
     (async () => {
       // load main post from url
-      const postData = await getPost(params.post);
+      const postData = await getPost(params.post_id);
       setPost(postData);
       setPostLoaded(true);
       // load parent posts through to the "root" post
@@ -78,7 +64,6 @@ const PostView = ({ user }: PostViewProps) => {
 
   return (
     <StyledPostView>
-      <Header />
       <PostViewMain>
         <Parents>
           {parentsLoaded && parents.length
@@ -86,18 +71,15 @@ const PostView = ({ user }: PostViewProps) => {
             : null}
         </Parents>
         {postLoaded && <Post post={post} main={true} />}
-        {postLoaded && <PostSubmission post={post} user={user} />}
+        {postLoaded && <PostSubmission post={post} user={userData} />}
         <Replies>
           {repliesLoaded && replies.length
             ? replies.map((r) => <Post key={r.post_id} post={r} />)
             : null}
         </Replies>
       </PostViewMain>
-      <PostViewAside />
     </StyledPostView>
   );
 };
-
-PostView.propTypes = PostViewPropTypes;
 
 export default PostView;

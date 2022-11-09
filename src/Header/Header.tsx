@@ -5,9 +5,7 @@ import { ReactComponent as Icon } from '../assets/logo.svg';
 const StyledHeader = styled.div`
   display: flex;
   flex-direction: column;
-  background: black;
   align-items: flex-end;
-  flex-grow: 1;
 `;
 
 const HomeLink = styled(Link)`

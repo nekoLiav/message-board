@@ -1,22 +1,14 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import Header from '../Header';
-import PostSubmission from '../PostSubmission/PostSubmission';
+import PostSubmission from '../components/PostSubmission/PostSubmission';
 import { InferProps } from 'prop-types';
-import PostUser from '../Post/PostUser';
-import Post from '../Post/Post';
-import { getHomePosts } from './getHomePosts';
-import { UserType } from '../../Types/PropTypes';
+import PostUser from '../components/Post/PostUser';
+import Post from '../components/Post/Post';
+import { getHomePosts } from '../components/Home/getHomePosts';
+import { UserType } from '../Types/PropTypes';
+import { useRouteLoaderData } from 'react-router-dom';
 
-const StyledHome = styled.div`
-  display: grid;
-  grid-auto-flow: column;
-  grid-template-columns: 1fr minmax(min-content, 600px) 1fr;
-  height: 100%;
-  background: black;
-  overflow: auto;
-  color: white;
-`;
+const StyledHome = styled.div``;
 
 const HomeMain = styled.div`
   display: flex;
@@ -39,17 +31,14 @@ const HomeName = styled.p`
 
 const HomePosts = styled.div``;
 
-const HomeAside = styled.div``;
-
-const HomePropTypes = {
-  user: UserType,
+type DataTypes = {
+  user: InferProps<typeof UserType>;
 };
 
-type HomeProps = InferProps<typeof HomePropTypes>;
-
-const Home = ({ user }: HomeProps) => {
+const Home = () => {
   const [homePosts, setHomePosts] = useState([]);
   const [homeUpdated, setHomeUpdated] = useState(false);
+  const userData: DataTypes['user'] = useRouteLoaderData('app');
 
   useEffect(() => {
     (async () => {
@@ -61,14 +50,13 @@ const Home = ({ user }: HomeProps) => {
 
   return (
     <StyledHome>
-      <Header />
       {homeUpdated ? (
         <HomeMain>
           <HomeInfo>
             <HomeName>Home&nbsp;&#x2022;&nbsp;</HomeName>
-            <PostUser user={user} />
+            <PostUser user={userData} />
           </HomeInfo>
-          <PostSubmission user={user} />
+          <PostSubmission user={userData} />
           <HomePosts>
             {homePosts.map((p) => (
               <Post key={p.post_id} post={p} />
@@ -76,11 +64,8 @@ const Home = ({ user }: HomeProps) => {
           </HomePosts>
         </HomeMain>
       ) : null}
-      <HomeAside />
     </StyledHome>
   );
 };
-
-Home.propTypes = HomePropTypes;
 
 export default Home;

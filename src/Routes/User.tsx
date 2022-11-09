@@ -1,22 +1,13 @@
 import styled from 'styled-components';
-import Header from '../Header';
 import { InferProps } from 'prop-types';
 import { useState } from 'react';
 import { useEffect } from 'react';
-import { getUserPosts } from './getUserPosts';
-import Post from '../Post/Post';
-import UserProfile from './UserProfile';
-import { UserType } from '../../Types/PropTypes';
+import { getUserPosts } from '../components/User/getUserPosts';
+import Post from '../components/Post/Post';
+import UserProfile from '../components/User/UserProfile';
+import { UserType } from '../Types/PropTypes';
 
-const StyledUser = styled.div`
-  display: grid;
-  grid-auto-flow: column;
-  grid-template-columns: 1fr minmax(min-content, 600px) 1fr;
-  height: 100%;
-  background: black;
-  overflow: auto;
-  color: white;
-`;
+const StyledUser = styled.div``;
 
 const UserMain = styled.div`
   display: flex;
@@ -28,10 +19,8 @@ const UserMain = styled.div`
 
 const UserPosts = styled.div``;
 
-const UserAside = styled.div``;
-
 const UserPropTypes = {
-  user: UserType.isRequired,
+  user: UserType,
 };
 
 type UserProps = InferProps<typeof UserPropTypes>;
@@ -50,7 +39,6 @@ const User = ({ user }: UserProps) => {
 
   return (
     <StyledUser>
-      <Header />
       <UserMain>
         <UserProfile user={user} />
         <UserPosts>
@@ -58,7 +46,6 @@ const User = ({ user }: UserProps) => {
             userPosts.map((post) => <Post key={post.post_id} post={post} />)}
         </UserPosts>
       </UserMain>
-      <UserAside />
     </StyledUser>
   );
 };
