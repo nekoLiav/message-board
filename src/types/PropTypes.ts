@@ -1,6 +1,6 @@
 import * as PropTypes from 'prop-types';
 
-export const UserType = PropTypes.shape({
+export const UserPropType = PropTypes.shape({
   avatar: PropTypes.string.isRequired,
   birthday: PropTypes.number.isRequired,
   blurb: PropTypes.string.isRequired,
@@ -14,7 +14,7 @@ export const UserType = PropTypes.shape({
   profile_color: PropTypes.string.isRequired,
 });
 
-export const PostType = PropTypes.shape({
+export const PostPropType = PropTypes.shape({
   user_data: PropTypes.shape({
     id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,

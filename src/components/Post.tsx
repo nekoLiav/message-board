@@ -1,13 +1,12 @@
 /* eslint-disable no-unused-vars */
 import styled from 'styled-components';
-import { InferProps } from 'prop-types';
 import * as PropTypes from 'prop-types';
 import { useNavigate, Link } from 'react-router-dom';
-import { PostType } from '../types/PropTypes';
+import { PostPropType } from '../types/PropTypes';
 import { Div } from '../styles/Div';
 import { formatDistanceToNowStrict } from 'date-fns';
 
-const StyledPost = styled(Div)`
+const StyledPost = styled(Div)<{ chain: boolean; main: boolean }>`
   display: grid;
   grid-template-columns: min-content repeat(4, minmax(min-content, 1fr)) 0.5rem;
   grid-template-rows: repeat(3, 1rem) 1fr 1.5rem;
@@ -39,7 +38,7 @@ const Avatar = styled.img`
   border-radius: 100%;
 `;
 
-const Linker = styled.div`
+const Linker = styled.div<{ chain: boolean }>`
   display: ${(props) => (props.chain ? 'block' : 'none')};
   background: ${(props) => props.theme.brd};
   width: 2px;
@@ -177,19 +176,16 @@ const LikesCount = styled.p`
   font-size: 0.75rem;
 `;
 
-const PostPropTypes = {
-  post: PostType.isRequired,
-  chain: PropTypes.bool,
-  main: PropTypes.bool,
+type PostProps = {
+  post: PostType;
+  main?: boolean;
+  chain?: boolean;
 };
 
-type PostProps = InferProps<typeof PostPropTypes>;
-
-const Post = ({ post, chain, main }: PostProps) => {
+const Post = ({ post, main, chain }: PostProps) => {
   const navigate = useNavigate();
 
-  const handleClick = (e) => {
-    e.preventDefault();
+  const handleClick = () => {
     navigate(`/${post.user_data.handle}/post/${post.post_id}`);
   };
 
@@ -231,6 +227,10 @@ const Post = ({ post, chain, main }: PostProps) => {
   );
 };
 
-Post.propTypes = PostPropTypes;
+Post.propTypes = {
+  post: PostPropType.isRequired,
+  chain: PropTypes.bool,
+  main: PropTypes.bool,
+};
 
 export default Post;

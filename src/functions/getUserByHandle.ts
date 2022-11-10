@@ -1,7 +1,7 @@
 import { collection, getDocs, query, where } from 'firebase/firestore';
 import { db } from './firebase-config';
 
-export const getUserByHandle = async (handle: Required<string>) => {
+export const getUserByHandle = async (handle: string) => {
   try {
     const userRef = query(
       collection(db, 'users'),

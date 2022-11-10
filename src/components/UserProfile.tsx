@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import { format } from 'date-fns';
-import { InferProps } from 'prop-types';
-import { UserType } from '../types/PropTypes';
+import { UserPropType } from '../types/PropTypes';
 import { Div } from '../styles/Div';
 import { Button } from '../styles/Button';
 
@@ -11,8 +10,8 @@ const StyledUserProfile = styled(Div)`
   grid-template-rows: repeat(13, minmax(1rem, 1.5rem));
 `;
 
-const UserBanner = styled(Div)`
-  background: ${(props) => props.user.profile_color};
+const UserBanner = styled(Div)<{ profileColor: string }>`
+  background: ${(props) => props.profileColor};
   grid-column-start: 1;
   grid-column-end: 8;
   grid-row-start: 2;
@@ -140,16 +139,14 @@ const DMButton = styled(Button)`
   justify-self: center;
 `;
 
-const UserProfilePropTypes = {
-  user: UserType.isRequired,
+type UserProfileProps = {
+  user: UserType;
 };
-
-type UserProfileProps = InferProps<typeof UserProfilePropTypes>;
 
 const UserProfile = ({ user }: UserProfileProps) => {
   return (
     <StyledUserProfile>
-      <UserBanner user={user} />
+      <UserBanner profileColor={user.profile_color} />
       <UserAvatar src={user.avatar}></UserAvatar>
       <UserName>{user.name}</UserName>
       <UserHandle>@{user.handle}</UserHandle>
@@ -171,6 +168,8 @@ const UserProfile = ({ user }: UserProfileProps) => {
   );
 };
 
-UserProfile.propTypes = UserProfilePropTypes;
+UserProfile.propTypes = {
+  user: UserPropType.isRequired,
+};
 
 export default UserProfile;

@@ -2,21 +2,15 @@ import { useEffect, useState } from 'react';
 import { useParams, useRouteLoaderData } from 'react-router-dom';
 import PostSubmission from '../components/PostSubmission';
 import Post from '../components/Post';
-import { InferProps } from 'prop-types';
 import { getPost } from '../functions/getPostByID';
 import { getParents } from '../functions/getParentsByIDs';
 import { getReplies } from '../functions/getRepliesByID';
-import { UserType } from '../types/PropTypes';
 import { Div } from '../styles/Div';
 import styled from 'styled-components';
 
 const PostContainer = styled(Div)`
   border-width: 1px 0 0 0;
 `;
-
-type DataTypes = {
-  user: InferProps<typeof UserType>;
-};
 
 const PostView = () => {
   const [post, setPost] = useState(null);
@@ -25,7 +19,7 @@ const PostView = () => {
   const [parentsLoaded, setParentsLoaded] = useState(false);
   const [replies, setReplies] = useState([]);
   const [repliesLoaded, setRepliesLoaded] = useState(false);
-  const clientUser: DataTypes['user'] = useRouteLoaderData('app');
+  const clientUser = useRouteLoaderData('app') as UserType;
   const params = useParams();
 
   useEffect(() => {
@@ -55,7 +49,7 @@ const PostView = () => {
           : null}
       </Div>
       {postLoaded && <Post post={post} main={true} />}
-      {postLoaded && <PostSubmission post={post} user={clientUser} />}
+      {postLoaded && <PostSubmission post={post} clientUser={clientUser} />}
       <PostContainer>
         {repliesLoaded && replies.length
           ? replies.map((r) => <Post key={r.post_id} post={r} />)

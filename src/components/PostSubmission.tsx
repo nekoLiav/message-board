@@ -1,7 +1,6 @@
 import styled from 'styled-components';
-import { InferProps } from 'prop-types';
 import { submitPost } from '../functions/submitPost';
-import { UserType, PostType } from '../types/PropTypes';
+import { UserPropType, PostPropType } from '../types/PropTypes';
 import { Div } from '../styles/Div';
 import { Button } from '../styles/Button';
 import { TextArea } from '../styles/TextArea';
@@ -50,20 +49,18 @@ const SubmitButton = styled(Button)`
   align-self: end;
 `;
 
-const PostSubmissionPropTypes = {
-  user: UserType.isRequired,
-  post: PostType,
+type PostSubmissionProps = {
+  clientUser: UserType;
+  post?: PostType;
 };
 
-type PostSubmissionProps = InferProps<typeof PostSubmissionPropTypes>;
-
-const PostSubmission = ({ user, post }: PostSubmissionProps) => {
+const PostSubmission = ({ clientUser, post }: PostSubmissionProps) => {
   return (
     <StyledPostSubmission>
-      <AvatarLink to={`/${user.handle}`}>
-        <Avatar src={user.avatar} />
+      <AvatarLink to={`/${clientUser.handle}`}>
+        <Avatar src={clientUser.avatar} />
       </AvatarLink>
-      <PostSubmissionForm onSubmit={(e) => submitPost(e, { user, post })}>
+      <PostSubmissionForm onSubmit={(e) => submitPost(e, clientUser, post)}>
         <Div>
           <BodyField name="body" id="body" placeholder="..."></BodyField>
         </Div>
@@ -73,6 +70,10 @@ const PostSubmission = ({ user, post }: PostSubmissionProps) => {
   );
 };
 
-PostSubmission.propTypes = PostSubmissionPropTypes;
+PostSubmission.propTypes = {
+  clientUser: UserPropType,
+  user: UserPropType,
+  post: PostPropType,
+};
 
 export default PostSubmission;

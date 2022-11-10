@@ -1,20 +1,16 @@
 import { doc, collection, setDoc } from 'firebase/firestore';
-import { InferProps } from 'prop-types';
 import { db } from './firebase-config';
-import { PostType, UserType } from '../types/PropTypes';
 
-const submitPostArgTypes = {
-  user: UserType.isRequired,
-  post: PostType,
-};
-
-type submitPostArgs = InferProps<typeof submitPostArgTypes>;
-
-export const submitPost = (e: Event, { user, post }: submitPostArgs) => {
+export const submitPost = (
+  e: React.FormEvent,
+  user: UserType,
+  post: PostType
+) => {
   e.preventDefault();
+  const target = e.target as HTMLTextAreaElement;
   try {
     const newPostDoc = doc(collection(db, 'posts'));
-    const postTemplate = {
+    const postTemplate: PostType = {
       user_data: {
         id: user.id,
         name: user.name,
@@ -26,7 +22,7 @@ export const submitPost = (e: Event, { user, post }: submitPostArgs) => {
       date_posted: Date.now(),
       img_url: null,
       vid_url: null,
-      text: e.target[0].value,
+      text: target.value,
       tags: [],
       replies: 0,
       reposts: 0,

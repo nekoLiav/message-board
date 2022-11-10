@@ -31,5 +31,7 @@ declare global {
     replies: number;
     reposts: number;
     likes: number;
+    tags: [];
+    is_reply: boolean;
   };
 }

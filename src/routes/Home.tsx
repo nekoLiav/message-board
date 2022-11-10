@@ -1,10 +1,8 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import PostSubmission from '../components/PostSubmission';
-import { InferProps } from 'prop-types';
 import Post from '../components/Post';
 import { getHomePosts } from '../functions/getHomePosts';
-import { UserType } from '../types/PropTypes';
 import { useRouteLoaderData } from 'react-router-dom';
 import { Div } from '../styles/Div';
 
@@ -23,14 +21,10 @@ const PostContainer = styled(Div)`
   border-width: 1px 0 0 0;
 `;
 
-type DataTypes = {
-  user: InferProps<typeof UserType>;
-};
-
 const Home = () => {
   const [homePosts, setHomePosts] = useState([]);
   const [homeUpdated, setHomeUpdated] = useState(false);
-  const clientUser: DataTypes['user'] = useRouteLoaderData('app');
+  const clientUser = useRouteLoaderData('app') as UserType;
 
   useEffect(() => {
     (async () => {
@@ -47,7 +41,7 @@ const Home = () => {
           <HomeInfo>
             <HomeName>Home&nbsp;&#x2022;&nbsp;</HomeName>
           </HomeInfo>
-          <PostSubmission user={clientUser} />
+          <PostSubmission clientUser={clientUser} />
           <PostContainer>
             {homePosts.map((p) => (
               <Post key={p.post_id} post={p} />
