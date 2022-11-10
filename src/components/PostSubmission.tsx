@@ -65,6 +65,7 @@ const PostSubmission = ({ clientUser, post }: PostSubmissionProps) => {
       </AvatarLink>
       {clientUser && (
         <PostSubmissionForm
+          // type assertion hack to get things working for now
           onSubmit={(e) => submitPost(e, clientUser, post as PostType)}
         >
           <Div>

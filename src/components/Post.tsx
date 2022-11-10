@@ -7,6 +7,7 @@ import { Div } from '../styles/Div';
 import { formatDistanceToNowStrict } from 'date-fns';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { solid, regular } from '@fortawesome/fontawesome-svg-core/import.macro';
+
 const StyledPost = styled(Div)<{
   chain: boolean | undefined;
   main: boolean | undefined;

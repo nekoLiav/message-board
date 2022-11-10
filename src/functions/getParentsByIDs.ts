@@ -7,6 +7,7 @@ export const getParents = (ids: Required<string[]>) => {
     ids.forEach(async (id) => {
       const parentRef = doc(db, 'posts', id);
       const parentSnap = await getDoc(parentRef);
+      // type assertion hack to get things working for now
       parentPosts.push(parentSnap.data() as PostType);
     });
   } catch (error) {

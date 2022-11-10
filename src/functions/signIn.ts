@@ -6,6 +6,7 @@ export default signInWithEmailAndPassword(auth, 'peepee@poopoo.com', '123456')
   .then(async (userCredential) => {
     const clientUserID = await userCredential.user.uid;
     const clientUser = await getUser(clientUserID);
+    // type assertion hack to get things working for now
     return clientUser as UserType;
   })
   .catch((error) => {

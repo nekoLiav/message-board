@@ -9,6 +9,7 @@ export const getUserByHandle = async (handle: Required<string>) => {
     );
     const userSnap = await getDocs(userRef);
     const userData = userSnap.docs[0].data();
+    // type assertion hack to get things working for now
     return userData as UserType;
   } catch (error) {
     console.log('Something went wrong!', error);

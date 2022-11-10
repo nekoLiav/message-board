@@ -10,6 +10,7 @@ export const getReplies = async (id: Required<string>) => {
     );
     const replySnap = await getDocs(replyRefs);
     replySnap.forEach((reply) => {
+      // type assertion hack to get things working for now
       replyPosts.push(reply.data() as PostType);
     });
   } catch (error) {
