@@ -5,7 +5,8 @@ import { useNavigate, Link } from 'react-router-dom';
 import { PostPropType } from '../types/PropTypes';
 import { Div } from '../styles/Div';
 import { formatDistanceToNowStrict } from 'date-fns';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { solid, regular } from '@fortawesome/fontawesome-svg-core/import.macro';
 const StyledPost = styled(Div)<{
   chain: boolean | undefined;
   main: boolean | undefined;
@@ -111,21 +112,18 @@ const Img = styled.img`
 `;
 
 const Replies = styled.div`
-  align-self: center;
   display: flex;
   grid-column-start: 2;
   grid-column-end: 3;
   grid-row-start: 5;
   grid-row-end: 6;
+  width: min-content;
+  gap: 0.5rem;
+  align-items: center;
 
   &:hover {
     color: #00ffff;
   }
-`;
-
-const RepliesIcon = styled.p`
-  font-weight: bold;
-  font-size: 0.75rem;
 `;
 
 const RepliesCount = styled.p`
@@ -134,21 +132,18 @@ const RepliesCount = styled.p`
 `;
 
 const Reposts = styled.div`
-  align-self: center;
   display: flex;
   grid-column-start: 3;
   grid-column-end: 4;
   grid-row-start: 5;
   grid-row-end: 6;
+  width: min-content;
+  gap: 0.5rem;
+  align-items: center;
 
   &:hover {
     color: #00ff00;
   }
-`;
-
-const RepostsIcon = styled.p`
-  font-weight: bold;
-  font-size: 0.75rem;
 `;
 
 const RepostsCount = styled.p`
@@ -157,21 +152,18 @@ const RepostsCount = styled.p`
 `;
 
 const Likes = styled.div`
-  align-self: center;
   display: flex;
   grid-column-start: 4;
   grid-column-end: 5;
   grid-row-start: 5;
   grid-row-end: 6;
+  width: min-content;
+  gap: 0.5rem;
+  align-items: center;
 
   &:hover {
     color: #ff00ff;
   }
-`;
-
-const LikesIcon = styled.p`
-  font-weight: bold;
-  font-size: 0.75rem;
 `;
 
 const LikesCount = styled.p`
@@ -215,15 +207,15 @@ const Post = ({ post, main, chain }: PostProps) => {
         {post.vid_url === null ? null : <Img src={post.vid_url} />}
       </Content>
       <Replies>
-        <RepliesIcon>Replies:&nbsp;</RepliesIcon>
+        <FontAwesomeIcon icon={regular('comments')} />
         <RepliesCount>{post.replies}</RepliesCount>
       </Replies>
       <Reposts>
-        <RepostsIcon>Reposts:&nbsp;</RepostsIcon>
+        <FontAwesomeIcon icon={solid('retweet')} />
         <RepostsCount>{post.reposts}</RepostsCount>
       </Reposts>
       <Likes>
-        <LikesIcon>Likes:&nbsp;</LikesIcon>
+        <FontAwesomeIcon icon={regular('heart')} />
         <LikesCount>{post.likes}</LikesCount>
       </Likes>
     </StyledPost>
