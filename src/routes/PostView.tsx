@@ -13,13 +13,11 @@ const PostContainer = styled(Div)`
 `;
 
 const PostView = () => {
-  const [post, setPost] = useState<PostType>();
-  const [postLoaded, setPostLoaded] = useState(false);
-  const [parents, setParents] = useState<PostType[]>([]);
-  const [parentsLoaded, setParentsLoaded] = useState(false);
-  const [replies, setReplies] = useState<PostType[]>([]);
-  const [repliesLoaded, setRepliesLoaded] = useState(false);
-  const clientUser: UserType = useRouteLoaderData('app');
+  const [post, setPost] = useState<PostType | undefined>(undefined);
+  const [parents, setParents] = useState<PostType[] | undefined>(undefined);
+  const [replies, setReplies] = useState<PostType[] | undefined>(undefined);
+  // type assertion hack to get things working for now
+  const clientUser = useRouteLoaderData('app') as UserType;
   const params = useParams();
 
   useEffect(() => {
@@ -28,17 +26,14 @@ const PostView = () => {
       if (params.post_id) {
         const postData = await getPost(params.post_id);
         setPost(postData);
-        setPostLoaded(true);
-        // load parent posts through to the "root" post
-        // this is the post chain/thread to link together
         if (postData) {
+          // load parent posts through to the "root" post
+          // this is the post chain/thread to link together
           const parentData = await getParents(postData.parent_ids);
           setParents(parentData);
-          setParentsLoaded(true);
           // load replies to main post
           const replyData = await getReplies(postData.post_id);
           setReplies(replyData);
-          setRepliesLoaded(true);
         }
       }
     })();
@@ -48,16 +43,13 @@ const PostView = () => {
   return (
     <Div>
       <Div>
-        {parentsLoaded && parents.length
-          ? parents.map((p) => <Post key={p.post_id} post={p} chain={true} />)
-          : null}
+        {parents &&
+          parents.map((p) => <Post key={p.post_id} post={p} chain={true} />)}
       </Div>
-      {postLoaded && post ? <Post post={post} main={true} /> : null}
-      {postLoaded && <PostSubmission post={post} clientUser={clientUser} />}
+      {post && <Post post={post} main={true} />}
+      {post && <PostSubmission post={post} clientUser={clientUser} />}
       <PostContainer>
-        {repliesLoaded && replies.length
-          ? replies.map((r) => <Post key={r.post_id} post={r} />)
-          : null}
+        {replies && replies.map((r) => <Post key={r.post_id} post={r} />)}
       </PostContainer>
     </Div>
   );

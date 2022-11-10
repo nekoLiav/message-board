@@ -13,30 +13,28 @@ const PostContainer = styled(Div)`
 `;
 
 const User = () => {
-  const [user, setUser] = useState<UserType>();
-  const [userLoaded, setUserLoaded] = useState(false);
-  const [userPosts, setUserPosts] = useState<PostType[]>([]);
-  const [userPostsLoaded, setUserPostsLoaded] = useState(false);
+  const [user, setUser] = useState<UserType | undefined>(undefined);
+  const [userPosts, setUserPosts] = useState<PostType[] | undefined>(undefined);
   const params = useParams();
 
   useEffect(() => {
     (async () => {
-      const userData: UserType = await getUserByHandle(params.handle);
-      if (userData) {
+      if (params.handle) {
+        const userData = await getUserByHandle(params.handle);
         setUser(userData);
-        setUserLoaded(true);
+        if (userData) {
+          const userPostsData = await getUserPosts(userData.id);
+          setUserPosts(userPostsData);
+        }
       }
-      const userPostsData: PostType[] = await getUserPosts(userData.id);
-      setUserPosts(userPostsData);
-      setUserPostsLoaded(true);
     })();
   }, []);
 
   return (
     <Div>
-      {userLoaded && user ? <UserProfile user={user} /> : null}
+      {user && <UserProfile user={user} />}
       <PostContainer>
-        {userPostsLoaded &&
+        {userPosts &&
           userPosts.map((post) => <Post key={post.post_id} post={post} />)}
       </PostContainer>
     </Div>

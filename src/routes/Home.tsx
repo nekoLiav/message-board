@@ -22,21 +22,20 @@ const PostContainer = styled(Div)`
 `;
 
 const Home = () => {
-  const [homePosts, setHomePosts] = useState<PostType[]>([]);
-  const [homeUpdated, setHomeUpdated] = useState(false);
-  const clientUser: UserType = useRouteLoaderData('app');
+  const [homePosts, setHomePosts] = useState<PostType[] | undefined>(undefined);
+  // type assertion hack to get things working for now
+  const clientUser = useRouteLoaderData('app') as UserType;
 
   useEffect(() => {
     (async () => {
       const homePostData = await getHomePosts();
       setHomePosts(homePostData);
-      setHomeUpdated(true);
     })();
   }, []);
 
   return (
     <Div>
-      {homeUpdated ? (
+      {homePosts && clientUser ? (
         <Div>
           <HomeInfo>
             <HomeName>Home&nbsp;&#x2022;&nbsp;</HomeName>

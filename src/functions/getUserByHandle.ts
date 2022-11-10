@@ -8,8 +8,8 @@ export const getUserByHandle = async (handle: Required<string>) => {
       where('handle', '==', handle)
     );
     const userSnap = await getDocs(userRef);
-    const userData = userSnap.docs[0].data() as UserType;
-    return userData;
+    const userData = userSnap.docs[0].data();
+    return userData as UserType;
   } catch (error) {
     console.log('Something went wrong!', error);
   }

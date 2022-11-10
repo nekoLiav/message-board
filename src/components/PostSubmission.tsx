@@ -64,7 +64,9 @@ const PostSubmission = ({ clientUser, post }: PostSubmissionProps) => {
         <Avatar src={clientUser?.avatar} />
       </AvatarLink>
       {clientUser && (
-        <PostSubmissionForm onSubmit={(e) => submitPost(e, clientUser, post)}>
+        <PostSubmissionForm
+          onSubmit={(e) => submitPost(e, clientUser, post as PostType)}
+        >
           <Div>
             <BodyField name="body" id="body" placeholder="..."></BodyField>
           </Div>
