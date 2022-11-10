@@ -7,7 +7,7 @@ export const getParents = (ids: Required<string[]>) => {
     ids.forEach(async (id) => {
       const parentRef = doc(db, 'posts', id);
       const parentSnap = await getDoc(parentRef);
-      parentPosts.push(Object.create(parentSnap.data()));
+      parentPosts.push(parentSnap.data() as PostType);
     });
   } catch (error) {
     console.log('Something went wrong!', error);

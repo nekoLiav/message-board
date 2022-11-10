@@ -22,9 +22,9 @@ const PostContainer = styled(Div)`
 `;
 
 const Home = () => {
-  const [homePosts, setHomePosts] = useState([]);
+  const [homePosts, setHomePosts] = useState<PostType[]>([]);
   const [homeUpdated, setHomeUpdated] = useState(false);
-  const clientUser = useRouteLoaderData('app') as UserType;
+  const clientUser: UserType = useRouteLoaderData('app');
 
   useEffect(() => {
     (async () => {

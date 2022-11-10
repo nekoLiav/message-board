@@ -13,30 +13,34 @@ const PostContainer = styled(Div)`
 `;
 
 const PostView = () => {
-  const [post, setPost] = useState(null);
+  const [post, setPost] = useState<PostType>();
   const [postLoaded, setPostLoaded] = useState(false);
-  const [parents, setParents] = useState([]);
+  const [parents, setParents] = useState<PostType[]>([]);
   const [parentsLoaded, setParentsLoaded] = useState(false);
-  const [replies, setReplies] = useState([]);
+  const [replies, setReplies] = useState<PostType[]>([]);
   const [repliesLoaded, setRepliesLoaded] = useState(false);
-  const clientUser = useRouteLoaderData('app') as UserType;
+  const clientUser: UserType = useRouteLoaderData('app');
   const params = useParams();
 
   useEffect(() => {
     (async () => {
       // load main post from url
-      const postData = await getPost(params.post_id);
-      setPost(postData);
-      setPostLoaded(true);
-      // load parent posts through to the "root" post
-      // this is the post chain/thread to link together
-      const parentData = await getParents(postData.parent_ids);
-      setParents(parentData);
-      setParentsLoaded(true);
-      // load replies to main post
-      const replyData = await getReplies(postData.post_id);
-      setReplies(replyData);
-      setRepliesLoaded(true);
+      if (params.post_id) {
+        const postData = await getPost(params.post_id);
+        setPost(postData);
+        setPostLoaded(true);
+        // load parent posts through to the "root" post
+        // this is the post chain/thread to link together
+        if (postData) {
+          const parentData = await getParents(postData.parent_ids);
+          setParents(parentData);
+          setParentsLoaded(true);
+          // load replies to main post
+          const replyData = await getReplies(postData.post_id);
+          setReplies(replyData);
+          setRepliesLoaded(true);
+        }
+      }
     })();
     // trigger update on url change
   }, [params]);
@@ -48,7 +52,7 @@ const PostView = () => {
           ? parents.map((p) => <Post key={p.post_id} post={p} chain={true} />)
           : null}
       </Div>
-      {postLoaded && <Post post={post} main={true} />}
+      {postLoaded && post ? <Post post={post} main={true} /> : null}
       {postLoaded && <PostSubmission post={post} clientUser={clientUser} />}
       <PostContainer>
         {repliesLoaded && replies.length

@@ -5,6 +5,7 @@ import { Div } from '../styles/Div';
 import { Button } from '../styles/Button';
 import { TextArea } from '../styles/TextArea';
 import { Link } from 'react-router-dom';
+import { InferProps } from 'prop-types';
 
 const StyledPostSubmission = styled(Div)`
   display: flex;
@@ -49,31 +50,31 @@ const SubmitButton = styled(Button)`
   align-self: end;
 `;
 
-type PostSubmissionProps = {
-  clientUser: UserType;
-  post?: PostType;
+const PostSubmissionPropTypes = {
+  clientUser: UserPropType,
+  post: PostPropType,
 };
+
+type PostSubmissionProps = InferProps<typeof PostSubmissionPropTypes>;
 
 const PostSubmission = ({ clientUser, post }: PostSubmissionProps) => {
   return (
     <StyledPostSubmission>
-      <AvatarLink to={`/${clientUser.handle}`}>
-        <Avatar src={clientUser.avatar} />
+      <AvatarLink to={`/${clientUser?.handle}`}>
+        <Avatar src={clientUser?.avatar} />
       </AvatarLink>
-      <PostSubmissionForm onSubmit={(e) => submitPost(e, clientUser, post)}>
-        <Div>
-          <BodyField name="body" id="body" placeholder="..."></BodyField>
-        </Div>
-        <SubmitButton type="submit">Submit</SubmitButton>
-      </PostSubmissionForm>
+      {clientUser && (
+        <PostSubmissionForm onSubmit={(e) => submitPost(e, clientUser, post)}>
+          <Div>
+            <BodyField name="body" id="body" placeholder="..."></BodyField>
+          </Div>
+          <SubmitButton type="submit">Submit</SubmitButton>
+        </PostSubmissionForm>
+      )}
     </StyledPostSubmission>
   );
 };
 
-PostSubmission.propTypes = {
-  clientUser: UserPropType,
-  user: UserPropType,
-  post: PostPropType,
-};
+PostSubmission.propTypes = PostSubmissionPropTypes;
 
 export default PostSubmission;

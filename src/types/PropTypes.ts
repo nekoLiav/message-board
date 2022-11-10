@@ -6,7 +6,7 @@ export const UserPropType = PropTypes.shape({
   blurb: PropTypes.string.isRequired,
   follower_count: PropTypes.number.isRequired,
   following_count: PropTypes.number.isRequired,
-  gender: PropTypes.string,
+  gender: PropTypes.string.isRequired,
   handle: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,

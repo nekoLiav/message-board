@@ -18,7 +18,6 @@
     "noFallthroughCasesInSwitch": true,
     "resolveJsonModule": true,
     "skipLibCheck": true,
-    "strict": true,
-    "strictNullChecks": false
+    "strict": true
   }
 }

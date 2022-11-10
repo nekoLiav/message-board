@@ -6,7 +6,10 @@ import { PostPropType } from '../types/PropTypes';
 import { Div } from '../styles/Div';
 import { formatDistanceToNowStrict } from 'date-fns';
 
-const StyledPost = styled(Div)<{ chain: boolean; main: boolean }>`
+const StyledPost = styled(Div)<{
+  chain: boolean | undefined;
+  main: boolean | undefined;
+}>`
   display: grid;
   grid-template-columns: min-content repeat(4, minmax(min-content, 1fr)) 0.5rem;
   grid-template-rows: repeat(3, 1rem) 1fr 1.5rem;
@@ -38,7 +41,7 @@ const Avatar = styled.img`
   border-radius: 100%;
 `;
 
-const Linker = styled.div<{ chain: boolean }>`
+const Linker = styled.div<{ chain: boolean | undefined }>`
   display: ${(props) => (props.chain ? 'block' : 'none')};
   background: ${(props) => props.theme.brd};
   width: 2px;
@@ -178,8 +181,8 @@ const LikesCount = styled.p`
 
 type PostProps = {
   post: PostType;
-  main?: boolean;
-  chain?: boolean;
+  main?: boolean | undefined;
+  chain?: boolean | undefined;
 };
 
 const Post = ({ post, main, chain }: PostProps) => {

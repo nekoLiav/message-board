@@ -9,7 +9,7 @@ export const getHomePosts = async () => {
       where('is_reply', '==', false)
     );
     const homePostSnap = await getDocs(homePostRefs);
-    homePostSnap.forEach((post) => homePosts.push(Object.create(post.data())));
+    homePostSnap.forEach((post) => homePosts.push(post.data() as PostType));
   } catch (error) {
     console.log('Something went wrong!', error);
   }

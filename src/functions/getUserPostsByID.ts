@@ -10,7 +10,7 @@ export const getUserPosts = async (id: Required<string>) => {
       where('is_reply', '==', false)
     );
     const UserPostSnap = await getDocs(UserPostRefs);
-    UserPostSnap.forEach((post) => UserPosts.push(Object.create(post.data())));
+    UserPostSnap.forEach((post) => UserPosts.push(post.data() as PostType));
   } catch (error) {
     console.log('Something went wrong!', error);
   }

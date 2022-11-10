@@ -10,7 +10,7 @@ export const getReplies = async (id: Required<string>) => {
     );
     const replySnap = await getDocs(replyRefs);
     replySnap.forEach((reply) => {
-      replyPosts.push(Object.create(reply.data()));
+      replyPosts.push(reply.data() as PostType);
     });
   } catch (error) {
     console.log('Something went wrong!', error);

@@ -26,8 +26,8 @@ declare global {
     post_id: string;
     parent_ids: [];
     text: string;
-    img_url: string;
-    vid_url: string;
+    img_url: string | null;
+    vid_url: string | null;
     replies: number;
     reposts: number;
     likes: number;
