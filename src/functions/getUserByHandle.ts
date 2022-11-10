@@ -8,7 +8,8 @@ export const getUserByHandle = async (handle: Required<string>) => {
       where('handle', '==', handle)
     );
     const userSnap = await getDocs(userRef);
-    return userSnap.docs[0].data();
+    const userData: UserType = Object.create(userSnap.docs[0].data());
+    return userData;
   } catch (error) {
     console.log('Something went wrong!', error);
   }

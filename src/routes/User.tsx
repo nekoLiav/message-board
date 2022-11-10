@@ -22,10 +22,11 @@ const User = () => {
   useEffect(() => {
     (async () => {
       const userData = await getUserByHandle(params.handle);
+      console.log(typeof userData);
       setUser(userData);
       setUserLoaded(true);
-      const userPostData = await getUserPosts(userData.id);
-      setUserPosts(userPostData);
+      const userPostsData: PostType[] = await getUserPosts(userData.id);
+      setUserPosts(userPostsData);
       setUserPostsLoaded(true);
     })();
   }, []);
