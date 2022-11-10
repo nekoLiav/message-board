@@ -12,7 +12,7 @@ const StyledPost = styled(Div)<{
 }>`
   display: grid;
   grid-template-columns: min-content repeat(4, minmax(min-content, 1fr)) 0.5rem;
-  grid-template-rows: repeat(3, 1rem) 1fr 1.5rem;
+  grid-template-rows: repeat(2, 1rem) 1.5rem 1fr 1.5rem;
   background: ${(props) => (props.main ? props.theme.main : props.theme.bg)};
   border-bottom-width: ${(props) => (props.chain ? '0' : '1px')};
   transition: 0.2s;
@@ -50,7 +50,7 @@ const Linker = styled.div<{ chain: boolean | undefined }>`
   grid-column-end: 2;
   grid-row-start: 4;
   grid-row-end: 6;
-  margin-top: 1rem;
+  margin-top: 0.5rem;
 `;
 
 const Info = styled.div`
