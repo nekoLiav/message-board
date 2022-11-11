@@ -183,24 +183,26 @@ const Post = ({ post, main, chain }: PostProps) => {
   const navigate = useNavigate();
 
   const handleClick = (e: SyntheticEvent) => {
-    e.preventDefault();
-    navigate(`/${post.user_data.handle}/post/${post.post_id}`);
+    const target = e.target as HTMLDivElement;
+    if (!target.classList.contains('no-post')) {
+      navigate(`/${post.user_data.handle}/post/${post.post_id}`);
+    }
   };
 
   return (
     <StyledPost chain={chain} main={main} onClick={handleClick}>
-      <AvatarLink to={`/${post.user_data.handle}`}>
-        <Avatar src={post.user_data.avatar} />
+      <AvatarLink className="no-post" to={`/${post.user_data.handle}`}>
+        <Avatar className="no-post" src={post.user_data.avatar} />
       </AvatarLink>
       <Linker chain={chain} />
       <Info>
-        <UserName to={`/${post.user_data.handle}`}>
+        <UserName className="no-post" to={`/${post.user_data.handle}`}>
           {post.user_data.name}&nbsp;
         </UserName>
-        <UserHandle to={`/${post.user_data.handle}`}>
+        <UserHandle className="no-post" to={`/${post.user_data.handle}`}>
           {`@${post.user_data.handle}`}&nbsp;
         </UserHandle>
-        <DatePosted>
+        <DatePosted className="no-post">
           &#x2022;&nbsp;{formatDistanceToNowStrict(post.date_posted)}
         </DatePosted>
       </Info>
@@ -209,17 +211,17 @@ const Post = ({ post, main, chain }: PostProps) => {
         {post.img_url === null ? null : <Img src={post.img_url} />}
         {post.vid_url === null ? null : <Img src={post.vid_url} />}
       </Content>
-      <Replies>
-        <FontAwesomeIcon icon={regular('comments')} />
-        <RepliesCount>{post.replies}</RepliesCount>
+      <Replies className="no-post">
+        <FontAwesomeIcon className="no-post" icon={regular('comments')} />
+        <RepliesCount className="no-post">{post.replies}</RepliesCount>
       </Replies>
-      <Reposts>
-        <FontAwesomeIcon icon={solid('retweet')} />
-        <RepostsCount>{post.reposts}</RepostsCount>
+      <Reposts className="no-post">
+        <FontAwesomeIcon className="no-post" icon={solid('retweet')} />
+        <RepostsCount className="no-post">{post.reposts}</RepostsCount>
       </Reposts>
-      <Likes>
-        <FontAwesomeIcon icon={regular('heart')} />
-        <LikesCount>{post.likes}</LikesCount>
+      <Likes className="no-post">
+        <FontAwesomeIcon className="no-post" icon={regular('heart')} />
+        <LikesCount className="no-post">{post.likes}</LikesCount>
       </Likes>
     </StyledPost>
   );

@@ -26,15 +26,15 @@ const router = createBrowserRouter([
         index: true,
       },
       {
-        path: 'home',
+        path: '/home',
         element: <Home />,
       },
       {
-        path: ':handle',
+        path: '/:handle',
         element: <User />,
       },
       {
-        path: ':handle/post/:post_id',
+        path: '/:handle/post/:post_id',
         element: <PostView />,
       },
     ],
