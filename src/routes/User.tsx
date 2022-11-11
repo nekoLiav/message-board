@@ -17,12 +17,12 @@ const User = () => {
   const [user, setUser] = useState<UserType>();
   const [userPosts, setUserPosts] = useState<PostType[]>();
   const params = useParams();
-  const handle = params.handle;
-  assertDefined(handle, 'handle in User.tsx');
+  const paramsHandle = params.handle;
+  assertDefined(paramsHandle, 'handle in User.tsx');
 
   useEffect(() => {
     (async () => {
-      const userData = await getUserByHandle(handle);
+      const userData = await getUserByHandle(paramsHandle);
       setUser(userData);
       assertDefined(userData, 'userData in User.tsx');
       const userPostsData = await getUserPosts(userData.id);

@@ -7,17 +7,6 @@ import { useRouteLoaderData } from 'react-router-dom';
 import { Div } from '../styles/Div';
 import { isUser } from '../functions/assertUnknowns';
 
-const HomeInfo = styled(Div)`
-  display: flex;
-  align-items: baseline;
-  margin-left: 0.5rem;
-`;
-
-const HomeName = styled(Div)`
-  font-weight: bold;
-  font-size: 1.5rem;
-`;
-
 const PostContainer = styled(Div)`
   border-width: 1px 0 0 0;
 `;
@@ -35,11 +24,8 @@ const Home = () => {
 
   return (
     <Div>
-      {homePosts && clientUser ? (
+      {homePosts && (
         <Div>
-          <HomeInfo>
-            <HomeName>Home&nbsp;&#x2022;&nbsp;</HomeName>
-          </HomeInfo>
           <PostSubmission clientUser={clientUser} />
           <PostContainer>
             {homePosts.map((p) => (
@@ -47,7 +33,7 @@ const Home = () => {
             ))}
           </PostContainer>
         </Div>
-      ) : null}
+      )}
     </Div>
   );
 };

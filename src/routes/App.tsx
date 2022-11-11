@@ -12,6 +12,10 @@ const StyledApp = styled(Div)`
   height: 100%;
   width: 100%;
   overflow: auto;
+
+  @media (max-width: 360px) {
+    grid-template-columns: 1fr;
+  }
 `;
 
 const RouteContainer = styled(Div)`

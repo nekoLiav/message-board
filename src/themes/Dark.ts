@@ -13,7 +13,7 @@ const Neutral = {
 
 export default {
   fg: Neutral[100],
-  fg2: Neutral[300],
+  fg2: Neutral[400],
   bg: Neutral[900],
   brd: Neutral[400],
   btnbg: `linear-gradient(

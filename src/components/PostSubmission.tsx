@@ -49,6 +49,13 @@ const SubmitButton = styled(Button)`
   width: 6rem;
   border-radius: 15px;
   align-self: end;
+
+  @media (max-width: 360px) {
+    height: 1.5rem;
+    width: 4.5rem;
+    border-radius: 15px;
+    font-size: 0.825rem;
+  }
 `;
 
 type Inputs = {
