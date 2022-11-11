@@ -57,7 +57,7 @@ const HomeLink = styled(Link)`
   gap: 0.5rem;
   color: ${(props) => props.theme.fg};
   text-decoration: none;
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   border-radius: 15px;
   padding: 0.25rem;
   transition: 0.2s;
@@ -85,7 +85,7 @@ const MessagesLink = styled(Link)`
   gap: 0.5rem;
   color: ${(props) => props.theme.fg};
   text-decoration: none;
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   border-radius: 15px;
   padding: 0.25rem;
   transition: 0.2s;
@@ -113,7 +113,7 @@ const UserLink = styled(Link)`
   gap: 0.5rem;
   color: ${(props) => props.theme.fg};
   text-decoration: none;
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   border-radius: 15px;
   padding: 0.25rem;
   transition: 0.2s;
@@ -141,7 +141,7 @@ const GearLink = styled(Link)`
   gap: 0.5rem;
   color: ${(props) => props.theme.fg};
   text-decoration: none;
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   border-radius: 15px;
   padding: 0.25rem;
   transition: 0.2s;
