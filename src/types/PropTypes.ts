@@ -30,4 +30,5 @@ export const PostPropType = PropTypes.shape({
   replies: PropTypes.number.isRequired,
   reposts: PropTypes.number.isRequired,
   likes: PropTypes.number.isRequired,
+  direct_parent: PropTypes.string,
 });

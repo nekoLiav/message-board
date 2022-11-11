@@ -1,16 +1,16 @@
 import { collection, getDocs, query, where } from 'firebase/firestore';
 import { db } from './firebase-config';
+import { userConverter } from './firestoreDataCoversion';
 
 export const getUserByHandle = async (handle: Required<string>) => {
   try {
     const userRef = query(
-      collection(db, 'users'),
+      collection(db, 'users').withConverter(userConverter),
       where('handle', '==', handle)
     );
     const userSnap = await getDocs(userRef);
     const userData = userSnap.docs[0].data();
-    // type assertion hack to get things working for now
-    return userData as UserType;
+    return userData;
   } catch (error) {
     console.log('Something went wrong!', error);
   }

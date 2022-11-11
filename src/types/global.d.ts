@@ -24,8 +24,9 @@ declare global {
     };
     date_posted: number;
     post_id: string;
-    parent_ids: [];
+    parent_ids: string[];
     text: string;
+    direct_parent?: string;
     img_url: string | null;
     vid_url: string | null;
     replies: number;

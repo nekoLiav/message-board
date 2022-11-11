@@ -1,36 +1,41 @@
 import { doc, collection, setDoc } from 'firebase/firestore';
 import { db } from './firebase-config';
+import { postConverter } from './firestoreDataCoversion';
+
+type submitPostArgs = {
+  clientUser: UserType;
+  post?: PostType;
+};
 
 export const submitPost = (
-  e: React.FormEvent,
-  user: UserType,
-  post: PostType
+  data: string,
+  { clientUser, post }: submitPostArgs
 ) => {
-  e.preventDefault();
-  const target = e.target as HTMLTextAreaElement;
   try {
-    const newPostDoc = doc(collection(db, 'posts'));
+    const newPostDoc = doc(
+      collection(db, 'posts').withConverter(postConverter)
+    );
     const postTemplate: PostType = {
       user_data: {
-        id: user.id,
-        name: user.name,
-        handle: user.handle,
-        avatar: user.avatar,
+        id: clientUser.id,
+        name: clientUser.name,
+        handle: clientUser.handle,
+        avatar: clientUser.avatar,
       },
       post_id: newPostDoc.id,
       parent_ids: [],
       date_posted: Date.now(),
       img_url: null,
       vid_url: null,
-      text: target.value,
+      text: data,
       tags: [],
       replies: 0,
       reposts: 0,
       likes: 0,
       is_reply: false,
     };
-    if (post !== undefined) {
-      const replyTemplate = {
+    if (post) {
+      const replyTemplate: PostType = {
         ...postTemplate,
         parent_ids: [...post.parent_ids, post.post_id],
         direct_parent: post.post_id,

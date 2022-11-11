@@ -1,12 +1,12 @@
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from './firebase-config';
+import { userConverter } from './firestoreDataCoversion';
 
 export const getUser = async (id: Required<string>) => {
   try {
-    const userRef = doc(db, 'users', id);
+    const userRef = doc(db, 'users', id).withConverter(userConverter);
     const userSnap = await getDoc(userRef);
-    // type assertion hack to get things working for now
-    return userSnap.data() as UserType;
+    return userSnap.data();
   } catch (error) {
     console.log('Something went wrong!', error);
   }

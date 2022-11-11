@@ -7,6 +7,7 @@ import { Div } from '../styles/Div';
 import { formatDistanceToNowStrict } from 'date-fns';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { solid, regular } from '@fortawesome/fontawesome-svg-core/import.macro';
+import { SyntheticEvent } from 'react';
 
 const StyledPost = styled(Div)<{
   chain: boolean | undefined;
@@ -181,7 +182,8 @@ type PostProps = {
 const Post = ({ post, main, chain }: PostProps) => {
   const navigate = useNavigate();
 
-  const handleClick = () => {
+  const handleClick = (e: SyntheticEvent) => {
+    e.preventDefault();
     navigate(`/${post.user_data.handle}/post/${post.post_id}`);
   };
 
