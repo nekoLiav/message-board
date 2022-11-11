@@ -32,15 +32,16 @@ const Avatar = styled.img`
 const PostSubmissionForm = styled.form`
   display: flex;
   flex-direction: column;
-  flex-grow: 1;
+  width: 100%;
+  height: 100%;
   gap: 0.5rem;
 `;
 
 const BodyField = styled(TextArea)`
-  min-height: 100px;
   width: 100%;
   height: 100%;
   padding: 0.5rem;
+  min-height: 5rem;
 `;
 
 const SubmitButton = styled(Button)`
@@ -66,8 +67,8 @@ const PostSubmission = ({ clientUser, post }: PostSubmissionProps) => {
 
   return (
     <StyledPostSubmission>
-      <AvatarLink to={`/${clientUser?.handle}`}>
-        <Avatar src={clientUser?.avatar} />
+      <AvatarLink to={`/${clientUser.handle}`}>
+        <Avatar src={clientUser.avatar} />
       </AvatarLink>
       <PostSubmissionForm onSubmit={handleSubmit(onSubmit)}>
         <BodyField id="body" placeholder="..." {...register('body')} />

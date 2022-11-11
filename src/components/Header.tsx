@@ -6,6 +6,8 @@ const StyledHeader = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-end;
+  width: 100%;
+  height: 100%;
 
   @media (max-width: 350px) {
     display: none;

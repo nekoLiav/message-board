@@ -122,6 +122,7 @@ const Replies = styled.div`
   width: min-content;
   gap: 0.5rem;
   align-items: center;
+  color: ${(props) => props.theme.fg2};
 
   &:hover {
     color: #00ffff;
@@ -142,6 +143,7 @@ const Reposts = styled.div`
   width: min-content;
   gap: 0.5rem;
   align-items: center;
+  color: ${(props) => props.theme.fg2};
 
   &:hover {
     color: #00ff00;
@@ -162,6 +164,7 @@ const Likes = styled.div`
   width: min-content;
   gap: 0.5rem;
   align-items: center;
+  color: ${(props) => props.theme.fg2};
 
   &:hover {
     color: #ff00ff;
