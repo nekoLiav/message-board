@@ -23,7 +23,7 @@ const PostContainer = styled(Div)`
 `;
 
 const Home = () => {
-  const [homePosts, setHomePosts] = useState<PostType[] | undefined>(undefined);
+  const [homePosts, setHomePosts] = useState<PostType[]>();
   const clientUser = isUser(useRouteLoaderData('app'));
 
   useEffect(() => {

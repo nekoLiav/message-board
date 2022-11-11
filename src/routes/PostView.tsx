@@ -8,34 +8,34 @@ import { getReplies } from '../functions/getRepliesByID';
 import { Div } from '../styles/Div';
 import styled from 'styled-components';
 import { isUser } from '../functions/assertUnknowns';
+import { assertDefined } from '../functions/assertDefined';
 
 const PostContainer = styled(Div)`
   border-width: 1px 0 0 0;
 `;
 
 const PostView = () => {
-  const [post, setPost] = useState<PostType | undefined>(undefined);
-  const [parents, setParents] = useState<PostType[] | undefined>(undefined);
-  const [replies, setReplies] = useState<PostType[] | undefined>(undefined);
+  const [post, setPost] = useState<PostType>();
+  const [parents, setParents] = useState<PostType[]>();
+  const [replies, setReplies] = useState<PostType[]>();
   const clientUser = isUser(useRouteLoaderData('app'));
   const params = useParams();
+  const paramsPostID = params.post_id;
+  assertDefined(paramsPostID, 'post_id in PostView.tsx');
 
   useEffect(() => {
     (async () => {
       // load main post from url
-      if (params.post_id) {
-        const postData = await getPost(params.post_id);
-        setPost(postData);
-        if (postData) {
-          // load parent posts through to the "root" post
-          // this is the post chain/thread to link together
-          const parentData = await getParents(postData.parent_ids);
-          setParents(parentData);
-          // load replies to main post
-          const replyData = await getReplies(postData.post_id);
-          setReplies(replyData);
-        }
-      }
+      const postData = await getPost(paramsPostID);
+      assertDefined(postData, 'postData in PostView.tsx');
+      setPost(postData);
+      // load parent posts through to the "root" post
+      // this is the post chain/thread to link together
+      const parentData = await getParents(postData.parent_ids);
+      setParents(parentData);
+      // load replies to main post
+      const replyData = await getReplies(postData.post_id);
+      setReplies(replyData);
     })();
     // trigger update on url change
   }, [params]);

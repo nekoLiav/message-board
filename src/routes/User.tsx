@@ -7,26 +7,26 @@ import { Div } from '../styles/Div';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { getUserByHandle } from '../functions/getUserByHandle';
+import { assertDefined } from '../functions/assertDefined';
 
 const PostContainer = styled(Div)`
   border-width: 1px 0 0 0;
 `;
 
 const User = () => {
-  const [user, setUser] = useState<UserType | undefined>(undefined);
-  const [userPosts, setUserPosts] = useState<PostType[] | undefined>(undefined);
+  const [user, setUser] = useState<UserType>();
+  const [userPosts, setUserPosts] = useState<PostType[]>();
   const params = useParams();
+  const handle = params.handle;
+  assertDefined(handle, 'handle in User.tsx');
 
   useEffect(() => {
     (async () => {
-      if (params.handle) {
-        const userData = await getUserByHandle(params.handle);
-        setUser(userData);
-        if (userData) {
-          const userPostsData = await getUserPosts(userData.id);
-          setUserPosts(userPostsData);
-        }
-      }
+      const userData = await getUserByHandle(handle);
+      setUser(userData);
+      assertDefined(userData, 'userData in User.tsx');
+      const userPostsData = await getUserPosts(userData.id);
+      setUserPosts(userPostsData);
     })();
   }, []);
 

@@ -44,10 +44,6 @@ const UserName = styled.p`
   grid-row-end: 9;
   overflow: hidden;
   white-space: nowrap;
-
-  &:hover {
-    text-decoration: underline;
-  }
 `;
 
 const UserHandle = styled.p`
@@ -57,10 +53,6 @@ const UserHandle = styled.p`
   grid-column-end: 4;
   grid-row-start: 9;
   grid-row-end: 10;
-
-  &:hover {
-    text-decoration: underline;
-  }
 `;
 
 const UserJoined = styled.p`
