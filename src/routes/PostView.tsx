@@ -7,6 +7,7 @@ import { getParents } from '../functions/getParentsByIDs';
 import { getReplies } from '../functions/getRepliesByID';
 import { Div } from '../styles/Div';
 import styled from 'styled-components';
+import { isUser } from '../functions/assertUnknowns';
 
 const PostContainer = styled(Div)`
   border-width: 1px 0 0 0;
@@ -16,8 +17,7 @@ const PostView = () => {
   const [post, setPost] = useState<PostType | undefined>(undefined);
   const [parents, setParents] = useState<PostType[] | undefined>(undefined);
   const [replies, setReplies] = useState<PostType[] | undefined>(undefined);
-  // type assertion hack to get things working for now
-  const clientUser = useRouteLoaderData('app') as UserType;
+  const clientUser = isUser(useRouteLoaderData('app'));
   const params = useParams();
 
   useEffect(() => {

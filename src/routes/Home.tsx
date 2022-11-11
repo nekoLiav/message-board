@@ -5,6 +5,7 @@ import Post from '../components/Post';
 import { getHomePosts } from '../functions/getHomePosts';
 import { useRouteLoaderData } from 'react-router-dom';
 import { Div } from '../styles/Div';
+import { isUser } from '../functions/assertUnknowns';
 
 const HomeInfo = styled(Div)`
   display: flex;
@@ -23,8 +24,7 @@ const PostContainer = styled(Div)`
 
 const Home = () => {
   const [homePosts, setHomePosts] = useState<PostType[] | undefined>(undefined);
-  // type assertion hack to get things working for now
-  const clientUser = useRouteLoaderData('app') as UserType;
+  const clientUser = isUser(useRouteLoaderData('app'));
 
   useEffect(() => {
     (async () => {
