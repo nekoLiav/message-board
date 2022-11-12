@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { ReactComponent as Icon } from '../assets/logo.svg';
+import { ReactComponent as Icon } from '../assets/logo2.svg';
 import { Div } from '../styles/Div';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
