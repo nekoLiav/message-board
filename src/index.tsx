@@ -6,6 +6,7 @@ import './styles/index.css';
 
 import App from './views/App';
 import Home from './views/Home';
+import Messages from './views/Messages';
 import User from './views/User';
 import PostView from './views/PostView';
 
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
       {
         path: '/home',
         element: <Home />,
+      },
+      {
+        path: '/messages',
+        element: <Messages />,
       },
       {
         path: '/:handle',

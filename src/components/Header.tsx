@@ -183,7 +183,7 @@ const Header = () => {
           />
           <HomeLinkText>Home</HomeLinkText>
         </HomeLink>
-        <MessagesLink to="/">
+        <MessagesLink to="/messages">
           <FontAwesomeIcon
             className="header-icon"
             icon={solid('envelope')}
