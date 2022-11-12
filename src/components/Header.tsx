@@ -61,6 +61,7 @@ const HomeLink = styled(Link)`
   border-radius: 15px;
   padding: 0.25rem;
   transition: 0.2s;
+  align-items: baseline;
 
   &:hover {
     background: ${(props) => props.theme.main};
@@ -89,6 +90,7 @@ const MessagesLink = styled(Link)`
   border-radius: 15px;
   padding: 0.25rem;
   transition: 0.2s;
+  align-items: baseline;
 
   &:hover {
     background: ${(props) => props.theme.main};
@@ -117,6 +119,7 @@ const UserLink = styled(Link)`
   border-radius: 15px;
   padding: 0.25rem;
   transition: 0.2s;
+  align-items: baseline;
 
   &:hover {
     background: ${(props) => props.theme.main};
@@ -145,6 +148,7 @@ const GearLink = styled(Link)`
   border-radius: 15px;
   padding: 0.25rem;
   transition: 0.2s;
+  align-items: baseline;
 
   &:hover {
     background: ${(props) => props.theme.main};
@@ -172,19 +176,35 @@ const Header = () => {
           <Logo />
         </LogoLink>
         <HomeLink to="/">
-          <FontAwesomeIcon icon={solid('house')} fixedWidth />
+          <FontAwesomeIcon
+            className="header-icon"
+            icon={solid('house')}
+            fixedWidth
+          />
           <HomeLinkText>Home</HomeLinkText>
         </HomeLink>
         <MessagesLink to="/">
-          <FontAwesomeIcon icon={solid('envelope')} fixedWidth />
+          <FontAwesomeIcon
+            className="header-icon"
+            icon={solid('envelope')}
+            fixedWidth
+          />
           <MessagesLinkText>DMs</MessagesLinkText>
         </MessagesLink>
         <UserLink to="/">
-          <FontAwesomeIcon icon={solid('user')} fixedWidth />
+          <FontAwesomeIcon
+            className="header-icon"
+            icon={solid('user')}
+            fixedWidth
+          />
           <UserLinkText>Profile</UserLinkText>
         </UserLink>
         <GearLink to="/">
-          <FontAwesomeIcon icon={solid('gear')} fixedWidth />
+          <FontAwesomeIcon
+            className="header-icon"
+            icon={solid('gear')}
+            fixedWidth
+          />
           <GearLinkText>Settings</GearLinkText>
         </GearLink>
       </LinkContainer>
