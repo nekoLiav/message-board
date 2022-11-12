@@ -1,17 +1,90 @@
-<svg viewBox="0 0 15.9 15.9" version="1.1" xmlns="http://www.w3.org/2000/svg">
-    <defs>
-        <linearGradient>
-            <stop offset="0" stop-color="#000" stop-opacity="1"/>
-        </linearGradient>
-        <clipPath clipPathUnits="userSpaceOnUse">
-            <circle cx="69.2" cy="96.8" r="7.9" fill="#000" fill-opacity="1" fill-rule="nonzero" stroke="none" stroke-width=".6" stroke-linecap="round" stroke-linejoin="bevel" stroke-miterlimit="4" stroke-dasharray="none" stroke-dashoffset="0" stroke-opacity="1" paint-order="normal"/>
-        </clipPath>
-    </defs>
-    <g fill-opacity="1" fill-rule="nonzero" stroke="none" stroke-linecap="round" stroke-linejoin="bevel" stroke-miterlimit="4" stroke-dasharray="none" stroke-dashoffset="0" stroke-opacity="1" paint-order="normal" transform="translate(-60.8 -90)">
-        <path fill="#fff" stroke-width=".3" d="M60.8 96.6H76.7V99.2H60.8z"/>
-        <circle cx="68.7" cy="97.9" r="7.9" fill="#00e5ff" stroke-width=".4"/>
-        <circle cx="64.1" cy="97.9" r="1.3" fill="#323232" stroke-width=".1"/>
-        <circle cx="68.7" cy="97.9" r="1.3" fill="#323232" stroke-width=".1"/>
-        <circle cx="73.4" cy="97.9" r="1.3" fill="#323232" stroke-width=".1"/>
-    </g>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   viewBox="0 0 59.622633 60.000003"
+   version="1.1"
+   id="svg24"
+   sodipodi:docname="logo2.svg"
+   width="59.622631"
+   height="60"
+   inkscape:version="1.2.1 (1:1.2.1+202210291244+9c6d41e410)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview26"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="5.7091091"
+     inkscape:cx="77.069818"
+     inkscape:cy="40.023758"
+     inkscape:window-width="2560"
+     inkscape:window-height="1403"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg24" />
+  <defs
+     id="defs10">
+    <linearGradient
+       id="linearGradient4">
+      <stop
+         offset="0"
+         stop-color="#000"
+         stop-opacity="1"
+         id="stop2" />
+    </linearGradient>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath8">
+      <circle
+         cx="69.199997"
+         cy="96.800003"
+         r="7.9000001"
+         fill="#000000"
+         fill-opacity="1"
+         fill-rule="nonzero"
+         stroke="none"
+         stroke-width="0.6"
+         stroke-linecap="round"
+         stroke-linejoin="bevel"
+         stroke-miterlimit="4"
+         stroke-dasharray="none"
+         stroke-dashoffset="0"
+         stroke-opacity="1"
+         paint-order="normal"
+         id="circle6" />
+    </clipPath>
+  </defs>
+  <g
+     id="g2611"
+     transform="scale(1.0063293,1)">
+    <ellipse
+       cx="29.811312"
+       cy="30.000002"
+       fill="#00e5ff"
+       stroke-width="1.5142"
+       id="circle14"
+       style="fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
+       rx="29.811316"
+       ry="30" />
+    <text
+       xml:space="preserve"
+       style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:60.5681px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Italic';text-align:center;text-anchor:middle;fill:#000000;stroke-width:3.78551;stroke-linecap:round;stroke-linejoin:bevel"
+       x="30.508831"
+       y="40.357052"
+       id="text922"
+       transform="scale(0.99685029,1.0031597)"><tspan
+         sodipodi:role="line"
+         id="tspan920"
+         x="30.508831"
+         y="40.357052"
+         style="stroke-width:3.78551">y</tspan></text>
+  </g>
 </svg>
