@@ -15,6 +15,7 @@ const StyledApp = styled(Div)`
 
   @media (max-width: 360px) {
     grid-template-columns: 1fr;
+    grid-template-rows: min-content 1fr;
   }
 `;
 

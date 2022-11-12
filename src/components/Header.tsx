@@ -1,56 +1,60 @@
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
-import { ReactComponent as Icon } from '../assets/logo2.svg';
+import { Link, useRouteLoaderData } from 'react-router-dom';
+import { ReactComponent as Icon } from '../assets/logo3.svg';
 import { Div } from '../styles/Div';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
+import { isUser } from '../functions/assertUnknowns';
 
-const StyledHeader = styled.div`
+const StyledHeader = styled(Div)`
   display: flex;
   flex-direction: column;
   align-items: flex-end;
   width: 100%;
   height: 100%;
+  padding: 0.5rem;
 
   @media (max-width: 360px) {
-    display: none;
+    border-width: 0 0 1px 0;
   }
 `;
 
 const LinkContainer = styled(Div)`
   display: flex;
   flex-direction: column;
-  padding: 0 0.5rem;
-  margin: 0.5rem;
-  gap: 0.5rem;
 
   @media (max-width: 650px) {
-    margin: 0;
-    padding: 0;
-    align-self: center;
+    align-items: center;
+  }
+
+  @media (max-width: 360px) {
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
   }
 `;
 
 const LogoLink = styled(Link)`
   position: sticky;
   top: 0;
-  max-height: 3rem;
-  max-width: 3rem;
-  margin: 0 0 1rem 0.25rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  margin-bottom: 0.5rem;
 
   @media (max-width: 650px) {
-    margin: 0;
-    padding: 0;
+    width: 1.5rem;
+    height: 1.5rem;
     align-self: center;
+  }
+
+  @media (max-width: 360px) {
+    flex-direction: row;
+    margin: 0;
+    margin-right: auto;
   }
 `;
 
-const Logo = styled(Icon)`
-  display: flex;
-  justify-content: center;
-  max-height: 3rem;
-  max-width: 3rem;
-`;
+const Logo = styled(Icon)``;
 
 const HomeLink = styled(Link)`
   display: flex;
@@ -59,7 +63,7 @@ const HomeLink = styled(Link)`
   text-decoration: none;
   font-size: 1.25rem;
   border-radius: 15px;
-  padding: 0.25rem;
+  padding: 0.5rem;
   transition: 0.2s;
   align-items: baseline;
 
@@ -67,9 +71,11 @@ const HomeLink = styled(Link)`
     background: ${(props) => props.theme.main};
   }
 
+  &:active {
+    background: ${(props) => props.theme.mainmo};
+  }
+
   @media (max-width: 650px) {
-    margin: 0;
-    padding: 0;
     width: min-content;
     align-self: center;
   }
@@ -88,7 +94,7 @@ const MessagesLink = styled(Link)`
   text-decoration: none;
   font-size: 1.25rem;
   border-radius: 15px;
-  padding: 0.25rem;
+  padding: 0.5rem;
   transition: 0.2s;
   align-items: baseline;
 
@@ -96,9 +102,11 @@ const MessagesLink = styled(Link)`
     background: ${(props) => props.theme.main};
   }
 
+  &:active {
+    background: ${(props) => props.theme.mainmo};
+  }
+
   @media (max-width: 650px) {
-    margin: 0;
-    padding: 0;
     width: min-content;
     align-self: center;
   }
@@ -110,14 +118,14 @@ const MessagesLinkText = styled.p`
   }
 `;
 
-const UserLink = styled(Link)`
+const ProfileLink = styled(Link)`
   display: flex;
   gap: 0.5rem;
   color: ${(props) => props.theme.fg};
   text-decoration: none;
   font-size: 1.25rem;
   border-radius: 15px;
-  padding: 0.25rem;
+  padding: 0.5rem;
   transition: 0.2s;
   align-items: baseline;
 
@@ -125,15 +133,17 @@ const UserLink = styled(Link)`
     background: ${(props) => props.theme.main};
   }
 
+  &:active {
+    background: ${(props) => props.theme.mainmo};
+  }
+
   @media (max-width: 650px) {
-    margin: 0;
-    padding: 0;
     width: min-content;
     align-self: center;
   }
 `;
 
-const UserLinkText = styled.p`
+const ProfileLinkText = styled.p`
   @media (max-width: 650px) {
     display: none;
   }
@@ -146,7 +156,7 @@ const GearLink = styled(Link)`
   text-decoration: none;
   font-size: 1.25rem;
   border-radius: 15px;
-  padding: 0.25rem;
+  padding: 0.5rem;
   transition: 0.2s;
   align-items: baseline;
 
@@ -154,9 +164,11 @@ const GearLink = styled(Link)`
     background: ${(props) => props.theme.main};
   }
 
+  &:active {
+    background: ${(props) => props.theme.mainmo};
+  }
+
   @media (max-width: 650px) {
-    margin: 0;
-    padding: 0;
     width: min-content;
     align-self: center;
   }
@@ -169,6 +181,9 @@ const GearLinkText = styled.p`
 `;
 
 const Header = () => {
+  const currentUser = isUser(useRouteLoaderData('app'));
+  const { handle } = currentUser;
+
   return (
     <StyledHeader>
       <LinkContainer>
@@ -191,15 +206,15 @@ const Header = () => {
           />
           <MessagesLinkText>DMs</MessagesLinkText>
         </MessagesLink>
-        <UserLink to="/">
+        <ProfileLink to={handle}>
           <FontAwesomeIcon
             className="header-icon"
             icon={solid('user')}
             fixedWidth
           />
-          <UserLinkText>Profile</UserLinkText>
-        </UserLink>
-        <GearLink to="/">
+          <ProfileLinkText>Profile</ProfileLinkText>
+        </ProfileLink>
+        <GearLink to="/settings">
           <FontAwesomeIcon
             className="header-icon"
             icon={solid('gear')}
