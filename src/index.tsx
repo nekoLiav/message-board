@@ -4,10 +4,10 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './styles/meyer-reset.css';
 import './styles/index.css';
 
-import App from './components/views/App';
-import Home from './components/views/Home';
-import User from './components/views/User';
-import PostView from './components/views/PostView';
+import App from './views/App';
+import Home from './views/Home';
+import User from './views/User';
+import PostView from './views/PostView';
 
 import signIn from './functions/signIn';
 

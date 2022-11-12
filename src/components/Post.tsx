@@ -177,9 +177,11 @@ const LikesCount = styled.p`
 
 type PostProps = {
   post: PostType;
+  main?: boolean;
+  chain?: boolean;
 };
 
-const Post = ({ post }: PostProps) => {
+const Post = ({ post, chain, main }: PostProps) => {
   const navigate = useNavigate();
 
   const { handle, name, avatar } = post.user_data;
@@ -202,11 +204,11 @@ const Post = ({ post }: PostProps) => {
   };
 
   return (
-    <StyledPost chain main onClick={handleClick}>
+    <StyledPost chain={chain} main={main} onClick={handleClick}>
       <AvatarLink className="no-post" to={`/${handle}`}>
         <Avatar className="no-post" src={avatar} />
       </AvatarLink>
-      <Linker chain />
+      <Linker chain={chain} />
       <Info>
         <UserName className="no-post" to={`/${handle}`}>
           {name}&nbsp;
