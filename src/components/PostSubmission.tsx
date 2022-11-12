@@ -68,14 +68,16 @@ type PostSubmissionProps = {
 };
 
 const PostSubmission = ({ clientUser, post }: PostSubmissionProps) => {
+  const { handle, avatar } = clientUser;
+
   const { register, handleSubmit } = useForm<Inputs>();
   const onSubmit: SubmitHandler<Inputs> = (data) =>
     submitPost(data.body, { clientUser, post });
 
   return (
     <StyledPostSubmission>
-      <AvatarLink to={`/${clientUser.handle}`}>
-        <Avatar src={clientUser.avatar} />
+      <AvatarLink to={`/${handle}`}>
+        <Avatar src={avatar} />
       </AvatarLink>
       <PostSubmissionForm onSubmit={handleSubmit(onSubmit)}>
         <BodyField id="body" placeholder="..." {...register('body')} />

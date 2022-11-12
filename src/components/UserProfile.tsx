@@ -136,25 +136,33 @@ type UserProfileProps = {
 };
 
 const UserProfile = ({ user }: UserProfileProps) => {
+  const {
+    profile_color,
+    avatar,
+    name,
+    handle,
+    blurb,
+    follower_count,
+    following_count,
+    post_count,
+    birthday,
+  } = user;
+
   return (
     <StyledUserProfile>
-      <UserBanner profileColor={user.profile_color} />
-      <UserAvatar src={user.avatar}></UserAvatar>
-      <UserName>{user.name}</UserName>
-      <UserHandle>@{user.handle}</UserHandle>
-      <UserBlurb>{user.blurb}</UserBlurb>
-      <UserFollowerCount>
-        Followers:&nbsp;{user.follower_count}
-      </UserFollowerCount>
-      <UserFollowingCount>
-        Following:&nbsp;{user.following_count}
-      </UserFollowingCount>
+      <UserBanner profileColor={profile_color} />
+      <UserAvatar src={avatar}></UserAvatar>
+      <UserName>{name}</UserName>
+      <UserHandle>@{handle}</UserHandle>
+      <UserBlurb>{blurb}</UserBlurb>
+      <UserFollowerCount>Followers:&nbsp;{follower_count}</UserFollowerCount>
+      <UserFollowingCount>Following:&nbsp;{following_count}</UserFollowingCount>
       <DMButton>DM</DMButton>
       <FollowButton>Follow</FollowButton>
-      <UserPostCount>Posts:&nbsp;{user.post_count}</UserPostCount>
+      <UserPostCount>Posts:&nbsp;{post_count}</UserPostCount>
       <UserJoined>
         Joined&nbsp;
-        {format(new Date(user.birthday * 1000), 'MMMM, dd yyyy')}
+        {format(new Date(birthday * 1000), 'MMMM, dd yyyy')}
       </UserJoined>
     </StyledUserProfile>
   );

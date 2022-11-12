@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import styled from 'styled-components';
 import * as PropTypes from 'prop-types';
 import { useNavigate, Link } from 'react-router-dom';
@@ -178,53 +177,63 @@ const LikesCount = styled.p`
 
 type PostProps = {
   post: PostType;
-  main?: boolean | undefined;
-  chain?: boolean | undefined;
 };
 
-const Post = ({ post, main, chain }: PostProps) => {
+const Post = ({ post }: PostProps) => {
   const navigate = useNavigate();
+
+  const { handle, name, avatar } = post.user_data;
+  const {
+    date_posted,
+    post_id,
+    text,
+    img_url,
+    vid_url,
+    replies,
+    reposts,
+    likes,
+  } = post;
 
   const handleClick = (e: SyntheticEvent) => {
     const target = e.target as HTMLDivElement;
     if (!target.classList.contains('no-post')) {
-      navigate(`/${post.user_data.handle}/post/${post.post_id}`);
+      navigate(`/${handle}/post/${post_id}`);
     }
   };
 
   return (
-    <StyledPost chain={chain} main={main} onClick={handleClick}>
-      <AvatarLink className="no-post" to={`/${post.user_data.handle}`}>
-        <Avatar className="no-post" src={post.user_data.avatar} />
+    <StyledPost chain main onClick={handleClick}>
+      <AvatarLink className="no-post" to={`/${handle}`}>
+        <Avatar className="no-post" src={avatar} />
       </AvatarLink>
-      <Linker chain={chain} />
+      <Linker chain />
       <Info>
-        <UserName className="no-post" to={`/${post.user_data.handle}`}>
-          {post.user_data.name}&nbsp;
+        <UserName className="no-post" to={`/${handle}`}>
+          {name}&nbsp;
         </UserName>
-        <UserHandle className="no-post" to={`/${post.user_data.handle}`}>
-          {`@${post.user_data.handle}`}&nbsp;
+        <UserHandle className="no-post" to={`/${handle}`}>
+          {`@${handle}`}&nbsp;
         </UserHandle>
         <DatePosted className="no-post">
-          &#x2022;&nbsp;{formatDistanceToNowStrict(post.date_posted)}
+          &#x2022;&nbsp;{formatDistanceToNowStrict(date_posted)}
         </DatePosted>
       </Info>
       <Content>
-        <Text>{post.text}</Text>
-        {post.img_url === null ? null : <Img src={post.img_url} />}
-        {post.vid_url === null ? null : <Img src={post.vid_url} />}
+        <Text>{text}</Text>
+        {img_url === null ? null : <Img src={img_url} />}
+        {vid_url === null ? null : <Img src={vid_url} />}
       </Content>
       <Replies className="no-post">
         <FontAwesomeIcon className="no-post" icon={regular('comments')} />
-        <RepliesCount className="no-post">{post.replies}</RepliesCount>
+        <RepliesCount className="no-post">{replies}</RepliesCount>
       </Replies>
       <Reposts className="no-post">
         <FontAwesomeIcon className="no-post" icon={solid('retweet')} />
-        <RepostsCount className="no-post">{post.reposts}</RepostsCount>
+        <RepostsCount className="no-post">{reposts}</RepostsCount>
       </Reposts>
       <Likes className="no-post">
         <FontAwesomeIcon className="no-post" icon={regular('heart')} />
-        <LikesCount className="no-post">{post.likes}</LikesCount>
+        <LikesCount className="no-post">{likes}</LikesCount>
       </Likes>
     </StyledPost>
   );
