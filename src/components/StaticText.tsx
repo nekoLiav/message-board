@@ -18,7 +18,7 @@ const StyledFG2Text = styled.p`
 `;
 
 const StyledProfileName = styled(StyledFGText)`
-  font-weight: bold;
+  font-weight: ${(props) => props.theme.heavy};
   text-decoration: none;
   white-space: nowrap;
   overflow: hidden;
@@ -31,35 +31,35 @@ const StyledProfileHandle = styled(StyledFG2Text)`
 `;
 
 const StyledProfileJoined = styled(StyledFG2Text)`
-  font-size: 0.875rem;
-  font-weight: bold;
+  font-size: ${(props) => props.theme.sm};
+  font-weight: ${(props) => props.theme.heavy};
   grid-area: 10 / 2 / 11 / 5;
 `;
 
 const StyledProfileBlurb = styled(StyledFGText)`
-  font-size: 0.875rem;
+  font-size: ${(props) => props.theme.sm};
   margin-left: 1rem;
   align-self: center;
   grid-area: 11 / 1 / 14 / 6;
 `;
 
-const StyledProfileFollowerCount = styled.p`
-  font-size: 0.75rem;
-  font-weight: bold;
+const StyledProfileFollowerCount = styled(StyledFGText)`
+  font-size: ${(props) => props.theme.xs};
+  font-weight: ${(props) => props.theme.heavy};
   justify-self: center;
   grid-area: 11 / 7 / 12 / 8;
 `;
 
-const StyledProfileFollowingCount = styled.p`
-  font-size: 0.75rem;
-  font-weight: bold;
+const StyledProfileFollowingCount = styled(StyledFGText)`
+  font-size: ${(props) => props.theme.xs};
+  font-weight: ${(props) => props.theme.heavy};
   justify-self: center;
   grid-area: 12 / 7 / 13 / 8;
 `;
 
-const StyledProfilePostCount = styled.p`
-  font-size: 0.75rem;
-  font-weight: bold;
+const StyledProfilePostCount = styled(StyledFGText)`
+  font-size: ${(props) => props.theme.xs};
+  font-weight: ${(props) => props.theme.heavy};
   justify-self: center;
   grid-area: 13 / 7 / 14 / 8;
 `;
