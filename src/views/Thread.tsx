@@ -13,7 +13,7 @@ const PostContainer = styled(Div)`
   border-width: 1px 0 0 0;
 `;
 
-const PostView = () => {
+const Thread = () => {
   const [post, setPost] = useState<PostType>();
   const [parents, setParents] = useState<PostType[]>();
   const [replies, setReplies] = useState<PostType[]>();
@@ -55,4 +55,4 @@ const PostView = () => {
   );
 };
 
-export default PostView;
+export default Thread;

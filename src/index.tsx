@@ -9,7 +9,7 @@ import Home from './views/Home';
 import Messages from './views/Messages';
 import Settings from './views/Settings';
 import User from './views/User';
-import PostView from './views/PostView';
+import Thread from './views/Thread';
 
 import signIn from './functions/signIn';
 
@@ -45,7 +45,7 @@ const router = createBrowserRouter([
       },
       {
         path: '/:handle/post/:post_id',
-        element: <PostView />,
+        element: <Thread />,
       },
     ],
   },
