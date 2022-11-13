@@ -133,9 +133,10 @@ const DMButton = styled(Button)`
 
 type UserProfileProps = {
   user: UserType;
+  toggleDM?: () => void;
 };
 
-const UserProfile = ({ user }: UserProfileProps) => {
+const UserProfile = ({ user, toggleDM }: UserProfileProps) => {
   const {
     profile_color,
     avatar,
@@ -157,7 +158,7 @@ const UserProfile = ({ user }: UserProfileProps) => {
       <UserBlurb>{blurb}</UserBlurb>
       <UserFollowerCount>Followers:&nbsp;{follower_count}</UserFollowerCount>
       <UserFollowingCount>Following:&nbsp;{following_count}</UserFollowingCount>
-      <DMButton>DM</DMButton>
+      <DMButton onClick={toggleDM}>DM</DMButton>
       <FollowButton>Follow</FollowButton>
       <UserPostCount>Posts:&nbsp;{post_count}</UserPostCount>
       <UserJoined>

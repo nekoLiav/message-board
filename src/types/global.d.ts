@@ -35,4 +35,21 @@ declare global {
     tags: [];
     is_reply: boolean;
   };
+
+  export type MessageType = {
+    user_data: {
+      id: string;
+      name: string;
+      handle: string;
+      avatar: string;
+    };
+    date_posted: number;
+    message_id: string;
+    recipient: string;
+    text: string;
+    parent_message?: string | null;
+    img_url: string | null;
+    vid_url: string | null;
+    is_reply: boolean;
+  };
 }

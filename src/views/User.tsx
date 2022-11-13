@@ -4,9 +4,11 @@ import { getUserPosts } from '../functions/getUserPostsByID';
 import Post from '../components/Post';
 import UserProfile from '../components/UserProfile';
 import { Div } from '../styles/Div';
-import { useParams } from 'react-router-dom';
+import { useParams, useRouteLoaderData } from 'react-router-dom';
 import styled from 'styled-components';
 import { getUserByHandle } from '../functions/getUserByHandle';
+import PostSubmission from '../components/PostSubmission';
+import { isUser } from '../functions/assertUnknowns';
 
 const PostContainer = styled(Div)`
   border-width: 1px 0 0 0;
@@ -15,6 +17,8 @@ const PostContainer = styled(Div)`
 const User = () => {
   const [user, setUser] = useState<UserType>();
   const [userPosts, setUserPosts] = useState<PostType[]>();
+  const [messageToggle, setMessageToggle] = useState<boolean>();
+  const clientUser = isUser(useRouteLoaderData('app'));
   const { handle } = useParams();
 
   useEffect(() => {
@@ -30,9 +34,20 @@ const User = () => {
     })();
   }, []);
 
+  const toggleDM = () => {
+    setMessageToggle(!messageToggle);
+  };
+
   return (
     <Div>
-      {user && <UserProfile user={user} />}
+      {user && <UserProfile user={user} toggleDM={toggleDM} />}
+      {messageToggle && (
+        <PostSubmission
+          clientUser={clientUser}
+          recipient={user}
+          type={'message'}
+        />
+      )}
       <PostContainer>
         {userPosts &&
           userPosts.map((post) => <Post key={post.post_id} post={post} />)}

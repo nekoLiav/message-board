@@ -32,3 +32,18 @@ export const PostPropType = PropTypes.shape({
   likes: PropTypes.number.isRequired,
   direct_parent: PropTypes.string,
 });
+
+export const MessagePropType = PropTypes.shape({
+  user_data: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    handle: PropTypes.string.isRequired,
+    avatar: PropTypes.string.isRequired,
+  }),
+  date_posted: PropTypes.number.isRequired,
+  message_id: PropTypes.string.isRequired,
+  parent_message: PropTypes.string,
+  text: PropTypes.string.isRequired,
+  img_url: PropTypes.string,
+  vid_url: PropTypes.string,
+});

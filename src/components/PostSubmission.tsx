@@ -6,6 +6,7 @@ import { Button } from '../styles/Button';
 import { TextArea } from '../styles/TextArea';
 import { Link } from 'react-router-dom';
 import { useForm, SubmitHandler } from 'react-hook-form';
+import { submitMessage } from '../functions/submitMessage';
 
 const StyledPostSubmission = styled(Div)`
   display: flex;
@@ -64,15 +65,30 @@ type Inputs = {
 
 type PostSubmissionProps = {
   clientUser: UserType;
+  recipient?: UserType;
   post?: PostType;
+  message?: MessageType;
+  type?: 'message' | 'post';
 };
 
-const PostSubmission = ({ clientUser, post }: PostSubmissionProps) => {
+const PostSubmission = ({
+  clientUser,
+  recipient,
+  post,
+  message,
+  type,
+}: PostSubmissionProps) => {
   const { handle, avatar } = clientUser;
 
   const { register, handleSubmit } = useForm<Inputs>();
-  const onSubmit: SubmitHandler<Inputs> = (data) =>
-    submitPost(data.body, { clientUser, post });
+  const onSubmit: SubmitHandler<Inputs> = (data) => {
+    if (type === 'post') {
+      submitPost(data.body, { clientUser, post });
+    }
+    if (type === 'message') {
+      submitMessage(data.body, { clientUser, recipient, message });
+    }
+  };
 
   return (
     <StyledPostSubmission>
