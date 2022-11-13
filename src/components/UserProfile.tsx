@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { format } from 'date-fns';
 import { UserPropType } from '../types/PropTypes';
 import { Div } from '../styles/Div';
-import { Button } from '../styles/Button';
+import { MessageButton, FollowButton } from '../components/Buttons';
 
 const StyledUserProfile = styled(Div)`
   display: grid;
@@ -107,30 +107,6 @@ const UserPostCount = styled.p`
   font-size: 0.75rem;
 `;
 
-const FollowButton = styled(Button)`
-  height: 2rem;
-  width: 6rem;
-  border-radius: 15px;
-  grid-column-start: 7;
-  grid-column-end: 8;
-  grid-row-start: 9;
-  grid-row-end: 11;
-  margin: 0 1rem;
-  align-self: center;
-`;
-
-const DMButton = styled(Button)`
-  height: 2rem;
-  width: 3rem;
-  border-radius: 15px;
-  grid-column-start: 6;
-  grid-column-end: 7;
-  grid-row-start: 9;
-  grid-row-end: 11;
-  align-self: center;
-  justify-self: center;
-`;
-
 type UserProfileProps = {
   user: UserType;
   toggleDM?: () => void;
@@ -158,7 +134,9 @@ const UserProfile = ({ user, toggleDM }: UserProfileProps) => {
       <UserBlurb>{blurb}</UserBlurb>
       <UserFollowerCount>Followers:&nbsp;{follower_count}</UserFollowerCount>
       <UserFollowingCount>Following:&nbsp;{following_count}</UserFollowingCount>
-      <DMButton onClick={toggleDM}>DM</DMButton>
+      <MessageButton onClick={toggleDM} small>
+        DM
+      </MessageButton>
       <FollowButton>Follow</FollowButton>
       <UserPostCount>Posts:&nbsp;{post_count}</UserPostCount>
       <UserJoined>

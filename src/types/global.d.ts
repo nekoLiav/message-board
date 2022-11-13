@@ -52,4 +52,6 @@ declare global {
     vid_url: string | null;
     is_reply: boolean;
   };
+
+  export type Component = React.ElementType;
 }

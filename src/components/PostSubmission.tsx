@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { submitPost } from '../functions/submitPost';
 import { UserPropType, PostPropType } from '../types/PropTypes';
 import { Div } from '../styles/Div';
-import { Button } from '../styles/Button';
+import { PostSubmissionButton } from '../components/Buttons';
 import { TextArea } from '../styles/TextArea';
 import { Link } from 'react-router-dom';
 import { useForm, SubmitHandler } from 'react-hook-form';
@@ -45,20 +45,6 @@ const BodyField = styled(TextArea)`
   min-height: 5rem;
 `;
 
-const SubmitButton = styled(Button)`
-  height: 2rem;
-  width: 6rem;
-  border-radius: 15px;
-  align-self: end;
-
-  @media (max-width: 360px) {
-    height: 1.5rem;
-    width: 4.5rem;
-    border-radius: 15px;
-    font-size: 0.825rem;
-  }
-`;
-
 type Inputs = {
   body: string;
 };
@@ -97,7 +83,7 @@ const PostSubmission = ({
       </AvatarLink>
       <PostSubmissionForm onSubmit={handleSubmit(onSubmit)}>
         <BodyField id="body" placeholder="..." {...register('body')} />
-        <SubmitButton type="submit">Submit</SubmitButton>
+        <PostSubmissionButton type="submit">Submit</PostSubmissionButton>
       </PostSubmissionForm>
     </StyledPostSubmission>
   );
