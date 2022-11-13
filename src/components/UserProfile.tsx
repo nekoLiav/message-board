@@ -3,6 +3,15 @@ import { format } from 'date-fns';
 import { UserPropType } from '../types/PropTypes';
 import { Div } from '../styles/Div';
 import { MessageButton, FollowButton } from '../components/Buttons';
+import {
+  ProfileBlurb,
+  ProfileFollowerCount,
+  ProfileFollowingCount,
+  ProfileHandle,
+  ProfileJoined,
+  ProfileName,
+  ProfilePostCount,
+} from './StaticText';
 
 const StyledUserProfile = styled(Div)`
   display: grid;
@@ -32,81 +41,6 @@ const UserAvatar = styled.img`
   margin: 0 1rem;
 `;
 
-const UserName = styled.p`
-  font-size: 1rem;
-  align-self: center;
-  font-weight: bold;
-  text-decoration: none;
-  color: white;
-  grid-column-start: 2;
-  grid-column-end: 8;
-  grid-row-start: 8;
-  grid-row-end: 9;
-  overflow: hidden;
-  white-space: nowrap;
-`;
-
-const UserHandle = styled.p`
-  color: grey;
-  text-decoration: none;
-  grid-column-start: 2;
-  grid-column-end: 4;
-  grid-row-start: 9;
-  grid-row-end: 10;
-`;
-
-const UserJoined = styled.p`
-  font-weight: bold;
-  font-size: 0.875rem;
-  color: grey;
-  grid-column-start: 2;
-  grid-column-end: 5;
-  grid-row-start: 10;
-  grid-row-end: 11;
-`;
-
-const UserBlurb = styled.p`
-  align-self: center;
-  grid-row-start: 11;
-  grid-row-end: 14;
-  grid-column-start: 1;
-  grid-column-end: 6;
-  font-size: 0.875rem;
-  margin-left: 1rem;
-`;
-
-const UserFollowerCount = styled.p`
-  justify-self: center;
-  font-size: 0.75rem;
-  grid-column-start: 7;
-  grid-column-end: 8;
-  grid-row-start: 11;
-  grid-row-end: 12;
-  font-size: 0.75rem;
-  font-weight: bold;
-`;
-
-const UserFollowingCount = styled.p`
-  justify-self: center;
-  font-size: 0.75rem;
-  grid-column-start: 7;
-  grid-column-end: 8;
-  grid-row-start: 12;
-  grid-row-end: 13;
-  font-size: 0.75rem;
-  font-weight: bold;
-`;
-
-const UserPostCount = styled.p`
-  justify-self: center;
-  grid-column-start: 7;
-  grid-column-end: 8;
-  grid-row-start: 13;
-  grid-row-end: 14;
-  font-weight: bold;
-  font-size: 0.75rem;
-`;
-
 type UserProfileProps = {
   user: UserType;
   toggleDM?: () => void;
@@ -129,20 +63,22 @@ const UserProfile = ({ user, toggleDM }: UserProfileProps) => {
     <StyledUserProfile>
       <UserBanner profileColor={profile_color} />
       <UserAvatar src={avatar}></UserAvatar>
-      <UserName>{name}</UserName>
-      <UserHandle>@{handle}</UserHandle>
-      <UserBlurb>{blurb}</UserBlurb>
-      <UserFollowerCount>Followers:&nbsp;{follower_count}</UserFollowerCount>
-      <UserFollowingCount>Following:&nbsp;{following_count}</UserFollowingCount>
-      <MessageButton onClick={toggleDM} small>
-        DM
-      </MessageButton>
+      <ProfileName>{name}</ProfileName>
+      <ProfileHandle>@{handle}</ProfileHandle>
+      <ProfileBlurb>{blurb}</ProfileBlurb>
+      <ProfileFollowerCount>
+        Followers:&nbsp;{follower_count}
+      </ProfileFollowerCount>
+      <ProfileFollowingCount>
+        Following:&nbsp;{following_count}
+      </ProfileFollowingCount>
+      <MessageButton onClick={toggleDM}>DM</MessageButton>
       <FollowButton>Follow</FollowButton>
-      <UserPostCount>Posts:&nbsp;{post_count}</UserPostCount>
-      <UserJoined>
+      <ProfilePostCount>Posts:&nbsp;{post_count}</ProfilePostCount>
+      <ProfileJoined>
         Joined&nbsp;
         {format(new Date(birthday * 1000), 'MMMM, dd yyyy')}
-      </UserJoined>
+      </ProfileJoined>
     </StyledUserProfile>
   );
 };

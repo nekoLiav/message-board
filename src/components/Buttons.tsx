@@ -3,7 +3,6 @@ import React, { ReactNode } from 'react';
 
 type Props = {
   onClick?: () => void;
-  small?: boolean;
   isLoading?: boolean;
   type?: string;
   children: ReactNode;
@@ -13,7 +12,7 @@ const createButton = (Component: React.ElementType, props: Props) => (
   <Component {...props} />
 );
 
-const StyledButton = styled.button<{ small: boolean }>`
+const StyledButton = styled.button`
   color: black;
   background: ${(props) => props.theme.btnbg};
   border: none;
@@ -21,7 +20,7 @@ const StyledButton = styled.button<{ small: boolean }>`
   font-weight: bold;
   transition: 0.2s;
   height: 2rem;
-  width: ${(props) => (props.small ? '3rem' : '6rem')};
+  width: 6rem;
   border-radius: 15px;
 
   &:hover {
@@ -58,6 +57,7 @@ const StyledMessageButton = styled(StyledButton)`
   grid-row-end: 11;
   align-self: center;
   justify-self: center;
+  width: 3rem;
 `;
 
 export const Button = (props: Props) => createButton(StyledButton, props);
