@@ -14,7 +14,7 @@ const createButton = (Component: React.ElementType, props: Props) => (
 
 const StyledButton = styled.button`
   color: black;
-  background: ${(props) => props.theme.btnbg};
+  background: ${(props) => props.theme.y};
   border: none;
   font-size: 1.125rem;
   font-weight: bold;

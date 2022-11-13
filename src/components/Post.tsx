@@ -15,13 +15,13 @@ const StyledPost = styled(Div)<{
   display: grid;
   grid-template-columns: min-content repeat(4, minmax(min-content, 1fr)) 0.5rem;
   grid-template-rows: repeat(2, 1rem) 1.5rem 1fr 1.5rem;
-  background: ${(props) => (props.main ? props.theme.main : props.theme.bg)};
+  background: ${(props) =>
+    props.main ? props.theme.mo : props.theme.bg_darkest};
   border-bottom-width: ${(props) => (props.chain ? '0' : '1px')};
   transition: 0.2s;
 
   &:hover {
-    background: ${(props) =>
-      props.main ? props.theme.mainmo : props.theme.main};
+    background: ${(props) => (props.main ? props.theme.mo2 : props.theme.mo)};
     cursor: pointer;
   }
 `;
@@ -42,7 +42,7 @@ const Avatar = styled.img`
 
 const Linker = styled.div<{ chain: boolean | undefined }>`
   display: ${(props) => (props.chain ? 'block' : 'none')};
-  background: ${(props) => props.theme.brd};
+  background: ${(props) => props.theme.y};
   width: 2px;
   justify-self: center;
   margin-top: 0.5rem;
@@ -58,7 +58,7 @@ const UserName = styled(Link)`
   align-self: center;
   font-weight: bold;
   text-decoration: none;
-  color: ${(props) => props.theme.fg};
+  color: ${(props) => props.theme.primary};
   font-size: 0.875rem;
 
   &:hover {
@@ -68,7 +68,7 @@ const UserName = styled(Link)`
 
 const UserHandle = styled(Link)`
   align-self: center;
-  color: ${(props) => props.theme.fg2};
+  color: ${(props) => props.theme.secondary};
   text-decoration: none;
   font-size: 0.875rem;
 
@@ -79,7 +79,7 @@ const UserHandle = styled(Link)`
 
 const DatePosted = styled.p`
   align-self: center;
-  color: ${(props) => props.theme.fg2};
+  color: ${(props) => props.theme.secondary};
   font-size: 0.875rem;
 `;
 
@@ -106,7 +106,7 @@ const Replies = styled.div`
   width: min-content;
   gap: 0.5rem;
   align-items: center;
-  color: ${(props) => props.theme.fg2};
+  color: ${(props) => props.theme.secondary};
 
   &:hover {
     color: #00ffff;
@@ -124,7 +124,7 @@ const Reposts = styled.div`
   width: min-content;
   gap: 0.5rem;
   align-items: center;
-  color: ${(props) => props.theme.fg2};
+  color: ${(props) => props.theme.secondary};
 
   &:hover {
     color: #00ff00;
@@ -142,7 +142,7 @@ const Likes = styled.div`
   width: min-content;
   gap: 0.5rem;
   align-items: center;
-  color: ${(props) => props.theme.fg2};
+  color: ${(props) => props.theme.secondary};
 
   &:hover {
     color: #ff00ff;

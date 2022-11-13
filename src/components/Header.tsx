@@ -59,7 +59,7 @@ const Logo = styled(Icon)``;
 const HomeLink = styled(Link)`
   display: flex;
   gap: 0.5rem;
-  color: ${(props) => props.theme.fg};
+  color: ${(props) => props.theme.primary};
   text-decoration: none;
   font-size: 1.25rem;
   border-radius: 15px;
@@ -68,11 +68,11 @@ const HomeLink = styled(Link)`
   align-items: baseline;
 
   &:hover {
-    background: ${(props) => props.theme.main};
+    background: ${(props) => props.theme.mo};
   }
 
   &:active {
-    background: ${(props) => props.theme.mainmo};
+    background: ${(props) => props.theme.mo2};
   }
 
   @media (max-width: 650px) {
@@ -90,7 +90,7 @@ const HomeLinkText = styled.p`
 const MessagesLink = styled(Link)`
   display: flex;
   gap: 0.5rem;
-  color: ${(props) => props.theme.fg};
+  color: ${(props) => props.theme.primary};
   text-decoration: none;
   font-size: 1.25rem;
   border-radius: 15px;
@@ -99,11 +99,11 @@ const MessagesLink = styled(Link)`
   align-items: baseline;
 
   &:hover {
-    background: ${(props) => props.theme.main};
+    background: ${(props) => props.theme.mo};
   }
 
   &:active {
-    background: ${(props) => props.theme.mainmo};
+    background: ${(props) => props.theme.mo2};
   }
 
   @media (max-width: 650px) {
@@ -121,7 +121,7 @@ const MessagesLinkText = styled.p`
 const ProfileLink = styled(Link)`
   display: flex;
   gap: 0.5rem;
-  color: ${(props) => props.theme.fg};
+  color: ${(props) => props.theme.primary};
   text-decoration: none;
   font-size: 1.25rem;
   border-radius: 15px;
@@ -130,11 +130,11 @@ const ProfileLink = styled(Link)`
   align-items: baseline;
 
   &:hover {
-    background: ${(props) => props.theme.main};
+    background: ${(props) => props.theme.mo};
   }
 
   &:active {
-    background: ${(props) => props.theme.mainmo};
+    background: ${(props) => props.theme.mo2};
   }
 
   @media (max-width: 650px) {
@@ -152,7 +152,7 @@ const ProfileLinkText = styled.p`
 const GearLink = styled(Link)`
   display: flex;
   gap: 0.5rem;
-  color: ${(props) => props.theme.fg};
+  color: ${(props) => props.theme.primary};
   text-decoration: none;
   font-size: 1.25rem;
   border-radius: 15px;
@@ -161,11 +161,11 @@ const GearLink = styled(Link)`
   align-items: baseline;
 
   &:hover {
-    background: ${(props) => props.theme.main};
+    background: ${(props) => props.theme.mo};
   }
 
   &:active {
-    background: ${(props) => props.theme.mainmo};
+    background: ${(props) => props.theme.mo2};
   }
 
   @media (max-width: 650px) {

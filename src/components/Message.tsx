@@ -37,7 +37,7 @@ const Avatar = styled.img`
 
 const Linker = styled.div<{ chain: boolean | undefined }>`
   display: ${(props) => (props.chain ? 'block' : 'none')};
-  background: ${(props) => props.theme.brd};
+  background: ${(props) => props.theme.y};
   width: 2px;
   justify-self: center;
   margin-top: 0.5rem;
@@ -53,7 +53,7 @@ const UserName = styled(Link)`
   align-self: center;
   font-weight: bold;
   text-decoration: none;
-  color: ${(props) => props.theme.fg};
+  color: ${(props) => props.theme.primary};
   font-size: 0.875rem;
 
   &:hover {
@@ -63,7 +63,7 @@ const UserName = styled(Link)`
 
 const UserHandle = styled(Link)`
   align-self: center;
-  color: ${(props) => props.theme.fg2};
+  color: ${(props) => props.theme.secondary};
   text-decoration: none;
   font-size: 0.875rem;
 
@@ -72,9 +72,9 @@ const UserHandle = styled(Link)`
   }
 `;
 
-const DateMessageed = styled.p`
+const DateMessaged = styled.p`
   align-self: center;
-  color: ${(props) => props.theme.fg2};
+  color: ${(props) => props.theme.secondary};
   font-size: 0.875rem;
 `;
 
@@ -117,9 +117,9 @@ const Message = ({ message, chain }: MessageProps) => {
         <UserHandle className="no-Message" to={`/${handle}`}>
           {`@${handle}`}&nbsp;
         </UserHandle>
-        <DateMessageed className="no-Message">
+        <DateMessaged className="no-Message">
           &#x2022;&nbsp;{formatDistanceToNowStrict(date_posted)}
-        </DateMessageed>
+        </DateMessaged>
       </Info>
       <Content>
         <Text>{text}</Text>

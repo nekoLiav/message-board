@@ -10,11 +10,20 @@ const createText = (Component: React.ElementType, props: Props) => (
 );
 
 const StyledFGText = styled.p`
-  color: ${(props) => props.theme.fg};
+  color: ${(props) => props.theme.primary};
 `;
 
 const StyledFG2Text = styled.p`
-  color: ${(props) => props.theme.fg2};
+  color: ${(props) => props.theme.secondary};
+`;
+
+const StyledFGSMText = styled(StyledFGText)`
+  font-size: ${(props) => props.theme.sm};
+`;
+
+const StyledFG2SMHeavyText = styled(StyledFG2Text)`
+  font-size: ${(props) => props.theme.sm};
+  font-weight: ${(props) => props.theme.heavy};
 `;
 
 const StyledProfileName = styled(StyledFGText)`
@@ -30,14 +39,11 @@ const StyledProfileHandle = styled(StyledFG2Text)`
   grid-area: 9 / 2/ 10 / 4;
 `;
 
-const StyledProfileJoined = styled(StyledFG2Text)`
-  font-size: ${(props) => props.theme.sm};
-  font-weight: ${(props) => props.theme.heavy};
+const StyledProfileJoined = styled(StyledFG2SMHeavyText)`
   grid-area: 10 / 2 / 11 / 5;
 `;
 
-const StyledProfileBlurb = styled(StyledFGText)`
-  font-size: ${(props) => props.theme.sm};
+const StyledProfileBlurb = styled(StyledFGSMText)`
   margin-left: 1rem;
   align-self: center;
   grid-area: 11 / 1 / 14 / 6;
