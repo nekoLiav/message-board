@@ -17,10 +17,6 @@ const StyledPostSubmission = styled(Div)`
 const AvatarLink = styled(Link)`
   max-width: 3rem;
   max-height: 3rem;
-  grid-column-start: 1;
-  grid-column-end: 2;
-  grid-row-start: 1;
-  grid-row-end: 3;
 `;
 
 const Avatar = styled.img`

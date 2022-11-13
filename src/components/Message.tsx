@@ -24,11 +24,8 @@ const StyledMessage = styled(Div)<{
 const AvatarLink = styled(Link)`
   max-width: 3rem;
   max-height: 3rem;
-  grid-column-start: 1;
-  grid-column-end: 2;
-  grid-row-start: 1;
-  grid-row-end: 3;
   margin: 0.5rem;
+  grid-area: 1 / 1 / 3 / 2;
 `;
 
 const Avatar = styled.img`
@@ -43,19 +40,13 @@ const Linker = styled.div<{ chain: boolean | undefined }>`
   background: ${(props) => props.theme.brd};
   width: 2px;
   justify-self: center;
-  grid-column-start: 1;
-  grid-column-end: 2;
-  grid-row-start: 4;
-  grid-row-end: 6;
   margin-top: 0.5rem;
+  grid-area: 4 / 1 / 6 / 2;
 `;
 
 const Info = styled.div`
   display: flex;
-  grid-column-start: 2;
-  grid-column-end: 6;
-  grid-row-start: 1;
-  grid-row-end: 3;
+  grid-area: 1 / 2 / 3 / 6;
 `;
 
 const UserName = styled(Link)`
@@ -88,10 +79,7 @@ const DateMessageed = styled.p`
 `;
 
 const Content = styled.div`
-  grid-column-start: 2;
-  grid-column-end: 6;
-  grid-row-start: 3;
-  grid-row-end: 5;
+  grid-area: 3 / 2 / 5 / 6;
 `;
 
 const Text = styled.p`

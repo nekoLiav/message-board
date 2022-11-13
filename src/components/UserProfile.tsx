@@ -21,10 +21,7 @@ const StyledUserProfile = styled(Div)`
 
 const UserBanner = styled(Div)<{ profileColor: string }>`
   background: ${(props) => props.profileColor};
-  grid-column-start: 1;
-  grid-column-end: 8;
-  grid-row-start: 2;
-  grid-row-end: 8;
+  grid-area: 2 / 1 / 8 / 8;
 `;
 
 const UserAvatar = styled.img`
@@ -32,13 +29,10 @@ const UserAvatar = styled.img`
   max-width: 3rem;
   max-height: 9rem;
   max-width: 9rem;
-  border-radius: 100%;
   border: 2px solid grey;
-  grid-row-start: 5;
-  grid-row-end: 10;
-  grid-column-start: 1;
-  grid-column-end: 2;
+  border-radius: 100%;
   margin: 0 1rem;
+  grid-area: 5 / 1 / 10 / 2;
 `;
 
 type UserProfileProps = {

@@ -2,15 +2,6 @@ import styled from 'styled-components';
 import { ReactNode } from 'react';
 
 type Props = {
-  // profile_color: string;
-  // avatar: string;
-  // name: string;
-  // handle: string;
-  // blurb: string;
-  // follower_count: number;
-  // following_count: number;
-  // post_count: number;
-  // birthday: number;
   children: ReactNode;
 };
 
@@ -32,66 +23,45 @@ const StyledProfileName = styled(StyledFGText)`
   white-space: nowrap;
   overflow: hidden;
   align-self: center;
-  grid-column-start: 2;
-  grid-column-end: 8;
-  grid-row-start: 8;
-  grid-row-end: 9;
+  grid-area: 8 / 2 / 9 / 8;
 `;
 
 const StyledProfileHandle = styled(StyledFG2Text)`
-  grid-column-start: 2;
-  grid-column-end: 4;
-  grid-row-start: 9;
-  grid-row-end: 10;
+  grid-area: 9 / 2/ 10 / 4;
 `;
 
 const StyledProfileJoined = styled(StyledFG2Text)`
   font-size: 0.875rem;
   font-weight: bold;
-  grid-column-start: 2;
-  grid-column-end: 5;
-  grid-row-start: 10;
-  grid-row-end: 11;
+  grid-area: 10 / 2 / 11 / 5;
 `;
 
 const StyledProfileBlurb = styled(StyledFGText)`
   font-size: 0.875rem;
   margin-left: 1rem;
   align-self: center;
-  grid-row-start: 11;
-  grid-row-end: 14;
-  grid-column-start: 1;
-  grid-column-end: 6;
+  grid-area: 11 / 1 / 14 / 6;
 `;
 
 const StyledProfileFollowerCount = styled.p`
   font-size: 0.75rem;
   font-weight: bold;
   justify-self: center;
-  grid-column-start: 7;
-  grid-column-end: 8;
-  grid-row-start: 11;
-  grid-row-end: 12;
+  grid-area: 11 / 7 / 12 / 8;
 `;
 
 const StyledProfileFollowingCount = styled.p`
   font-size: 0.75rem;
   font-weight: bold;
   justify-self: center;
-  grid-column-start: 7;
-  grid-column-end: 8;
-  grid-row-start: 12;
-  grid-row-end: 13;
+  grid-area: 12 / 7 / 13 / 8;
 `;
 
 const StyledProfilePostCount = styled.p`
   font-size: 0.75rem;
   font-weight: bold;
   justify-self: center;
-  grid-column-start: 7;
-  grid-column-end: 8;
-  grid-row-start: 13;
-  grid-row-end: 14;
+  grid-area: 13 / 7 / 14 / 8;
 `;
 
 export const ProfileName = (props: Props) =>

@@ -42,22 +42,16 @@ const StyledPostSubmissionButton = styled(StyledButton)`
 `;
 
 const StyledFollowButton = styled(StyledButton)`
-  grid-column-start: 7;
-  grid-column-end: 8;
-  grid-row-start: 9;
-  grid-row-end: 11;
-  margin: 0 1rem;
   align-self: center;
+  margin: 0 1rem;
+  grid-area: 9 / 7 / 11 / 8;
 `;
 
 const StyledMessageButton = styled(StyledButton)`
-  grid-column-start: 6;
-  grid-column-end: 7;
-  grid-row-start: 9;
-  grid-row-end: 11;
-  align-self: center;
-  justify-self: center;
   width: 3rem;
+  justify-self: center;
+  align-self: center;
+  grid-area: 9 / 6 / 11 / 7;
 `;
 
 export const Button = (props: Props) => createButton(StyledButton, props);
