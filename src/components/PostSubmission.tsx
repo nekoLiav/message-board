@@ -35,10 +35,15 @@ const PostSubmissionForm = styled.form`
 `;
 
 const BodyField = styled(TextArea)`
+  font-family: 'Roboto';
   width: 100%;
   height: 100%;
   padding: 0.5rem;
   min-height: 5rem;
+
+  @media (max-width: 360px) {
+    font-size: 0.825rem;
+  }
 `;
 
 type Inputs = {
