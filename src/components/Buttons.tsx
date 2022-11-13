@@ -39,6 +39,11 @@ const StyledButton = styled.button`
 
 const StyledPostSubmissionButton = styled(StyledButton)`
   align-self: end;
+
+  @media (max-width: 360px) {
+    height: 1.5rem;
+    width: 4.5rem;
+  }
 `;
 
 const StyledFollowButton = styled(StyledButton)`
