@@ -40,11 +40,7 @@ const User = () => {
       <div>
         {user && <Profile user={user} toggleDM={toggleDM} />}
         {messageToggle && (
-          <PostSubmission
-            clientUser={clientUser}
-            recipient={user}
-            type={'message'}
-          />
+          <PostSubmission clientUser={clientUser} recipient={user} />
         )}
         {userPosts &&
           userPosts.map((post) => <Post key={post.post_id} post={post} />)}

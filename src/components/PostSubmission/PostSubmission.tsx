@@ -20,7 +20,6 @@ type PostSubmissionProps = {
   recipient?: UserType;
   post?: PostType;
   message?: MessageType;
-  type?: 'message' | 'post';
 };
 
 const PostSubmission = ({
@@ -28,17 +27,15 @@ const PostSubmission = ({
   recipient,
   post,
   message,
-  type,
 }: PostSubmissionProps) => {
   const { handle, avatar } = clientUser;
 
   const { register, handleSubmit } = useForm<Inputs>();
   const onSubmit: SubmitHandler<Inputs> = (data) => {
-    if (type === 'post') {
-      submitPost(data.body, { clientUser, post });
-    }
-    if (type === 'message') {
+    if (recipient) {
       submitMessage(data.body, { clientUser, recipient, message });
+    } else {
+      submitPost(data.body, { clientUser, post });
     }
   };
 
