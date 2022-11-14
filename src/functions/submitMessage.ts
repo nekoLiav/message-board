@@ -31,26 +31,14 @@ export const submitMessage = (
         img_url: null,
         vid_url: null,
         text: data,
-        parent_message: null,
+        parents: [],
         is_reply: false,
       };
       if (message) {
-        if (message.parent_message === null) {
+        if (message) {
           const replyTemplate: MessageType = {
             ...messageTemplate,
-            parent_message: message.message_id,
-            is_reply: true,
-          };
-          try {
-            setDoc(newMessageDoc, replyTemplate);
-          } catch (error) {
-            console.log('Something went wrong!', error);
-          }
-        }
-        if (message.parent_message !== null) {
-          const replyTemplate: MessageType = {
-            ...messageTemplate,
-            parent_message: message.parent_message,
+            parents: [...message.parents, message.message_id],
             is_reply: true,
           };
           try {

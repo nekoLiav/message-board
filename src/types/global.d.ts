@@ -47,7 +47,7 @@ declare global {
     message_id: string;
     recipient: string;
     text: string;
-    parent_message?: string | null;
+    parents: string[];
     img_url: string | null;
     vid_url: string | null;
     is_reply: boolean;

@@ -1,6 +1,8 @@
 import * as PropTypes from 'prop-types';
 import { MessagePropType } from '../../types/PropTypes';
 import { formatDistanceToNowStrict } from 'date-fns';
+import { useNavigate } from 'react-router-dom';
+import { SyntheticEvent } from 'react';
 import {
   MessageContainer,
   AvatarLink,
@@ -21,23 +23,32 @@ type MessageProps = {
 };
 
 const Message = ({ message, chain }: MessageProps) => {
+  const navigate = useNavigate();
+
   const { handle, name, avatar } = message.user_data;
   const { date_posted, text, img_url, vid_url } = message;
 
+  const handleClick = (e: SyntheticEvent) => {
+    const target = e.target as HTMLDivElement;
+    if (!target.classList.contains('no-link') && !message.is_reply) {
+      navigate(`/messages/${message.message_id}`);
+    }
+  };
+
   return (
-    <MessageContainer chain={chain}>
-      <AvatarLink className="no-Message" to={`/${handle}`}>
-        <Avatar className="no-Message" src={avatar} />
+    <MessageContainer chain={chain} onClick={handleClick}>
+      <AvatarLink className="no-link" to={`/${handle}`}>
+        <Avatar className="no-link" src={avatar} />
       </AvatarLink>
       <Linker chain={chain} />
       <Info>
-        <Name className="no-Message" to={`/${handle}`}>
+        <Name className="no-link" to={`/${handle}`}>
           {name}&nbsp;
         </Name>
-        <Handle className="no-Message" to={`/${handle}`}>
+        <Handle className="no-link" to={`/${handle}`}>
           {`@${handle}`}&nbsp;
         </Handle>
-        <DateMessaged className="no-Message">
+        <DateMessaged className="no-link">
           &#x2022;&nbsp;{formatDistanceToNowStrict(date_posted)}
         </DateMessaged>
       </Info>
