@@ -1,11 +1,13 @@
+import { lazy, Suspense } from 'react';
 import { createBrowserRouter } from 'react-router-dom';
 import App from './views/App/App';
-import Home from './views/Home';
-import Messages from './views/Messages';
-import User from './views/User';
-import Thread from './views/Thread';
-
+import Loading from './components/Loading/Loading';
 import signIn from './functions/signIn';
+
+const Home = lazy(() => import('./views/Home'));
+const Messages = lazy(() => import('./views/Messages'));
+const User = lazy(() => import('./views/User'));
+const Thread = lazy(() => import('./views/Thread'));
 
 export const router = createBrowserRouter([
   {
@@ -18,24 +20,44 @@ export const router = createBrowserRouter([
     },
     children: [
       {
-        element: <Home />,
+        element: (
+          <Suspense fallback={<Loading />}>
+            <Home />
+          </Suspense>
+        ),
         index: true,
       },
       {
         path: '/home',
-        element: <Home />,
+        element: (
+          <Suspense fallback={<Loading />}>
+            <Home />
+          </Suspense>
+        ),
       },
       {
         path: '/messages',
-        element: <Messages />,
+        element: (
+          <Suspense fallback={<Loading />}>
+            <Messages />
+          </Suspense>
+        ),
       },
       {
         path: '/:handle',
-        element: <User />,
+        element: (
+          <Suspense fallback={<Loading />}>
+            <User />
+          </Suspense>
+        ),
       },
       {
         path: '/:handle/post/:post_id',
-        element: <Thread />,
+        element: (
+          <Suspense fallback={<Loading />}>
+            <Thread />
+          </Suspense>
+        ),
       },
     ],
   },
