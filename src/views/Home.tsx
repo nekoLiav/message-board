@@ -4,7 +4,6 @@ import Post from '../components/Post';
 import { getHomePosts } from '../functions/getHomePosts';
 import { useRouteLoaderData } from 'react-router-dom';
 import { isUser } from '../functions/assertUnknowns';
-import { PostContainer } from '../components/Containers';
 
 const Home = () => {
   const [homePosts, setHomePosts] = useState<PostType[]>();
@@ -21,11 +20,11 @@ const Home = () => {
     return (
       <div>
         <PostSubmission clientUser={clientUser} />
-        <PostContainer>
+        <div>
           {homePosts.map((p) => (
             <Post key={p.post_id} post={p} />
           ))}
-        </PostContainer>
+        </div>
       </div>
     );
   }

@@ -2,12 +2,11 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import { getUserPosts } from '../functions/getUserPostsByID';
 import Post from '../components/Post';
-import UserProfile from '../components/Profile';
+import Profile from '../components/Profile';
 import { useParams, useRouteLoaderData } from 'react-router-dom';
 import { getUserByHandle } from '../functions/getUserByHandle';
 import PostSubmission from '../components/PostSubmission';
 import { isUser } from '../functions/assertUnknowns';
-import { PostContainer } from '../components/Containers';
 
 const User = () => {
   const [user, setUser] = useState<UserType>();
@@ -35,7 +34,7 @@ const User = () => {
 
   return (
     <div>
-      {user && <UserProfile user={user} toggleDM={toggleDM} />}
+      {user && <Profile user={user} toggleDM={toggleDM} />}
       {messageToggle && (
         <PostSubmission
           clientUser={clientUser}
@@ -43,10 +42,10 @@ const User = () => {
           type={'message'}
         />
       )}
-      <PostContainer>
+      <div>
         {userPosts &&
           userPosts.map((post) => <Post key={post.post_id} post={post} />)}
-      </PostContainer>
+      </div>
     </div>
   );
 };

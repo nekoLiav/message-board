@@ -126,10 +126,10 @@ export const ProfileContainer = (props: Props) =>
   createContainer(StyledProfileContainer, props);
 
 export const PostContainer = (props: Props) =>
-  createContainer(StyledMessageContainer, props);
+  createContainer(StyledPostContainer, props);
 
 export const MessageContainer = (props: Props) =>
-  createContainer(StyledPostContainer, props);
+  createContainer(StyledMessageContainer, props);
 
 export const SubmissionContainer = (props: Props) =>
   createContainer(StyledSubmissionContainer, props);

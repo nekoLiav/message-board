@@ -6,7 +6,6 @@ import { getPost } from '../functions/getPostByID';
 import { getParents } from '../functions/getParentsByIDs';
 import { getReplies } from '../functions/getRepliesByID';
 import { isUser } from '../functions/assertUnknowns';
-import { PostContainer } from '../components/Containers';
 
 const Thread = () => {
   const [post, setPost] = useState<PostType>();
@@ -43,9 +42,9 @@ const Thread = () => {
       </div>
       {post && <Post post={post} main={true} />}
       {post && <PostSubmission post={post} clientUser={clientUser} />}
-      <PostContainer>
+      <div>
         {replies && replies.map((r) => <Post key={r.post_id} post={r} />)}
-      </PostContainer>
+      </div>
     </div>
   );
 };
