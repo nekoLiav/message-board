@@ -7,26 +7,26 @@ import { isUser } from '../functions/assertUnknowns';
 
 const Home = () => {
   const [homePosts, setHomePosts] = useState<PostType[]>();
+  const [isLoading, setIsLoading] = useState<boolean>();
   const clientUser = isUser(useRouteLoaderData('app'));
 
   useEffect(() => {
     (async () => {
+      setIsLoading(true);
       const homePostData = await getHomePosts();
       setHomePosts(homePostData);
+      setIsLoading(false);
     })();
   }, []);
 
-  if (homePosts) {
+  if (!isLoading) {
     return (
       <div>
         <PostSubmission clientUser={clientUser} />
-        {homePosts.map((p) => (
-          <Post key={p.post_id} post={p} />
-        ))}
+        {homePosts && homePosts.map((p) => <Post key={p.post_id} post={p} />)}
       </div>
     );
   }
-
   return null;
 };
 

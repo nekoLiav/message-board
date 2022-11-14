@@ -11,11 +11,13 @@ const Thread = () => {
   const [post, setPost] = useState<PostType>();
   const [parents, setParents] = useState<PostType[]>();
   const [replies, setReplies] = useState<PostType[]>();
+  const [isLoading, setIsLoading] = useState<boolean>();
   const clientUser = isUser(useRouteLoaderData('app'));
   const { post_id } = useParams();
 
   useEffect(() => {
     (async () => {
+      setIsLoading(true);
       if (post_id) {
         // load main post from url
         const postData = await getPost(post_id);
@@ -30,19 +32,23 @@ const Thread = () => {
           setReplies(replyData);
         }
       }
+      setIsLoading(false);
     })();
     // trigger update on url change
   }, [post_id]);
 
-  return (
-    <div>
-      {parents &&
-        parents.map((p) => <Post key={p.post_id} post={p} chain={true} />)}
-      {post && <Post post={post} main={true} />}
-      {post && <PostSubmission post={post} clientUser={clientUser} />}
-      {replies && replies.map((r) => <Post key={r.post_id} post={r} />)}
-    </div>
-  );
+  if (!isLoading) {
+    return (
+      <div>
+        {parents &&
+          parents.map((p) => <Post key={p.post_id} post={p} chain={true} />)}
+        {post && <Post post={post} main={true} />}
+        {post && <PostSubmission post={post} clientUser={clientUser} />}
+        {replies && replies.map((r) => <Post key={r.post_id} post={r} />)}
+      </div>
+    );
+  }
+  return null;
 };
 
 export default Thread;

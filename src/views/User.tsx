@@ -12,11 +12,13 @@ const User = () => {
   const [user, setUser] = useState<UserType>();
   const [userPosts, setUserPosts] = useState<PostType[]>();
   const [messageToggle, setMessageToggle] = useState<boolean>();
+  const [isLoading, setIsLoading] = useState<boolean>();
   const clientUser = isUser(useRouteLoaderData('app'));
   const { handle } = useParams();
 
   useEffect(() => {
     (async () => {
+      setIsLoading(true);
       if (handle) {
         const userData = await getUserByHandle(handle);
         if (userData) {
@@ -25,6 +27,7 @@ const User = () => {
           setUserPosts(userPostsData);
         }
       }
+      setIsLoading(false);
     })();
   }, []);
 
@@ -32,20 +35,23 @@ const User = () => {
     setMessageToggle(!messageToggle);
   };
 
-  return (
-    <div>
-      {user && <Profile user={user} toggleDM={toggleDM} />}
-      {messageToggle && (
-        <PostSubmission
-          clientUser={clientUser}
-          recipient={user}
-          type={'message'}
-        />
-      )}
-      {userPosts &&
-        userPosts.map((post) => <Post key={post.post_id} post={post} />)}
-    </div>
-  );
+  if (!isLoading) {
+    return (
+      <div>
+        {user && <Profile user={user} toggleDM={toggleDM} />}
+        {messageToggle && (
+          <PostSubmission
+            clientUser={clientUser}
+            recipient={user}
+            type={'message'}
+          />
+        )}
+        {userPosts &&
+          userPosts.map((post) => <Post key={post.post_id} post={post} />)}
+      </div>
+    );
+  }
+  return null;
 };
 
 export default User;
