@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import PostSubmission from '../components/PostSubmission';
-import Post from '../components/Post';
+import PostSubmission from '../components/PostSubmission/PostSubmission';
+import Post from '../components/Post/Post';
 import { getHomePosts } from '../functions/getHomePosts';
 import { useRouteLoaderData } from 'react-router-dom';
 import { isUser } from '../functions/assertUnknowns';

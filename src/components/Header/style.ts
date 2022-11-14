@@ -1,12 +1,55 @@
 import styled from 'styled-components';
-import { Link, useRouteLoaderData } from 'react-router-dom';
-import { ReactComponent as Icon } from '../assets/logo3.svg';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
-import { isUser } from '../functions/assertUnknowns';
-import { HeaderContainer, LinkContainer } from './Containers';
+import { Container } from '../../container/style';
+import { Link } from 'react-router-dom';
+import { ReactComponent as Icon } from '../../assets/logo3.svg';
 
-const LogoLink = styled(Link)`
+export const HeaderContainer = styled(Container)`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  width: 100%;
+  height: 100%;
+  padding: 0.5rem;
+
+  @media (max-width: 360px) {
+    border-width: 0 0 1px 0;
+  }
+`;
+
+export const LinkContainer = styled(Container)`
+  display: flex;
+  flex-direction: column;
+
+  @media (max-width: 650px) {
+    align-items: center;
+  }
+
+  @media (max-width: 360px) {
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+  }
+`;
+
+export const AppContainer = styled(Container)`
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: 1fr minmax(min-content, 600px) 1fr;
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+
+  @media (max-width: 360px) {
+    grid-template-columns: 1fr;
+    grid-template-rows: min-content 1fr;
+  }
+`;
+
+export const RouteContainer = styled(Container)`
+  border-width: 0 1px 0 1px;
+`;
+
+export const LogoLink = styled(Link)`
   position: sticky;
   top: 0;
   width: 2.5rem;
@@ -26,9 +69,9 @@ const LogoLink = styled(Link)`
   }
 `;
 
-const Logo = styled(Icon)``;
+export const Logo = styled(Icon)``;
 
-const HomeLink = styled(Link)`
+export const HomeLink = styled(Link)`
   display: flex;
   gap: 0.5rem;
   color: ${(props) => props.theme.primary};
@@ -53,13 +96,13 @@ const HomeLink = styled(Link)`
   }
 `;
 
-const HomeLinkText = styled.p`
+export const HomeLinkText = styled.p`
   @media (max-width: 650px) {
     display: none;
   }
 `;
 
-const MessagesLink = styled(Link)`
+export const MessagesLink = styled(Link)`
   display: flex;
   gap: 0.5rem;
   color: ${(props) => props.theme.primary};
@@ -84,13 +127,13 @@ const MessagesLink = styled(Link)`
   }
 `;
 
-const MessagesLinkText = styled.p`
+export const MessagesLinkText = styled.p`
   @media (max-width: 650px) {
     display: none;
   }
 `;
 
-const ProfileLink = styled(Link)`
+export const ProfileLink = styled(Link)`
   display: flex;
   gap: 0.5rem;
   color: ${(props) => props.theme.primary};
@@ -115,49 +158,8 @@ const ProfileLink = styled(Link)`
   }
 `;
 
-const ProfileLinkText = styled.p`
+export const ProfileLinkText = styled.p`
   @media (max-width: 650px) {
     display: none;
   }
 `;
-
-const Header = () => {
-  const currentUser = isUser(useRouteLoaderData('app'));
-  const { handle } = currentUser;
-
-  return (
-    <HeaderContainer>
-      <LinkContainer>
-        <LogoLink to="/">
-          <Logo />
-        </LogoLink>
-        <HomeLink to="/">
-          <FontAwesomeIcon
-            className="header-icon"
-            icon={solid('house')}
-            fixedWidth
-          />
-          <HomeLinkText>Home</HomeLinkText>
-        </HomeLink>
-        <MessagesLink to="/messages">
-          <FontAwesomeIcon
-            className="header-icon"
-            icon={solid('envelope')}
-            fixedWidth
-          />
-          <MessagesLinkText>DMs</MessagesLinkText>
-        </MessagesLink>
-        <ProfileLink to={handle}>
-          <FontAwesomeIcon
-            className="header-icon"
-            icon={solid('user')}
-            fixedWidth
-          />
-          <ProfileLinkText>Profile</ProfileLinkText>
-        </ProfileLink>
-      </LinkContainer>
-    </HeaderContainer>
-  );
-};
-
-export default Header;

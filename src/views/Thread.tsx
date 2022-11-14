@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams, useRouteLoaderData } from 'react-router-dom';
-import PostSubmission from '../components/PostSubmission';
-import Post from '../components/Post';
+import PostSubmission from '../components/PostSubmission/PostSubmission';
+import Post from '../components/Post/Post';
 import { getPost } from '../functions/getPostByID';
 import { getParents } from '../functions/getParentsByIDs';
 import { getReplies } from '../functions/getRepliesByID';

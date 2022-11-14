@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useRouteLoaderData } from 'react-router-dom';
-import Message from '../components/Message';
+import Message from '../components/Message/Message';
 import { isUser } from '../functions/assertUnknowns';
 import { getClientUserMessages } from '../functions/getMessages';
 

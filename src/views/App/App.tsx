@@ -1,9 +1,9 @@
 import { ThemeProvider } from 'styled-components';
 import { Outlet } from 'react-router-dom';
-import Header from '../components/Header';
-import Aside from '../components/Aside';
-import dark from '../themes/Dark';
-import { AppContainer, RouteContainer } from '../components/Containers';
+import dark from '../../themes/Dark';
+import Header from '../../components/Header/Header';
+import Aside from '../../components/Sidebar/Sidebar';
+import { AppContainer, RouteContainer } from './style';
 
 const App = () => {
   return (

@@ -4,7 +4,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './styles/meyer-reset.css';
 import './styles/index.css';
 
-import App from './views/App';
+import App from './views/App/App';
 import Home from './views/Home';
 import Messages from './views/Messages';
 import User from './views/User';

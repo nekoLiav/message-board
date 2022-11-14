@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { getUserPosts } from '../functions/getUserPostsByID';
-import Post from '../components/Post';
-import Profile from '../components/Profile';
+import Post from '../components/Post/Post';
+import Profile from '../components/Profile/Profile';
 import { useParams, useRouteLoaderData } from 'react-router-dom';
 import { getUserByHandle } from '../functions/getUserByHandle';
-import PostSubmission from '../components/PostSubmission';
+import PostSubmission from '../components/PostSubmission/PostSubmission';
 import { isUser } from '../functions/assertUnknowns';
 
 const User = () => {

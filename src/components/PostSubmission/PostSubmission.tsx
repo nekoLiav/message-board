@@ -1,52 +1,15 @@
-import styled from 'styled-components';
-import { submitPost } from '../functions/submitPost';
-import { UserPropType, PostPropType } from '../types/PropTypes';
-import { PostSubmissionButton } from '../components/Buttons';
-import { Link } from 'react-router-dom';
+import { submitPost } from '../../functions/submitPost';
+import { UserPropType, PostPropType } from '../../types/PropTypes';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { submitMessage } from '../functions/submitMessage';
-import { SubmissionContainer } from './Containers';
-
-const AvatarLink = styled(Link)`
-  max-width: 3rem;
-  max-height: 3rem;
-`;
-
-const Avatar = styled.img`
-  display: block;
-  max-width: 3rem;
-  max-height: 3rem;
-  border-radius: 100%;
-`;
-
-const PostSubmissionForm = styled.form`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  height: 100%;
-  gap: 0.5rem;
-`;
-
-const BodyField = styled.textarea`
-  color: ${(props) => props.theme.primary};
-  background: ${(props) => props.theme.bg_darkest};
-  font-size: 1rem;
-  resize: none;
-  border: none;
-  font-family: 'Roboto';
-  width: 100%;
-  height: 100%;
-  padding: 0.5rem;
-  min-height: 5rem;
-
-  &:focus {
-    outline: none;
-  }
-
-  @media (max-width: 360px) {
-    font-size: 0.825rem;
-  }
-`;
+import { submitMessage } from '../../functions/submitMessage';
+import {
+  PostSubmissionContainer,
+  PostSubmissionButton,
+  AvatarLink,
+  Avatar,
+  PostSubmissionForm,
+  BodyField,
+} from './style';
 
 type Inputs = {
   body: string;
@@ -80,7 +43,7 @@ const PostSubmission = ({
   };
 
   return (
-    <SubmissionContainer>
+    <PostSubmissionContainer>
       <AvatarLink to={`/${handle}`}>
         <Avatar src={avatar} />
       </AvatarLink>
@@ -88,7 +51,7 @@ const PostSubmission = ({
         <BodyField id="body" placeholder="..." {...register('body')} />
         <PostSubmissionButton type="submit">Submit</PostSubmissionButton>
       </PostSubmissionForm>
-    </SubmissionContainer>
+    </PostSubmissionContainer>
   );
 };
 
