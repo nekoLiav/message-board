@@ -42,10 +42,8 @@ const User = () => {
           type={'message'}
         />
       )}
-      <div>
-        {userPosts &&
-          userPosts.map((post) => <Post key={post.post_id} post={post} />)}
-      </div>
+      {userPosts &&
+        userPosts.map((post) => <Post key={post.post_id} post={post} />)}
     </div>
   );
 };

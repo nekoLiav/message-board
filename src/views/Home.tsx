@@ -20,11 +20,9 @@ const Home = () => {
     return (
       <div>
         <PostSubmission clientUser={clientUser} />
-        <div>
-          {homePosts.map((p) => (
-            <Post key={p.post_id} post={p} />
-          ))}
-        </div>
+        {homePosts.map((p) => (
+          <Post key={p.post_id} post={p} />
+        ))}
       </div>
     );
   }

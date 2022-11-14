@@ -36,15 +36,11 @@ const Thread = () => {
 
   return (
     <div>
-      <div>
-        {parents &&
-          parents.map((p) => <Post key={p.post_id} post={p} chain={true} />)}
-      </div>
+      {parents &&
+        parents.map((p) => <Post key={p.post_id} post={p} chain={true} />)}
       {post && <Post post={post} main={true} />}
       {post && <PostSubmission post={post} clientUser={clientUser} />}
-      <div>
-        {replies && replies.map((r) => <Post key={r.post_id} post={r} />)}
-      </div>
+      {replies && replies.map((r) => <Post key={r.post_id} post={r} />)}
     </div>
   );
 };

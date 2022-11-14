@@ -58,6 +58,7 @@ const StyledProfileContainer = styled(StyledContainer)`
   display: grid;
   grid-template-columns: min-content repeat(5, minmax(min-content, 1fr)) min-content;
   grid-template-rows: repeat(13, minmax(1rem, 1.5rem));
+  border-bottom-width: 1px;
 `;
 
 const StyledPostContainer = styled(StyledContainer)`
@@ -93,6 +94,7 @@ const StyledSubmissionContainer = styled(StyledContainer)`
   display: flex;
   padding: 0.5rem;
   gap: 0.5rem;
+  border-bottom-width: 1px;
 `;
 
 const StyledAppContainer = styled(StyledContainer)`
