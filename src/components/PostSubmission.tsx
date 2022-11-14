@@ -1,18 +1,11 @@
 import styled from 'styled-components';
 import { submitPost } from '../functions/submitPost';
 import { UserPropType, PostPropType } from '../types/PropTypes';
-import { Div } from '../styles/Div';
 import { PostSubmissionButton } from '../components/Buttons';
-import { TextArea } from '../styles/TextArea';
 import { Link } from 'react-router-dom';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { submitMessage } from '../functions/submitMessage';
-
-const StyledPostSubmission = styled(Div)`
-  display: flex;
-  padding: 0.5rem;
-  gap: 0.5rem;
-`;
+import { SubmissionContainer } from './Containers';
 
 const AvatarLink = styled(Link)`
   max-width: 3rem;
@@ -34,12 +27,21 @@ const PostSubmissionForm = styled.form`
   gap: 0.5rem;
 `;
 
-const BodyField = styled(TextArea)`
+const BodyField = styled.textarea`
+  color: ${(props) => props.theme.primary};
+  background: ${(props) => props.theme.bg_darkest};
+  font-size: 1rem;
+  resize: none;
+  border: none;
   font-family: 'Roboto';
   width: 100%;
   height: 100%;
   padding: 0.5rem;
   min-height: 5rem;
+
+  &:focus {
+    outline: none;
+  }
 
   @media (max-width: 360px) {
     font-size: 0.825rem;
@@ -78,7 +80,7 @@ const PostSubmission = ({
   };
 
   return (
-    <StyledPostSubmission>
+    <SubmissionContainer>
       <AvatarLink to={`/${handle}`}>
         <Avatar src={avatar} />
       </AvatarLink>
@@ -86,7 +88,7 @@ const PostSubmission = ({
         <BodyField id="body" placeholder="..." {...register('body')} />
         <PostSubmissionButton type="submit">Submit</PostSubmissionButton>
       </PostSubmissionForm>
-    </StyledPostSubmission>
+    </SubmissionContainer>
   );
 };
 

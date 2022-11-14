@@ -7,7 +7,6 @@ import './styles/index.css';
 import App from './views/App';
 import Home from './views/Home';
 import Messages from './views/Messages';
-import Settings from './views/Settings';
 import User from './views/User';
 import Thread from './views/Thread';
 
@@ -34,10 +33,6 @@ const router = createBrowserRouter([
       {
         path: '/messages',
         element: <Messages />,
-      },
-      {
-        path: '/settings',
-        element: <Settings />,
       },
       {
         path: '/:handle',

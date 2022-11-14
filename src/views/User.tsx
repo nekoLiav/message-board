@@ -2,17 +2,12 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import { getUserPosts } from '../functions/getUserPostsByID';
 import Post from '../components/Post';
-import UserProfile from '../components/UserProfile';
-import { Div } from '../styles/Div';
+import UserProfile from '../components/Profile';
 import { useParams, useRouteLoaderData } from 'react-router-dom';
-import styled from 'styled-components';
 import { getUserByHandle } from '../functions/getUserByHandle';
 import PostSubmission from '../components/PostSubmission';
 import { isUser } from '../functions/assertUnknowns';
-
-const PostContainer = styled(Div)`
-  border-width: 1px 0 0 0;
-`;
+import { PostContainer } from '../components/Containers';
 
 const User = () => {
   const [user, setUser] = useState<UserType>();
@@ -39,7 +34,7 @@ const User = () => {
   };
 
   return (
-    <Div>
+    <div>
       {user && <UserProfile user={user} toggleDM={toggleDM} />}
       {messageToggle && (
         <PostSubmission
@@ -52,7 +47,7 @@ const User = () => {
         {userPosts &&
           userPosts.map((post) => <Post key={post.post_id} post={post} />)}
       </PostContainer>
-    </Div>
+    </div>
   );
 };
 

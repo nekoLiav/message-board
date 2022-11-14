@@ -2,29 +2,11 @@ import styled from 'styled-components';
 import * as PropTypes from 'prop-types';
 import { useNavigate, Link } from 'react-router-dom';
 import { PostPropType } from '../types/PropTypes';
-import { Div } from '../styles/Div';
 import { formatDistanceToNowStrict } from 'date-fns';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { solid, regular } from '@fortawesome/fontawesome-svg-core/import.macro';
 import { SyntheticEvent } from 'react';
-
-const StyledPost = styled(Div)<{
-  chain: boolean | undefined;
-  main: boolean | undefined;
-}>`
-  display: grid;
-  grid-template-columns: min-content repeat(4, minmax(min-content, 1fr)) 0.5rem;
-  grid-template-rows: repeat(2, 1rem) 1.5rem 1fr 1.5rem;
-  background: ${(props) =>
-    props.main ? props.theme.mo : props.theme.bg_darkest};
-  border-bottom-width: ${(props) => (props.chain ? '0' : '1px')};
-  transition: 0.2s;
-
-  &:hover {
-    background: ${(props) => (props.main ? props.theme.mo2 : props.theme.mo)};
-    cursor: pointer;
-  }
-`;
+import { PostContainer } from './Containers';
 
 const AvatarLink = styled(Link)`
   max-width: 3rem;
@@ -183,7 +165,7 @@ const Post = ({ post, chain, main }: PostProps) => {
   };
 
   return (
-    <StyledPost chain={chain} main={main} onClick={handleClick}>
+    <PostContainer chain={chain} main={main} onClick={handleClick}>
       <AvatarLink className="no-post" to={`/${handle}`}>
         <Avatar className="no-post" src={avatar} />
       </AvatarLink>
@@ -216,7 +198,7 @@ const Post = ({ post, chain, main }: PostProps) => {
         <FontAwesomeIcon className="no-post" icon={regular('heart')} />
         <LikesCount className="no-post">{likes}</LikesCount>
       </Likes>
-    </StyledPost>
+    </PostContainer>
   );
 };
 

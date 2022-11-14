@@ -2,24 +2,8 @@ import styled from 'styled-components';
 import * as PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { MessagePropType } from '../types/PropTypes';
-import { Div } from '../styles/Div';
 import { formatDistanceToNowStrict } from 'date-fns';
-
-const StyledMessage = styled(Div)<{
-  chain: boolean | undefined;
-}>`
-  display: grid;
-  grid-template-columns: min-content repeat(4, minmax(min-content, 1fr)) 0.5rem;
-  grid-template-rows: repeat(2, 1rem) 1.5rem 1fr 1.5rem;
-  background: ${(props) => props.theme.bg};
-  border-bottom-width: ${(props) => (props.chain ? '0' : '1px')};
-  transition: 0.2s;
-
-  &:hover {
-    background: ${(props) => props.theme.main};
-    cursor: pointer;
-  }
-`;
+import { MessageContainer } from './Containers';
 
 const AvatarLink = styled(Link)`
   max-width: 3rem;
@@ -105,7 +89,7 @@ const Message = ({ message, chain }: MessageProps) => {
   const { date_posted, text, img_url, vid_url } = message;
 
   return (
-    <StyledMessage chain={chain}>
+    <MessageContainer chain={chain}>
       <AvatarLink className="no-Message" to={`/${handle}`}>
         <Avatar className="no-Message" src={avatar} />
       </AvatarLink>
@@ -126,7 +110,7 @@ const Message = ({ message, chain }: MessageProps) => {
         {img_url === null ? null : <Img src={img_url} />}
         {vid_url === null ? null : <Img src={vid_url} />}
       </Content>
-    </StyledMessage>
+    </MessageContainer>
   );
 };
 

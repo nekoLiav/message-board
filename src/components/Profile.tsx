@@ -1,8 +1,7 @@
 import styled from 'styled-components';
 import { format } from 'date-fns';
 import { UserPropType } from '../types/PropTypes';
-import { Div } from '../styles/Div';
-import { MessageButton, FollowButton } from '../components/Buttons';
+import { MessageButton, FollowButton } from './Buttons';
 import {
   ProfileBlurb,
   ProfileFollowerCount,
@@ -12,19 +11,14 @@ import {
   ProfileName,
   ProfilePostCount,
 } from './StaticText';
+import { ProfileContainer } from './Containers';
 
-const StyledUserProfile = styled(Div)`
-  display: grid;
-  grid-template-columns: min-content repeat(5, minmax(min-content, 1fr)) min-content;
-  grid-template-rows: repeat(13, minmax(1rem, 1.5rem));
-`;
-
-const UserBanner = styled(Div)<{ profileColor: string }>`
+const Banner = styled.div<{ profileColor: string }>`
   background: ${(props) => props.profileColor};
   grid-area: 2 / 1 / 8 / 8;
 `;
 
-const UserAvatar = styled.img`
+const Avatar = styled.img`
   max-height: 3rem;
   max-width: 3rem;
   max-height: 9rem;
@@ -35,12 +29,12 @@ const UserAvatar = styled.img`
   grid-area: 5 / 1 / 10 / 2;
 `;
 
-type UserProfileProps = {
+type ProfileProps = {
   user: UserType;
   toggleDM?: () => void;
 };
 
-const UserProfile = ({ user, toggleDM }: UserProfileProps) => {
+const Profile = ({ user, toggleDM }: ProfileProps) => {
   const {
     profile_color,
     avatar,
@@ -54,9 +48,9 @@ const UserProfile = ({ user, toggleDM }: UserProfileProps) => {
   } = user;
 
   return (
-    <StyledUserProfile>
-      <UserBanner profileColor={profile_color} />
-      <UserAvatar src={avatar}></UserAvatar>
+    <ProfileContainer>
+      <Banner profileColor={profile_color} />
+      <Avatar src={avatar}></Avatar>
       <ProfileName>{name}</ProfileName>
       <ProfileHandle>@{handle}</ProfileHandle>
       <ProfileBlurb>{blurb}</ProfileBlurb>
@@ -73,12 +67,12 @@ const UserProfile = ({ user, toggleDM }: UserProfileProps) => {
         Joined&nbsp;
         {format(new Date(birthday * 1000), 'MMMM, dd yyyy')}
       </ProfileJoined>
-    </StyledUserProfile>
+    </ProfileContainer>
   );
 };
 
-UserProfile.propTypes = {
+Profile.propTypes = {
   user: UserPropType.isRequired,
 };
 
-export default UserProfile;
+export default Profile;

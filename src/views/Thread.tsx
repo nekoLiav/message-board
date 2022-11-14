@@ -5,13 +5,8 @@ import Post from '../components/Post';
 import { getPost } from '../functions/getPostByID';
 import { getParents } from '../functions/getParentsByIDs';
 import { getReplies } from '../functions/getRepliesByID';
-import { Div } from '../styles/Div';
-import styled from 'styled-components';
 import { isUser } from '../functions/assertUnknowns';
-
-const PostContainer = styled(Div)`
-  border-width: 1px 0 0 0;
-`;
+import { PostContainer } from '../components/Containers';
 
 const Thread = () => {
   const [post, setPost] = useState<PostType>();
@@ -41,17 +36,17 @@ const Thread = () => {
   }, [post_id]);
 
   return (
-    <Div>
-      <Div>
+    <div>
+      <div>
         {parents &&
           parents.map((p) => <Post key={p.post_id} post={p} chain={true} />)}
-      </Div>
+      </div>
       {post && <Post post={post} main={true} />}
       {post && <PostSubmission post={post} clientUser={clientUser} />}
       <PostContainer>
         {replies && replies.map((r) => <Post key={r.post_id} post={r} />)}
       </PostContainer>
-    </Div>
+    </div>
   );
 };
 

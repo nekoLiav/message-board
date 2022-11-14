@@ -1,13 +1,7 @@
-import styled from 'styled-components';
-
-const StyledAside = styled.div`
-  @media (max-width: 350px) {
-    display: none;
-  }
-`;
+import { AsideContainer } from './Containers';
 
 const Aside = () => {
-  return <StyledAside />;
+  return <AsideContainer>{}</AsideContainer>;
 };
 
 export default Aside;

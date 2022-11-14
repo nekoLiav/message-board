@@ -5,9 +5,10 @@ type Props = {
   children: ReactNode;
 };
 
-const createText = (Component: React.ElementType, props: Props) => (
-  <Component {...props} />
-);
+const createText = (Component: React.ElementType, props: Props) => {
+  const { children, ...rest } = props;
+  return <Component {...rest}>{children}</Component>;
+};
 
 const StyledFGText = styled.p`
   color: ${(props) => props.theme.primary};
