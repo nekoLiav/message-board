@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Container } from '../../container/style';
+import { Container } from '../container/style';
 import { Button } from '../button/style';
 
 export const ProfileContainer = styled(Container)`

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { Container } from '../../container/style';
+import { Container } from '../container/style';
 import { Button } from '../button/style';
 
 export const PostSubmissionContainer = styled(Container)`
