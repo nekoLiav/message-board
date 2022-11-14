@@ -4,6 +4,8 @@ import dark from '../../themes/Dark';
 import Header from '../../components/Header/Header';
 import Aside from '../../components/Sidebar/Sidebar';
 import { AppContainer, RouteContainer } from './style';
+import Loading from '../../components/Loading/Loading';
+import { Suspense } from 'react';
 
 const App = () => {
   return (
@@ -11,7 +13,9 @@ const App = () => {
       <AppContainer>
         <Header />
         <RouteContainer>
-          <Outlet />
+          <Suspense fallback={<Loading />}>
+            <Outlet />
+          </Suspense>
         </RouteContainer>
         <Aside />
       </AppContainer>
