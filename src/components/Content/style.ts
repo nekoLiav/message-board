@@ -20,7 +20,7 @@ export const ContentContainer = styled(Container)`
 
 export const Info = styled.div`
   display: grid;
-  grid-template-columns: repeat(2, min-content) 1fr;
+  grid-template-columns: repeat(2, min-content) max-content;
   gap: 0.25rem 0;
   margin-left: 0.5rem;
   grid-area: 1 / 1 / 2 / 6;
