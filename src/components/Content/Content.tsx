@@ -52,11 +52,10 @@ const Content = ({ content, chain, main }: ContentProps) => {
 
   return (
     <ContentContainer chain={chain} main={main} onClick={handleClick}>
-      <AvatarLink className="no-post" to={`/${handle}`}>
-        <Avatar className="no-post" src={avatar} />
-      </AvatarLink>
-      <Linker chain={chain} />
       <Info>
+        <AvatarLink className="no-post" to={`/${handle}`}>
+          <Avatar className="no-post" src={avatar} />
+        </AvatarLink>
         <Name className="no-post" to={`/${handle}`}>
           {name}&nbsp;
         </Name>
@@ -67,6 +66,7 @@ const Content = ({ content, chain, main }: ContentProps) => {
           &#x2022;&nbsp;{formatDistanceToNowStrict(date_posted)}
         </DatePosted>
       </Info>
+      <Linker chain={chain} />
       <Body>
         <Text>{text}</Text>
         {img_url === null ? null : <Img src={img_url} />}
