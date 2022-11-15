@@ -93,7 +93,7 @@ const Content = ({ content, chain, main }: ContentProps) => {
 };
 
 Content.propTypes = {
-  content: PostPropType || MessagePropType,
+  content: PropTypes.oneOfType([PostPropType, MessagePropType]),
   chain: PropTypes.bool,
   main: PropTypes.bool,
 };
