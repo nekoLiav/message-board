@@ -13,6 +13,8 @@ import {
   Joined,
   MessageButton,
   FollowButton,
+  Info,
+  Engagement,
 } from './style';
 
 type ProfileProps = {
@@ -37,18 +39,22 @@ const Profile = ({ user, toggleDM }: ProfileProps) => {
     <ProfileContainer>
       <Banner profileColor={profile_color} />
       <Avatar src={avatar}></Avatar>
-      <Name>{name}</Name>
-      <Handle>@{handle}</Handle>
+      <Info>
+        <Name>{name}</Name>
+        <Handle>@{handle}</Handle>
+        <Joined>
+          Joined&nbsp;
+          {format(new Date(birthday * 1000), 'MMMM, dd yyyy')}
+        </Joined>
+      </Info>
       <Blurb>{blurb}</Blurb>
-      <FollowerCount>Followers:&nbsp;{follower_count}</FollowerCount>
-      <FollowingCount>Following:&nbsp;{following_count}</FollowingCount>
+      <Engagement>
+        <FollowerCount>Followers:&nbsp;{follower_count}</FollowerCount>
+        <FollowingCount>Following:&nbsp;{following_count}</FollowingCount>
+        <PostCount>Posts:&nbsp;{post_count}</PostCount>
+      </Engagement>
       <MessageButton onClick={toggleDM}>DM</MessageButton>
       <FollowButton>Follow</FollowButton>
-      <PostCount>Posts:&nbsp;{post_count}</PostCount>
-      <Joined>
-        Joined&nbsp;
-        {format(new Date(birthday * 1000), 'MMMM, dd yyyy')}
-      </Joined>
     </ProfileContainer>
   );
 };

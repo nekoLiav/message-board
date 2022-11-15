@@ -5,37 +5,34 @@ import { Button } from '../button/style';
 export const ProfileContainer = styled(Container)`
   display: grid;
   border-bottom-width: 1px;
-  grid-template-columns: min-content repeat(5, minmax(min-content, 1fr)) min-content;
-  grid-template-rows: repeat(13, minmax(1rem, 1.5rem));
-`;
-
-export const FollowButton = styled(Button)`
-  align-self: center;
-  margin: 0 1rem;
-  grid-area: 9 / 7 / 11 / 8;
-`;
-
-export const MessageButton = styled(Button)`
-  width: 3rem;
-  justify-self: center;
-  align-self: center;
-  grid-area: 9 / 6 / 11 / 7;
+  grid-template-rows: 1fr 1fr 1fr 1fr min-content;
+  grid-template-columns: min-content 1fr 1fr 1fr;
 `;
 
 export const Banner = styled.div<{ profileColor: string }>`
   background: ${(props) => props.profileColor};
-  grid-area: 2 / 1 / 8 / 8;
+  grid-area: 1 / 1 / 3 / 5;
 `;
 
 export const Avatar = styled.img`
-  max-height: 3rem;
-  max-width: 3rem;
-  max-height: 9rem;
-  max-width: 9rem;
+  height: 9rem;
+  width: 9rem;
   border: 2px solid grey;
   border-radius: 100%;
-  margin: 0 1rem;
-  grid-area: 5 / 1 / 10 / 2;
+  align-self: center;
+  grid-area: 2 / 1 / 4 / 2;
+  margin-left: 0.5rem;
+
+  @media (max-width: 500px) {
+    height: 4.5rem;
+    width: 4.5rem;
+  }
+`;
+
+export const Info = styled.div`
+  margin-top: 0.5rem;
+  margin-left: 0.5rem;
+  grid-area: 3 / 2 / 4 / 5;
 `;
 
 export const Name = styled.p`
@@ -43,44 +40,86 @@ export const Name = styled.p`
   text-decoration: none;
   white-space: nowrap;
   overflow: hidden;
-  align-self: center;
-  grid-area: 8 / 2 / 9 / 8;
+
+  @media (max-width: 500px) {
+    font-size: ${(props) => props.theme.sm};
+  }
 `;
 
 export const Handle = styled.p`
-  grid-area: 9 / 2/ 10 / 4;
+  color: ${(props) => props.theme.secondary};
+
+  @media (max-width: 500px) {
+    font-size: ${(props) => props.theme.sm};
+  }
 `;
 
 export const Joined = styled.p`
   font-size: ${(props) => props.theme.sm};
-  font-weight: ${(props) => props.theme.heavy};
-  grid-area: 10 / 2 / 11 / 5;
+  color: ${(props) => props.theme.secondary};
+
+  @media (max-width: 500px) {
+    font-size: ${(props) => props.theme.xs};
+  }
 `;
 
 export const Blurb = styled.p`
   font-size: ${(props) => props.theme.sm};
-  margin-left: 1rem;
-  align-self: center;
-  grid-area: 11 / 1 / 14 / 6;
+  margin-top: 0.5rem;
+  margin-left: 0.5rem;
+  grid-area: 4 / 2 / 4 / 5;
+
+  @media (max-width: 500px) {
+    font-size: ${(props) => props.theme.xs};
+  }
+`;
+
+export const Engagement = styled.div`
+  display: flex;
+  justify-content: space-evenly;
+  grid-area: 5 / 1 / 6 / 5;
 `;
 
 export const FollowerCount = styled.p`
   font-size: ${(props) => props.theme.xs};
   font-weight: ${(props) => props.theme.heavy};
-  justify-self: center;
-  grid-area: 11 / 7 / 12 / 8;
+  color: ${(props) => props.theme.secondary};
 `;
 
 export const FollowingCount = styled.p`
   font-size: ${(props) => props.theme.xs};
   font-weight: ${(props) => props.theme.heavy};
-  justify-self: center;
-  grid-area: 12 / 7 / 13 / 8;
+  color: ${(props) => props.theme.secondary};
 `;
 
 export const PostCount = styled.p`
   font-size: ${(props) => props.theme.xs};
   font-weight: ${(props) => props.theme.heavy};
+  color: ${(props) => props.theme.secondary};
+`;
+
+export const FollowButton = styled(Button)`
   justify-self: center;
-  grid-area: 13 / 7 / 14 / 8;
+  align-self: end;
+  grid-area: 3 / 4 / 4 / 5;
+
+  @media (max-width: 500px) {
+    font-size: ${(props) => props.theme.sm};
+    width: 4rem;
+    height: 1.25rem;
+  }
+`;
+
+export const MessageButton = styled(Button)`
+  width: 4rem;
+  justify-self: center;
+  align-self: center;
+  margin-left: 0.5rem;
+  grid-area: 4 / 1 / 5 / 2;
+
+  @media (max-width: 500px) {
+    font-size: ${(props) => props.theme.sm};
+    width: 2.5rem;
+    height: 1.25rem;
+  }
 `;
