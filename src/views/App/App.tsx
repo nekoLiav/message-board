@@ -1,4 +1,5 @@
 import { ThemeProvider } from 'styled-components';
+import { GlobalStyle } from '../..';
 import { Outlet } from 'react-router-dom';
 import dark from '../../themes/Dark';
 import Header from '../../components/Header/Header';
@@ -10,6 +11,7 @@ import { Suspense } from 'react';
 const App = () => {
   return (
     <ThemeProvider theme={dark}>
+      <GlobalStyle />
       <AppContainer>
         <Header />
         <RouteContainer>
