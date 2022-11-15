@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import PostSubmission from '../components/PostSubmission/PostSubmission';
-import Post from '../components/Post/Post';
+import Content from '../components/Post/Content';
 import getHomePosts from '../functions/getHomePosts';
 import { useRouteLoaderData } from 'react-router-dom';
 import { isUser } from '../functions/assertUnknowns';
@@ -23,7 +23,8 @@ const Home = () => {
     return (
       <div>
         <PostSubmission clientUser={clientUser} />
-        {homePosts && homePosts.map((p) => <Post key={p.post_id} post={p} />)}
+        {homePosts &&
+          homePosts.map((p) => <Content key={p.post_id} content={p} />)}
       </div>
     );
   }

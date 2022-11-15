@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useRouteLoaderData } from 'react-router-dom';
-import Message from '../components/Message/Message';
+import Content from '../components/Post/Content';
 import { isUser } from '../functions/assertUnknowns';
 import getMessages from '../functions/getMessages';
 
@@ -22,9 +22,7 @@ const Messages = () => {
     return (
       <div>
         {messages &&
-          messages.map((message) => (
-            <Message key={message.message_id} message={message} />
-          ))}
+          messages.map((m) => <Content key={m.message_id} content={m} />)}
       </div>
     );
   }

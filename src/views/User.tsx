@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useEffect } from 'react';
 import getUserPosts from '../functions/getUserPosts';
-import Post from '../components/Post/Post';
+import Content from '../components/Post/Content';
 import Profile from '../components/Profile/Profile';
 import { useParams, useRouteLoaderData } from 'react-router-dom';
 import getUserByHandle from '../functions/getUserByHandle';
@@ -45,7 +45,7 @@ const User = () => {
             )
           : null}
         {userPosts &&
-          userPosts.map((post) => <Post key={post.post_id} post={post} />)}
+          userPosts.map((p) => <Content key={p.post_id} content={p} />)}
       </div>
     );
   }

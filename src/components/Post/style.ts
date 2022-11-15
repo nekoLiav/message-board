@@ -74,7 +74,7 @@ export const DatePosted = styled.p`
   font-size: 0.875rem;
 `;
 
-export const Content = styled.div`
+export const Body = styled.div`
   grid-area: 3 / 2 / 5 / 6;
 `;
 
@@ -91,9 +91,15 @@ export const Img = styled.img`
   margin-top: 0.5rem;
 `;
 
+export const Engagement = styled.div`
+  display: grid;
+  grid-template-column: repeat(6, 1fr);
+  grid-area: 5 / 2 / 5 / 6;
+`;
+
 export const Replies = styled.div`
   display: flex;
-  grid-area: 5 / 2 / 6 / 3;
+  grid-column: 1 / 2;
   width: min-content;
   gap: 0.5rem;
   align-items: center;
@@ -111,7 +117,7 @@ export const RepliesCount = styled.p`
 
 export const Reposts = styled.div`
   display: flex;
-  grid-area: 5 / 3 / 6 / 4;
+  grid-column: 3 / 4;
   width: min-content;
   gap: 0.5rem;
   align-items: center;
@@ -129,7 +135,7 @@ export const RepostsCount = styled.p`
 
 export const Likes = styled.div`
   display: flex;
-  grid-area: 5 / 4 / 6 / 5;
+  grid-column: 5 / 6;
   width: min-content;
   gap: 0.5rem;
   align-items: center;

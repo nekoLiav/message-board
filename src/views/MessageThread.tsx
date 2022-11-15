@@ -3,8 +3,8 @@ import { useParams, useRouteLoaderData } from 'react-router-dom';
 import PostSubmission from '../components/PostSubmission/PostSubmission';
 import { isUser } from '../functions/assertUnknowns';
 import getMessageThread from '../functions/getMessageThread';
-import Message from '../components/Message/Message';
 import { assertDefined } from '../functions/assertDefined';
+import Content from '../components/Post/Content';
 
 const MessageThread = () => {
   const [thread, setThread] = useState<MessageType[]>();
@@ -29,9 +29,9 @@ const MessageThread = () => {
       <div>
         {thread &&
           thread.map((m, i) => (
-            <Message
+            <Content
               key={m.message_id}
-              message={m}
+              content={m}
               chain={i !== thread.length - 1}
             />
           ))}
