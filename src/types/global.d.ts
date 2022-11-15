@@ -47,10 +47,16 @@ declare global {
     message_id: string;
     recipient: string;
     text: string;
-    parents: string[];
+    parent_id: string | null;
     img_url: string | null;
     vid_url: string | null;
     is_reply: boolean;
+  };
+
+  export type PostThread = {
+    postData: PostType;
+    parentData?: PostType[];
+    replyData?: PostType[];
   };
 
   export type Component = React.ElementType;

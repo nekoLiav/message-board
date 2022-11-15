@@ -17,9 +17,9 @@ type Inputs = {
 
 type PostSubmissionProps = {
   clientUser: UserType;
-  recipient?: UserType;
+  recipient?: string;
   post?: PostType;
-  message?: MessageType;
+  message?: string;
 };
 
 const PostSubmission = ({
@@ -34,7 +34,8 @@ const PostSubmission = ({
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     if (recipient) {
       submitMessage(data.body, { clientUser, recipient, message });
-    } else {
+    }
+    if (post) {
       submitPost(data.body, { clientUser, post });
     }
   };

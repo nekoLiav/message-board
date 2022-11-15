@@ -2,7 +2,7 @@ import { query, collection, where, getDocs } from 'firebase/firestore';
 import { db } from './firebase-config';
 import { postConverter } from './firestoreDataCoversion';
 
-export const getHomePosts = async () => {
+export default async function getHomePosts() {
   const homePosts: PostType[] = [];
   try {
     const homePostRefs = query(
@@ -15,4 +15,4 @@ export const getHomePosts = async () => {
     console.log('Something went wrong!', error);
   }
   return homePosts;
-};
+}

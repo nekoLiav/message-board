@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useRouteLoaderData } from 'react-router-dom';
 import Message from '../components/Message/Message';
 import { isUser } from '../functions/assertUnknowns';
-import { getClientUserMessages } from '../functions/getMessages';
+import getMessages from '../functions/getMessages';
 
 const Messages = () => {
   const [messages, setMessages] = useState<MessageType[]>();
@@ -12,7 +12,7 @@ const Messages = () => {
   useEffect(() => {
     (async () => {
       setIsLoading(true);
-      const fetchedMessages = await getClientUserMessages(clientUser.id);
+      const fetchedMessages = await getMessages(clientUser.id);
       setMessages(fetchedMessages);
       setIsLoading(false);
     })();

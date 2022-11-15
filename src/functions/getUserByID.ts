@@ -2,7 +2,7 @@ import { doc, getDoc } from 'firebase/firestore';
 import { db } from './firebase-config';
 import { userConverter } from './firestoreDataCoversion';
 
-export const getUser = async (id: Required<string>) => {
+export default async function getUserByID(id: Required<string>) {
   try {
     const userRef = doc(db, 'users', id).withConverter(userConverter);
     const userSnap = await getDoc(userRef);
@@ -10,4 +10,4 @@ export const getUser = async (id: Required<string>) => {
   } catch (error) {
     console.log('Something went wrong!', error);
   }
-};
+}

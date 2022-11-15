@@ -4,9 +4,10 @@ import App from './views/App/App';
 import signIn from './functions/signIn';
 
 const Home = lazy(() => import('./views/Home'));
-const Messages = lazy(() => import('./views/Messages'));
 const User = lazy(() => import('./views/User'));
-const Thread = lazy(() => import('./views/Thread'));
+const Messages = lazy(() => import('./views/Messages'));
+const MessageThread = lazy(() => import('./views/MessageThread'));
+const PostThread = lazy(() => import('./views/PostThread'));
 
 export const router = createBrowserRouter([
   {
@@ -27,20 +28,20 @@ export const router = createBrowserRouter([
         element: <Home />,
       },
       {
+        path: '/:handle',
+        element: <User />,
+      },
+      {
         path: '/messages',
         element: <Messages />,
       },
       {
         path: '/messages/:message_id',
-        element: <Thread />,
-      },
-      {
-        path: '/:handle',
-        element: <User />,
+        element: <MessageThread />,
       },
       {
         path: '/:handle/post/:post_id',
-        element: <Thread />,
+        element: <PostThread />,
       },
     ],
   },

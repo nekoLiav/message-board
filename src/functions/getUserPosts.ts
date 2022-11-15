@@ -2,7 +2,7 @@ import { query, collection, where, getDocs } from 'firebase/firestore';
 import { db } from './firebase-config';
 import { postConverter } from './firestoreDataCoversion';
 
-export const getUserPosts = async (id: Required<string>) => {
+export default async function getUserPosts(id: Required<string>) {
   const UserPosts: PostType[] = [];
   try {
     const UserPostRefs = query(
@@ -21,4 +21,4 @@ export const getUserPosts = async (id: Required<string>) => {
     console.log('Something went wrong!', error);
   }
   return UserPosts;
-};
+}

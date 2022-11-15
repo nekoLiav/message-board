@@ -2,40 +2,33 @@ import { useEffect, useState } from 'react';
 import { useParams, useRouteLoaderData } from 'react-router-dom';
 import PostSubmission from '../components/PostSubmission/PostSubmission';
 import Post from '../components/Post/Post';
-import { getPost } from '../functions/getPostByID';
-import { getParents } from '../functions/getParentsByIDs';
-import { getReplies } from '../functions/getRepliesByID';
 import { isUser } from '../functions/assertUnknowns';
+import getPostThread from '../functions/getPostThread';
+import { assertDefined } from '../functions/assertDefined';
 
-const Thread = () => {
+const PostThread = () => {
   const [post, setPost] = useState<PostType>();
   const [parents, setParents] = useState<PostType[]>();
   const [replies, setReplies] = useState<PostType[]>();
   const [isLoading, setIsLoading] = useState<boolean>();
   const clientUser = isUser(useRouteLoaderData('app'));
-  const { post_id } = useParams();
+  const params = useParams();
 
   useEffect(() => {
     (async () => {
       setIsLoading(true);
-      if (post_id) {
-        // load main post from url
-        const postData = await getPost(post_id);
-        if (postData) {
-          // load parent posts through to the "root" post
-          // this is the post chain/thread to link together
-          setPost(postData);
-          const parentData = await getParents(postData.parent_ids);
-          setParents(parentData);
-          // load replies to main post
-          const replyData = await getReplies(postData.post_id);
-          setReplies(replyData);
-        }
-      }
+      assertDefined(params.post_id);
+      const threadData: PostThread | undefined = await getPostThread(
+        params.post_id
+      );
+      assertDefined(threadData, 'threadData in PostThread.tsx');
+      const { postData, parentData, replyData } = threadData;
+      setPost(postData);
+      setParents(parentData);
+      setReplies(replyData);
       setIsLoading(false);
     })();
-    // trigger update on url change
-  }, [post_id]);
+  }, [params]);
 
   if (!isLoading) {
     return (
@@ -51,4 +44,4 @@ const Thread = () => {
   return null;
 };
 
-export default Thread;
+export default PostThread;

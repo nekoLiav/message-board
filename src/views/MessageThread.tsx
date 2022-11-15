@@ -1,0 +1,51 @@
+import { useEffect, useState } from 'react';
+import { useParams, useRouteLoaderData } from 'react-router-dom';
+import PostSubmission from '../components/PostSubmission/PostSubmission';
+import { isUser } from '../functions/assertUnknowns';
+import getMessageThread from '../functions/getMessageThread';
+import Message from '../components/Message/Message';
+import { assertDefined } from '../functions/assertDefined';
+
+const MessageThread = () => {
+  const [thread, setThread] = useState<MessageType[]>();
+  const [isLoading, setIsLoading] = useState<boolean>();
+  const clientUser = isUser(useRouteLoaderData('app'));
+  const params = useParams();
+
+  useEffect(() => {
+    (async () => {
+      setIsLoading(true);
+      if (params.message_id) {
+        const threadData = await getMessageThread(params.message_id);
+        assertDefined(threadData, 'threadData in MessageThread.tsx');
+        setThread(threadData.sort((a, b) => a.date_posted - b.date_posted));
+        setIsLoading(false);
+      }
+    })();
+  }, [params]);
+
+  if (!isLoading) {
+    return (
+      <div>
+        {thread &&
+          thread.map((m, i) => (
+            <Message
+              key={m.message_id}
+              message={m}
+              chain={i !== thread.length - 1}
+            />
+          ))}
+        {thread && (
+          <PostSubmission
+            message={params.message_id}
+            recipient={thread[0].recipient}
+            clientUser={clientUser}
+          />
+        )}
+      </div>
+    );
+  }
+  return null;
+};
+
+export default MessageThread;

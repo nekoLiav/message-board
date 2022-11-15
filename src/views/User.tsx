@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { useEffect } from 'react';
-import { getUserPosts } from '../functions/getUserPostsByID';
+import getUserPosts from '../functions/getUserPosts';
 import Post from '../components/Post/Post';
 import Profile from '../components/Profile/Profile';
 import { useParams, useRouteLoaderData } from 'react-router-dom';
-import { getUserByHandle } from '../functions/getUserByHandle';
+import getUserByHandle from '../functions/getUserByHandle';
 import PostSubmission from '../components/PostSubmission/PostSubmission';
 import { isUser } from '../functions/assertUnknowns';
 
@@ -39,9 +39,11 @@ const User = () => {
     return (
       <div>
         {user && <Profile user={user} toggleDM={toggleDM} />}
-        {messageToggle && (
-          <PostSubmission clientUser={clientUser} recipient={user} />
-        )}
+        {user
+          ? messageToggle && (
+              <PostSubmission clientUser={clientUser} recipient={user.id} />
+            )
+          : null}
         {userPosts &&
           userPosts.map((post) => <Post key={post.post_id} post={post} />)}
       </div>

@@ -2,23 +2,23 @@ import { query, collection, where, getDocs } from 'firebase/firestore';
 import { db } from './firebase-config';
 import { messageConverter } from './firestoreDataCoversion';
 
-export const getClientUserMessages = async (id: Required<string>) => {
-  const clientUserMessages: MessageType[] = [];
+export default async function getMessages(id: Required<string>) {
+  const messages: MessageType[] = [];
   try {
-    const clientUserMessageRefs = query(
+    const messageRefs = query(
       collection(db, 'messages').withConverter(messageConverter),
       where('recipient', '==', id),
       where('is_reply', '==', false)
     );
-    const clientUserMessageSnap = await getDocs(clientUserMessageRefs);
-    clientUserMessageSnap.forEach((message) => {
+    const messageSnap = await getDocs(messageRefs);
+    messageSnap.forEach((message) => {
       const messageData = message.data();
       if (messageData) {
-        clientUserMessages.push(messageData);
+        messages.push(messageData);
       }
     });
   } catch (error) {
     console.log('Something went wrong!', error);
   }
-  return clientUserMessages;
-};
+  return messages;
+}

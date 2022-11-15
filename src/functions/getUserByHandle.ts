@@ -2,7 +2,7 @@ import { collection, getDocs, query, where } from 'firebase/firestore';
 import { db } from './firebase-config';
 import { userConverter } from './firestoreDataCoversion';
 
-export const getUserByHandle = async (handle: Required<string>) => {
+export default async function getUserByHandle(handle: Required<string>) {
   try {
     const userRef = query(
       collection(db, 'users').withConverter(userConverter),
@@ -14,4 +14,4 @@ export const getUserByHandle = async (handle: Required<string>) => {
   } catch (error) {
     console.log('Something went wrong!', error);
   }
-};
+}
