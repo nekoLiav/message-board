@@ -6,7 +6,7 @@ import { SyntheticEvent } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { solid, regular } from '@fortawesome/fontawesome-svg-core/import.macro';
 import {
-  PostContainer,
+  ContentContainer,
   AvatarLink,
   Avatar,
   Linker,
@@ -51,7 +51,7 @@ const Content = ({ content, chain, main }: ContentProps) => {
   };
 
   return (
-    <PostContainer chain={chain} main={main} onClick={handleClick}>
+    <ContentContainer chain={chain} main={main} onClick={handleClick}>
       <AvatarLink className="no-post" to={`/${handle}`}>
         <Avatar className="no-post" src={avatar} />
       </AvatarLink>
@@ -88,7 +88,7 @@ const Content = ({ content, chain, main }: ContentProps) => {
           </Likes>
         </Engagement>
       )}
-    </PostContainer>
+    </ContentContainer>
   );
 };
 

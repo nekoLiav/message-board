@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { Container } from '../container/style';
 
-export const PostContainer = styled(Container)`
+export const ContentContainer = styled(Container)`
   display: grid;
   grid-template-columns: min-content repeat(4, minmax(min-content, 1fr)) 0.5rem;
   grid-template-rows: repeat(2, 1rem) 1.5rem 1fr 1.5rem;

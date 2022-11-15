@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useRouteLoaderData } from 'react-router-dom';
-import Content from '../../components/Post/Content';
+import Content from '../../components/Content/Content';
 import { isUser } from '../../functions/assertUnknowns';
 import getMessages from '../../functions/getMessages';
 import { MessagesContainer } from './style';

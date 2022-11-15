@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useParams, useRouteLoaderData } from 'react-router-dom';
-import PostSubmission from '../../components/PostSubmission/PostSubmission';
+import ContentSubmission from '../../components/ContentSubmission/ContentSubmission';
 import { isUser } from '../../functions/assertUnknowns';
 import getMessageThread from '../../functions/getMessageThread';
 import { assertDefined } from '../../functions/assertDefined';
-import Content from '../../components/Post/Content';
+import Content from '../../components/Content/Content';
 import { MessageThreadContainer } from './style';
 
 const MessageThread = () => {
@@ -35,7 +35,7 @@ const MessageThread = () => {
             chain={i !== thread.length - 1}
           />
         ))}
-        <PostSubmission
+        <ContentSubmission
           message={params.message_id}
           recipient={thread[0].recipient}
           clientUser={clientUser}

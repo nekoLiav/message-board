@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams, useRouteLoaderData } from 'react-router-dom';
-import PostSubmission from '../../components/PostSubmission/PostSubmission';
-import Content from '../../components/Post/Content';
+import ContentSubmission from '../../components/ContentSubmission/ContentSubmission';
+import Content from '../../components/Content/Content';
 import { isUser } from '../../functions/assertUnknowns';
 import getPostThread from '../../functions/getPostThread';
 import { assertDefined } from '../../functions/assertDefined';
@@ -39,7 +39,7 @@ const PostThread = () => {
             <Content key={p.post_id} content={p} chain={true} />
           ))}
         <Content content={post} main={true} />
-        <PostSubmission post={post} clientUser={clientUser} />
+        <ContentSubmission post={post} clientUser={clientUser} />
         {replies && replies.map((r) => <Content key={r.post_id} content={r} />)}
       </PostThreadContainer>
     );

@@ -3,11 +3,11 @@ import { UserPropType, PostPropType } from '../../types/PropTypes';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { submitMessage } from '../../functions/submitMessage';
 import {
-  PostSubmissionContainer,
-  PostSubmissionButton,
+  ContentSubmissionContainer,
+  ContentSubmissionButton,
   AvatarLink,
   Avatar,
-  PostSubmissionForm,
+  ContentSubmissionForm,
   BodyField,
 } from './style';
 
@@ -15,19 +15,19 @@ type Inputs = {
   body: string;
 };
 
-type PostSubmissionProps = {
+type ContentSubmissionProps = {
   clientUser: UserType;
   recipient?: string;
   post?: PostType;
   message?: string;
 };
 
-const PostSubmission = ({
+const ContentSubmission = ({
   clientUser,
   recipient,
   post,
   message,
-}: PostSubmissionProps) => {
+}: ContentSubmissionProps) => {
   const { handle, avatar } = clientUser;
 
   const { register, handleSubmit } = useForm<Inputs>();
@@ -41,21 +41,21 @@ const PostSubmission = ({
   };
 
   return (
-    <PostSubmissionContainer>
+    <ContentSubmissionContainer>
       <AvatarLink to={`/${handle}`}>
         <Avatar src={avatar} />
       </AvatarLink>
-      <PostSubmissionForm onSubmit={handleSubmit(onSubmit)}>
+      <ContentSubmissionForm onSubmit={handleSubmit(onSubmit)}>
         <BodyField id="body" placeholder="..." {...register('body')} />
-        <PostSubmissionButton type="submit">Submit</PostSubmissionButton>
-      </PostSubmissionForm>
-    </PostSubmissionContainer>
+        <ContentSubmissionButton type="submit">Submit</ContentSubmissionButton>
+      </ContentSubmissionForm>
+    </ContentSubmissionContainer>
   );
 };
 
-PostSubmission.propTypes = {
+ContentSubmission.propTypes = {
   clientUser: UserPropType.isRequired,
   post: PostPropType,
 };
 
-export default PostSubmission;
+export default ContentSubmission;

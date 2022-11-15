@@ -3,14 +3,14 @@ import { Link } from 'react-router-dom';
 import { Container } from '../container/style';
 import { Button } from '../button/style';
 
-export const PostSubmissionContainer = styled(Container)`
+export const ContentSubmissionContainer = styled(Container)`
   display: flex;
   padding: 0.5rem;
   gap: 0.5rem;
   border-bottom-width: 1px;
 `;
 
-export const PostSubmissionButton = styled(Button)`
+export const ContentSubmissionButton = styled(Button)`
   align-self: end;
 
   @media (max-width: 360px) {
@@ -31,7 +31,7 @@ export const Avatar = styled.img`
   border-radius: 100%;
 `;
 
-export const PostSubmissionForm = styled.form`
+export const ContentSubmissionForm = styled.form`
   display: flex;
   flex-direction: column;
   width: 100%;
