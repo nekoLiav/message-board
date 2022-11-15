@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useRouteLoaderData } from 'react-router-dom';
-import Content from '../components/Post/Content';
-import { isUser } from '../functions/assertUnknowns';
-import getMessages from '../functions/getMessages';
+import Content from '../../components/Post/Content';
+import { isUser } from '../../functions/assertUnknowns';
+import getMessages from '../../functions/getMessages';
+import { MessagesContainer } from './style';
 
 const Messages = () => {
   const [messages, setMessages] = useState<MessageType[]>();
@@ -20,10 +21,10 @@ const Messages = () => {
 
   if (!isLoading) {
     return (
-      <div>
+      <MessagesContainer>
         {messages &&
           messages.map((m) => <Content key={m.message_id} content={m} />)}
-      </div>
+      </MessagesContainer>
     );
   }
   return null;

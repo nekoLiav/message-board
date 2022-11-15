@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import { useEffect } from 'react';
-import getUserPosts from '../functions/getUserPosts';
-import Content from '../components/Post/Content';
-import Profile from '../components/Profile/Profile';
+import getUserPosts from '../../functions/getUserPosts';
+import Content from '../../components/Post/Content';
+import Profile from '../../components/Profile/Profile';
 import { useParams, useRouteLoaderData } from 'react-router-dom';
-import getUserByHandle from '../functions/getUserByHandle';
-import PostSubmission from '../components/PostSubmission/PostSubmission';
-import { isUser } from '../functions/assertUnknowns';
+import getUserByHandle from '../../functions/getUserByHandle';
+import PostSubmission from '../../components/PostSubmission/PostSubmission';
+import { isUser } from '../../functions/assertUnknowns';
+import { UserContainer } from './style';
 
 const User = () => {
   const [user, setUser] = useState<UserType>();
@@ -35,18 +36,16 @@ const User = () => {
     setMessageToggle(!messageToggle);
   };
 
-  if (!isLoading) {
+  if (!isLoading && user) {
     return (
-      <div>
-        {user && <Profile user={user} toggleDM={toggleDM} />}
-        {user
-          ? messageToggle && (
-              <PostSubmission clientUser={clientUser} recipient={user.id} />
-            )
-          : null}
+      <UserContainer>
+        <Profile user={user} toggleDM={toggleDM} />
+        {messageToggle && (
+          <PostSubmission clientUser={clientUser} recipient={user.id} />
+        )}
         {userPosts &&
           userPosts.map((p) => <Content key={p.post_id} content={p} />)}
-      </div>
+      </UserContainer>
     );
   }
   return null;

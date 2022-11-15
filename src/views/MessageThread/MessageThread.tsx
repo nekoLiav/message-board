@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useParams, useRouteLoaderData } from 'react-router-dom';
-import PostSubmission from '../components/PostSubmission/PostSubmission';
-import { isUser } from '../functions/assertUnknowns';
-import getMessageThread from '../functions/getMessageThread';
-import { assertDefined } from '../functions/assertDefined';
-import Content from '../components/Post/Content';
+import PostSubmission from '../../components/PostSubmission/PostSubmission';
+import { isUser } from '../../functions/assertUnknowns';
+import getMessageThread from '../../functions/getMessageThread';
+import { assertDefined } from '../../functions/assertDefined';
+import Content from '../../components/Post/Content';
+import { MessageThreadContainer } from './style';
 
 const MessageThread = () => {
   const [thread, setThread] = useState<MessageType[]>();
@@ -24,25 +25,22 @@ const MessageThread = () => {
     })();
   }, [params]);
 
-  if (!isLoading) {
+  if (!isLoading && thread) {
     return (
-      <div>
-        {thread &&
-          thread.map((m, i) => (
-            <Content
-              key={m.message_id}
-              content={m}
-              chain={i !== thread.length - 1}
-            />
-          ))}
-        {thread && (
-          <PostSubmission
-            message={params.message_id}
-            recipient={thread[0].recipient}
-            clientUser={clientUser}
+      <MessageThreadContainer>
+        {thread.map((m, i) => (
+          <Content
+            key={m.message_id}
+            content={m}
+            chain={i !== thread.length - 1}
           />
-        )}
-      </div>
+        ))}
+        <PostSubmission
+          message={params.message_id}
+          recipient={thread[0].recipient}
+          clientUser={clientUser}
+        />
+      </MessageThreadContainer>
     );
   }
   return null;

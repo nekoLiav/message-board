@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useParams, useRouteLoaderData } from 'react-router-dom';
-import PostSubmission from '../components/PostSubmission/PostSubmission';
-import Content from '../components/Post/Content';
-import { isUser } from '../functions/assertUnknowns';
-import getPostThread from '../functions/getPostThread';
-import { assertDefined } from '../functions/assertDefined';
+import PostSubmission from '../../components/PostSubmission/PostSubmission';
+import Content from '../../components/Post/Content';
+import { isUser } from '../../functions/assertUnknowns';
+import getPostThread from '../../functions/getPostThread';
+import { assertDefined } from '../../functions/assertDefined';
+import { PostThreadContainer } from './style';
 
 const PostThread = () => {
   const [post, setPost] = useState<PostType>();
@@ -30,17 +31,17 @@ const PostThread = () => {
     })();
   }, [params]);
 
-  if (!isLoading) {
+  if (!isLoading && post) {
     return (
-      <div>
+      <PostThreadContainer>
         {parents &&
           parents.map((p) => (
             <Content key={p.post_id} content={p} chain={true} />
           ))}
-        {post && <Content content={post} main={true} />}
-        {post && <PostSubmission post={post} clientUser={clientUser} />}
+        <Content content={post} main={true} />
+        <PostSubmission post={post} clientUser={clientUser} />
         {replies && replies.map((r) => <Content key={r.post_id} content={r} />)}
-      </div>
+      </PostThreadContainer>
     );
   }
   return null;
