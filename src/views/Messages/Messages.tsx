@@ -1,23 +1,9 @@
-import { useEffect, useState } from 'react';
-import { useRouteLoaderData } from 'react-router-dom';
 import Content from '../../components/Content/Content';
-import { isUser } from '../../functions/assertUnknowns';
-import getMessages from '../../functions/getMessages';
+import useMessages from '../../hooks/useMessages';
 import { MessagesContainer } from './style';
 
 const Messages = () => {
-  const [messages, setMessages] = useState<MessageType[]>();
-  const [isLoading, setIsLoading] = useState<boolean>();
-  const clientUser = isUser(useRouteLoaderData('app'));
-
-  useEffect(() => {
-    (async () => {
-      setIsLoading(true);
-      const fetchedMessages = await getMessages(clientUser.id);
-      setMessages(fetchedMessages);
-      setIsLoading(false);
-    })();
-  }, []);
+  const { messages, isLoading } = useMessages();
 
   if (!isLoading) {
     return (
