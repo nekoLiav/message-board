@@ -13,8 +13,9 @@ const Home = () => {
     return (
       <HomeContainer>
         <ContentSubmission clientUser={clientUser} />
-        {homePosts &&
-          homePosts.map((p) => <Content key={p.post_id} content={p} />)}
+        {homePosts.map((p) => (
+          <Content key={p.post_id} content={p} />
+        ))}
       </HomeContainer>
     );
   }

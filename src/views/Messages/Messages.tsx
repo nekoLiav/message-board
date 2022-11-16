@@ -8,8 +8,9 @@ const Messages = () => {
   if (!isLoading) {
     return (
       <MessagesContainer>
-        {messages &&
-          messages.map((m) => <Content key={m.message_id} content={m} />)}
+        {messages.map((m) => (
+          <Content key={m.message_id} content={m} />
+        ))}
       </MessagesContainer>
     );
   }
