@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { query, collection, where, getDocs } from 'firebase/firestore';
-import { db } from '@/config';
-import { messageConverter } from '@/functions/firestoreDataCoversion';
+import { db } from 'config';
+import { messageConverter } from 'functions/firestoreDataCoversion';
 import { useRouteLoaderData } from 'react-router-dom';
-import { isUser } from '@/functions/assertUnknowns';
+import { isUser } from 'functions/assertUnknowns';
 
 export default function useMessageThread() {
   const [thread, setThread] = useState<MessageType[]>([]);

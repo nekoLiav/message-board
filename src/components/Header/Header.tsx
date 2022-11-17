@@ -1,7 +1,7 @@
 import { useRouteLoaderData } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
-import { isUser } from '@/functions/assertUnknowns';
+import { isUser } from 'functions/assertUnknowns';
 import {
   HeaderContainer,
   LinkContainer,

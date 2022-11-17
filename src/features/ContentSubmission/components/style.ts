@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { Container } from '@/components/Elements/Container';
-import { Button } from '@/components/Elements/Button';
+import { Container } from 'components/Elements/Container';
+import { Button } from 'components/Elements/Button';
 
 export const ContentSubmissionContainer = styled(Container)`
   display: flex;

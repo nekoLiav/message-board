@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Container } from '../Elements/Container/Container';
 import { Link } from 'react-router-dom';
-import { ReactComponent as Icon } from '@/assets/logo3.svg';
+import { ReactComponent as Icon } from 'assets/logo3.svg';
 
 export const HeaderContainer = styled(Container)`
   display: flex;

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { Container } from '@/components/Elements/Container';
+import { Container } from 'components/Elements/Container';
 
 export const ContentContainer = styled(Container)`
   display: grid;

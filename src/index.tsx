@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { RouterProvider } from 'react-router-dom';
-import { router } from './routes';
-import { GlobalStyle } from './assets/GlobalStyle';
+import { router } from 'routes';
+import { GlobalStyle } from 'assets/GlobalStyle';
 import { ThemeProvider } from 'styled-components';
-import Dark from './themes/Dark';
+import Dark from 'themes/Dark';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

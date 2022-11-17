@@ -1,7 +1,7 @@
-import { ContentSubmission } from '@/features/ContentSubmission';
-import { Content } from '@/features/Content';
+import { ContentSubmission } from 'features/ContentSubmission';
+import { Content } from 'features/Content';
 import { PostThreadContainer } from './style';
-import usePostThread from '@/hooks/usePostThread';
+import usePostThread from 'hooks/usePostThread';
 
 const PostThread = () => {
   const { post, parents, replies, isLoading, clientUser } = usePostThread();

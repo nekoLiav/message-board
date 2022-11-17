@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import { Container } from '@/components/Elements/Container';
-import { Button } from '@/components/Elements/Button';
+import { Container } from 'components/Elements/Container';
+import { Button } from 'components/Elements/Button';
 
 export const UserContainer = styled(Container)``;
 

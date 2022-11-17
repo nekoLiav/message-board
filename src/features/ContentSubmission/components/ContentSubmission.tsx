@@ -1,7 +1,7 @@
-import { submitPost } from '@/functions/submitPost';
-import { UserPropType, PostPropType } from '@/types/PropTypes';
+import { submitPost } from 'functions/submitPost';
+import { UserPropType, PostPropType } from 'types/PropTypes';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { submitMessage } from '@/functions/submitMessage';
+import { submitMessage } from 'functions/submitMessage';
 import {
   ContentSubmissionContainer,
   ContentSubmissionButton,

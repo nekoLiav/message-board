@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { useEffect } from 'react';
-import getUserPosts from '@/functions/getUserPosts';
-import { Content } from '@/features/Content';
+import getUserPosts from 'functions/getUserPosts';
+import { Content } from 'features/Content';
 import { Profile } from './Profile';
 import { useParams, useRouteLoaderData } from 'react-router-dom';
-import getUserByHandle from '@/functions/getUserByHandle';
-import { ContentSubmission } from '@/features/ContentSubmission';
-import { isUser } from '@/functions/assertUnknowns';
+import getUserByHandle from 'functions/getUserByHandle';
+import { ContentSubmission } from 'features/ContentSubmission';
+import { isUser } from 'functions/assertUnknowns';
 import { UserContainer } from './style';
 
 export const User = () => {

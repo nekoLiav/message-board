@@ -1,4 +1,4 @@
-import { UserPropType } from '@/types/PropTypes';
+import { UserPropType } from 'types/PropTypes';
 import format from 'date-fns/format';
 import {
   ProfileContainer,

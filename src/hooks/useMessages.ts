@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import { query, collection, where, getDocs } from 'firebase/firestore';
-import { messageConverter } from '@/functions/firestoreDataCoversion';
-import { db } from '@/config';
+import { messageConverter } from 'functions/firestoreDataCoversion';
+import { db } from 'config';
 import { useRouteLoaderData } from 'react-router-dom';
-import { isUser } from '@/functions/assertUnknowns';
+import { isUser } from 'functions/assertUnknowns';
 
 export default function useMessage() {
   const [messages, setMessages] = useState<MessageType[]>([]);
