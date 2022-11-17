@@ -1,30 +1,30 @@
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
 import { query, collection, where, getDocs } from 'firebase/firestore';
-import { db } from 'config';
 import { messageConverter } from 'functions/firestoreDataCoversion';
+import { db } from 'config';
 import { useRouteLoaderData } from 'react-router-dom';
 import { isUser } from 'functions/assertUnknowns';
 
-export default function useMessageThread() {
-  const [thread, setThread] = useState<MessageType[]>([]);
+export default function useGetMessages() {
+  const [messages, setMessages] = useState<MessageType[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>();
-  const { message_id } = useParams();
-
   const clientUser = isUser(useRouteLoaderData('app'));
 
   useEffect(() => {
     (async () => {
       setIsLoading(true);
-      const threadRef = query(
+      const messageRefs = query(
         collection(db, 'messages').withConverter(messageConverter),
-        where('parent_id', '==', message_id)
+        where('recipient', '==', clientUser.id),
+        where('is_reply', '==', false)
       );
-      const threadSnap = await getDocs(threadRef);
-      threadSnap.forEach((message) => setThread([...thread, message.data()]));
+      const messageSnap = await getDocs(messageRefs);
+      messageSnap.forEach((message) => {
+        setMessages([...messages, message.data()]);
+      });
       setIsLoading(false);
     })();
-  }, [message_id]);
+  }, []);
 
-  return { clientUser, message_id, thread, isLoading };
+  return { messages, isLoading };
 }

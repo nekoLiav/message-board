@@ -3,10 +3,10 @@ import { Content } from 'features/Content';
 import { useRouteLoaderData } from 'react-router-dom';
 import { isUser } from 'functions/assertUnknowns';
 import { HomeContainer } from './style';
-import useHomePosts from 'hooks/useHomePosts';
+import useGetHomePosts from '../hooks/useGetHomePosts';
 
 export const Home = () => {
-  const { homePosts, isLoading } = useHomePosts();
+  const { homePosts, isLoading } = useGetHomePosts();
   const clientUser = isUser(useRouteLoaderData('app'));
 
   if (!isLoading) {

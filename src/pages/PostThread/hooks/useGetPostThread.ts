@@ -13,7 +13,7 @@ import {
 import { db } from 'config';
 import { postConverter } from 'functions/firestoreDataCoversion';
 
-export default function usePostThread() {
+export default function useGetPostThread() {
   const [post, setPost] = useState<PostType>();
   const [parents, setParents] = useState<PostType[]>([]);
   const [replies, setReplies] = useState<PostType[]>();

@@ -1,10 +1,10 @@
 import { ContentSubmission } from 'features/ContentSubmission';
 import { Content } from 'features/Content';
 import { PostThreadContainer } from './style';
-import usePostThread from 'hooks/usePostThread';
+import useGetPostThread from '../hooks/useGetPostThread';
 
 export const PostThread = () => {
-  const { post, parents, replies, isLoading, clientUser } = usePostThread();
+  const { post, parents, replies, isLoading, clientUser } = useGetPostThread();
 
   if (!isLoading && post) {
     return (

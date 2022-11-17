@@ -1,10 +1,10 @@
 import { ContentSubmission } from 'features/ContentSubmission';
 import { Content } from 'features/Content';
 import { MessageThreadContainer } from './style';
-import useMessageThread from 'hooks/useMessageThread';
+import useGetMessageThread from '../hooks/useGetMessageThread';
 
 export const MessageThread = () => {
-  const { clientUser, message_id, thread, isLoading } = useMessageThread();
+  const { clientUser, message_id, thread, isLoading } = useGetMessageThread();
 
   if (!isLoading) {
     return (

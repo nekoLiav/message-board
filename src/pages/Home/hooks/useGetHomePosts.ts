@@ -3,7 +3,7 @@ import { query, collection, where, getDocs } from 'firebase/firestore';
 import { postConverter } from 'functions/firestoreDataCoversion';
 import { db } from 'config';
 
-export default function useHomePosts() {
+export default function useGetHomePosts() {
   const [homePosts, setHomePosts] = useState<PostType[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>();
 
