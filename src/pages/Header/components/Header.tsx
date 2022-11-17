@@ -36,7 +36,7 @@ export const Header = () => {
           />
           <MessagesLinkText>DMs</MessagesLinkText>
         </MessagesLink>
-        <ProfileLink to={''}>
+        <ProfileLink to={'/gsatoru89'}>
           <FontAwesomeIcon
             className="header-icon"
             icon={solid('user')}

@@ -1,28 +1,39 @@
 import { ContentSubmission } from 'features/ContentSubmission';
 import { Content } from 'features/Content';
 import { MessageThreadContainer } from './style';
-import useGetMessageThread from '../hooks/useGetMessageThread';
+import useMessageThread from '../hooks/useMessageThread';
+import { Loading } from 'pages/Loading';
+import { useParams } from 'react-router-dom';
 
 export const MessageThread = () => {
-  const { clientUser, message_id, thread, isLoading } = useGetMessageThread();
+  const { message_id } = useParams();
+  const { status, data, error } = useMessageThread(message_id);
 
-  if (!isLoading) {
-    return (
-      <MessageThreadContainer>
-        {thread.map((m, i) => (
-          <Content
-            key={m.message_id}
-            content={m}
-            chain={i !== thread.length - 1}
-          />
-        ))}
-        <ContentSubmission
-          message={message_id}
-          recipient={thread[0].recipient}
-          clientUser={clientUser}
-        />
-      </MessageThreadContainer>
-    );
+  if (status === 'loading') {
+    return <Loading />;
   }
-  return null;
+
+  if (status === 'error') {
+    if (error instanceof Error) {
+      console.log(error.message);
+    }
+    return <Loading />;
+  }
+
+  return (
+    <MessageThreadContainer>
+      {data.map((message, index) => (
+        <Content
+          key={message.message_id}
+          content={message}
+          chain={index !== data.length - 1}
+        />
+      ))}
+      {/* <ContentSubmission
+        message={message_id}
+        recipient={data[0].recipient}
+        clientUser={clientUser}
+      /> */}
+    </MessageThreadContainer>
+  );
 };

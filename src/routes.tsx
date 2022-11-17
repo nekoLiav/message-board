@@ -3,7 +3,7 @@ import { createBrowserRouter } from 'react-router-dom';
 import App from 'App';
 
 const Home = lazy(() => import('pages/Home'));
-const User = lazy(() => import('features/User'));
+const User = lazy(() => import('pages/User'));
 const Messages = lazy(() => import('pages/Messages'));
 const MessageThread = lazy(() => import('pages/MessageThread'));
 const PostThread = lazy(() => import('pages/PostThread'));

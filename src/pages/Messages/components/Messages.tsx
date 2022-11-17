@@ -1,18 +1,27 @@
 import { Content } from 'features/Content';
-import useMessages from '../hooks/useGetMessages';
+import { Loading } from 'pages/Loading';
+import useMessages from '../hooks/useMessages';
 import { MessagesContainer } from './style';
 
 export const Messages = () => {
-  const { messages, isLoading } = useMessages();
+  const { status, data, error } = useMessages();
 
-  if (!isLoading) {
-    return (
-      <MessagesContainer>
-        {messages.map((m) => (
-          <Content key={m.message_id} content={m} />
-        ))}
-      </MessagesContainer>
-    );
+  if (status === 'loading') {
+    return <Loading />;
   }
-  return null;
+
+  if (status === 'error') {
+    if (error instanceof Error) {
+      console.log(error);
+    }
+    return <Loading />;
+  }
+
+  return (
+    <MessagesContainer>
+      {data.map((message) => (
+        <Content key={message.message_id} content={message} />
+      ))}
+    </MessagesContainer>
+  );
 };
