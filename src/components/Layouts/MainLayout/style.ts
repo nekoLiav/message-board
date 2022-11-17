@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import { Container } from 'components/Elements/Container';
+import { Container } from 'components/Container';
 
-export const AppContainer = styled(Container)`
+export const StyledMainLayout = styled(Container)`
   display: grid;
   grid-auto-flow: column;
   grid-template-columns: 1fr minmax(min-content, 600px) 1fr;

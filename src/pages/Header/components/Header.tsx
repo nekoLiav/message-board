@@ -15,7 +15,7 @@ import {
   ProfileLinkText,
 } from './style';
 
-const Header = () => {
+export const Header = () => {
   const currentUser = isUser(useRouteLoaderData('app'));
   const { handle } = currentUser;
 
@@ -53,5 +53,3 @@ const Header = () => {
     </HeaderContainer>
   );
 };
-
-export default Header;

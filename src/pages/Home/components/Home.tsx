@@ -5,7 +5,7 @@ import { isUser } from 'functions/assertUnknowns';
 import { HomeContainer } from './style';
 import useHomePosts from 'hooks/useHomePosts';
 
-const Home = () => {
+export const Home = () => {
   const { homePosts, isLoading } = useHomePosts();
   const clientUser = isUser(useRouteLoaderData('app'));
 
@@ -21,5 +21,3 @@ const Home = () => {
   }
   return null;
 };
-
-export default Home;

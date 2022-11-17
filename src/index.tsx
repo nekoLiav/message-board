@@ -4,7 +4,7 @@ import { RouterProvider } from 'react-router-dom';
 import { router } from 'routes';
 import { GlobalStyle } from 'assets/GlobalStyle';
 import { ThemeProvider } from 'styled-components';
-import Dark from 'themes/Dark';
+import Dark from 'assets/themes/Dark';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

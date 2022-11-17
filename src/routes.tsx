@@ -1,13 +1,13 @@
 import { lazy } from 'react';
 import { createBrowserRouter } from 'react-router-dom';
-import App from 'views/App/App';
+import App from 'App';
 import signIn from 'functions/signIn';
 
-const Home = lazy(() => import('views/Home/Home'));
+const Home = lazy(() => import('pages/Home'));
 const User = lazy(() => import('features/User'));
-const Messages = lazy(() => import('views/Messages/Messages'));
-const MessageThread = lazy(() => import('views/MessageThread/MessageThread'));
-const PostThread = lazy(() => import('views/PostThread/PostThread'));
+const Messages = lazy(() => import('pages/Messages'));
+const MessageThread = lazy(() => import('pages/MessageThread'));
+const PostThread = lazy(() => import('pages/PostThread'));
 
 export const router = createBrowserRouter([
   {

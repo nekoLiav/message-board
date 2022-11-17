@@ -2,7 +2,7 @@ import { Content } from 'features/Content';
 import useMessages from 'hooks/useMessages';
 import { MessagesContainer } from './style';
 
-const Messages = () => {
+export const Messages = () => {
   const { messages, isLoading } = useMessages();
 
   if (!isLoading) {
@@ -16,5 +16,3 @@ const Messages = () => {
   }
   return null;
 };
-
-export default Messages;

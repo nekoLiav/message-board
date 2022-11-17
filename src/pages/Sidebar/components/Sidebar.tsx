@@ -1,7 +1,5 @@
 import { SidebarContainer } from './style';
 
-const Sidebar = () => {
+export const Sidebar = () => {
   return <SidebarContainer>{}</SidebarContainer>;
 };
-
-export default Sidebar;

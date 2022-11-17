@@ -3,7 +3,7 @@ import { Content } from 'features/Content';
 import { PostThreadContainer } from './style';
 import usePostThread from 'hooks/usePostThread';
 
-const PostThread = () => {
+export const PostThread = () => {
   const { post, parents, replies, isLoading, clientUser } = usePostThread();
 
   if (!isLoading && post) {
@@ -20,5 +20,3 @@ const PostThread = () => {
   }
   return null;
 };
-
-export default PostThread;

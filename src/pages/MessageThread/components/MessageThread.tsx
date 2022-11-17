@@ -3,7 +3,7 @@ import { Content } from 'features/Content';
 import { MessageThreadContainer } from './style';
 import useMessageThread from 'hooks/useMessageThread';
 
-const MessageThread = () => {
+export const MessageThread = () => {
   const { clientUser, message_id, thread, isLoading } = useMessageThread();
 
   if (!isLoading) {
@@ -26,5 +26,3 @@ const MessageThread = () => {
   }
   return null;
 };
-
-export default MessageThread;

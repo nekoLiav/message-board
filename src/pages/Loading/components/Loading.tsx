@@ -1,7 +1,5 @@
 import { LoadingContainer } from './style';
 
-const Loading = () => {
+export const Loading = () => {
   return <LoadingContainer>Loading...</LoadingContainer>;
 };
-
-export default Loading;
