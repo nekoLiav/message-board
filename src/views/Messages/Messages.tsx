@@ -1,5 +1,5 @@
-import Content from '../../components/Content/Content';
-import useMessages from '../../hooks/useMessages';
+import Content from '@/components/Content/Content';
+import useMessages from '@/hooks/useMessages';
 import { MessagesContainer } from './style';
 
 const Messages = () => {

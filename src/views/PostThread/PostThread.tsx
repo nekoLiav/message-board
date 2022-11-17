@@ -1,5 +1,5 @@
-import ContentSubmission from '../../components/ContentSubmission/ContentSubmission';
-import Content from '../../components/Content/Content';
+import ContentSubmission from '@/components/ContentSubmission/ContentSubmission';
+import Content from '@/components/Content/Content';
 import { PostThreadContainer } from './style';
 import usePostThread from '@/hooks/usePostThread';
 

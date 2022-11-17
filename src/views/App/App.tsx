@@ -1,8 +1,8 @@
 import { Outlet } from 'react-router-dom';
-import Header from '../../components/Header/Header';
-import Aside from '../../components/Sidebar/Sidebar';
+import Header from '@/components/Header/Header';
+import Aside from '@/components/Sidebar/Sidebar';
 import { AppContainer, RouteContainer } from './style';
-import Loading from '../../components/Loading/Loading';
+import Loading from '@/components/Loading/Loading';
 import { Suspense } from 'react';
 
 const App = () => {

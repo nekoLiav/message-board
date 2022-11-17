@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Container } from '../../components/container/style';
+import { Container } from '@/components/container/style';
 
 export const AppContainer = styled(Container)`
   display: grid;

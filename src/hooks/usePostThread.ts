@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useRouteLoaderData } from 'react-router-dom';
-import { isUser } from '../functions/assertUnknowns';
+import { isUser } from '@/functions/assertUnknowns';
 import {
   doc,
   getDoc,
@@ -10,8 +10,8 @@ import {
   where,
   getDocs,
 } from 'firebase/firestore';
-import { db } from '../functions/firebase-config';
-import { postConverter } from '../functions/firestoreDataCoversion';
+import { db } from '@/functions/firebase-config';
+import { postConverter } from '@/functions/firestoreDataCoversion';
 
 export default function usePostThread() {
   const [post, setPost] = useState<PostType>();

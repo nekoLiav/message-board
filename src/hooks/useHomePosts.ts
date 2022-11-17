@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { query, collection, where, getDocs } from 'firebase/firestore';
-import { postConverter } from '../functions/firestoreDataCoversion';
-import { db } from '../functions/firebase-config';
+import { postConverter } from '@/functions/firestoreDataCoversion';
+import { db } from '@/functions/firebase-config';
 
 export default function useHomePosts() {
   const [homePosts, setHomePosts] = useState<PostType[]>([]);

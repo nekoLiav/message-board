@@ -1,6 +1,6 @@
 import * as PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
-import { MessagePropType, PostPropType } from '../../types/PropTypes';
+import { MessagePropType, PostPropType } from '@/types/PropTypes';
 import { formatDistanceToNowStrict } from 'date-fns';
 import { SyntheticEvent } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

@@ -1,7 +1,7 @@
-import ContentSubmission from '../../components/ContentSubmission/ContentSubmission';
-import Content from '../../components/Content/Content';
+import ContentSubmission from '@/components/ContentSubmission/ContentSubmission';
+import Content from '@/components/Content/Content';
 import { MessageThreadContainer } from './style';
-import useMessageThread from '../../hooks/useMessageThread';
+import useMessageThread from '@/hooks/useMessageThread';
 
 const MessageThread = () => {
   const { clientUser, message_id, thread, isLoading } = useMessageThread();
