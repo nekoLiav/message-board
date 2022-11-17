@@ -1,5 +1,5 @@
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import { auth } from './firebase-config';
+import { auth } from '../config/firebase/firebase-config';
 import getUserByID from './getUserByID';
 
 export default signInWithEmailAndPassword(auth, 'peepee@poopoo.com', '123456')

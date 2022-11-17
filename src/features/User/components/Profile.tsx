@@ -22,7 +22,7 @@ type ProfileProps = {
   toggleDM?: () => void;
 };
 
-const Profile = ({ user, toggleDM }: ProfileProps) => {
+export const Profile = ({ user, toggleDM }: ProfileProps) => {
   const {
     profile_color,
     avatar,
@@ -62,5 +62,3 @@ const Profile = ({ user, toggleDM }: ProfileProps) => {
 Profile.propTypes = {
   user: UserPropType.isRequired,
 };
-
-export default Profile;

@@ -32,7 +32,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "emulate": "firebase emulators:start --import=./saved-database-stuff --export-on-exit=./saved-database-stuff",
+    "emulate": "firebase emulators:start --import=src/tests/firebase-emulator/exports --export-on-exit=src/tests/firebase-emulator/exports --config=src/tests/firebase-emulator/firebase.json",
     "stopall": "lsof -t -i:4000 -i:5001 -i:8080 -i:9099 | xargs kill -9",
     "update": "ncu --interactive --format group"
   },

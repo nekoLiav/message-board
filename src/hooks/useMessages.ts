@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { query, collection, where, getDocs } from 'firebase/firestore';
 import { messageConverter } from '@/functions/firestoreDataCoversion';
-import { db } from '@/functions/firebase-config';
+import { db } from '@/config';
 import { useRouteLoaderData } from 'react-router-dom';
 import { isUser } from '@/functions/assertUnknowns';
 

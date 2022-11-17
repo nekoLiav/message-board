@@ -1,6 +1,8 @@
 import styled from 'styled-components';
-import { Container } from '../container/style';
-import { Button } from '../button/style';
+import { Container } from '@/components/Elements/Container';
+import { Button } from '@/components/Elements/Button';
+
+export const UserContainer = styled(Container)``;
 
 export const ProfileContainer = styled(Container)`
   display: grid;

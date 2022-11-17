@@ -22,7 +22,7 @@ type ContentSubmissionProps = {
   message?: string;
 };
 
-const ContentSubmission = ({
+export const ContentSubmission = ({
   clientUser,
   recipient,
   post,
@@ -57,5 +57,3 @@ ContentSubmission.propTypes = {
   clientUser: UserPropType.isRequired,
   post: PostPropType,
 };
-
-export default ContentSubmission;

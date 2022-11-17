@@ -6,7 +6,7 @@ import {
   where,
   getDocs,
 } from 'firebase/firestore';
-import { db } from './firebase-config';
+import { db } from '../config/firebase/firebase-config';
 import { postConverter } from './firestoreDataCoversion';
 import { assertDefined } from './assertDefined';
 

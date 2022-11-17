@@ -1,4 +1,4 @@
-import Content from '@/components/Content/Content';
+import { Content } from '@/features/Content';
 import useMessages from '@/hooks/useMessages';
 import { MessagesContainer } from './style';
 

@@ -1,5 +1,5 @@
 import { query, collection, where, getDocs } from 'firebase/firestore';
-import { db } from './firebase-config';
+import { db } from '../config/firebase/firebase-config';
 import { postConverter } from './firestoreDataCoversion';
 
 export default async function getUserPosts(id: Required<string>) {

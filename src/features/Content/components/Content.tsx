@@ -32,7 +32,7 @@ type ContentProps = {
   main?: boolean;
 };
 
-const Content = ({ content, chain, main }: ContentProps) => {
+export const Content = ({ content, chain, main }: ContentProps) => {
   const navigate = useNavigate();
 
   const { date_posted, text, img_url, vid_url, is_reply } = content;
@@ -97,5 +97,3 @@ Content.propTypes = {
   chain: PropTypes.bool,
   main: PropTypes.bool,
 };
-
-export default Content;

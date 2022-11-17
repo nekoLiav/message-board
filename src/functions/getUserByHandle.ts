@@ -1,5 +1,5 @@
 import { collection, getDocs, query, where } from 'firebase/firestore';
-import { db } from './firebase-config';
+import { db } from '../config/firebase/firebase-config';
 import { userConverter } from './firestoreDataCoversion';
 
 export default async function getUserByHandle(handle: Required<string>) {

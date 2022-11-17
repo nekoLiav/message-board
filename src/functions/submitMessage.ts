@@ -1,5 +1,5 @@
 import { doc, collection, setDoc } from 'firebase/firestore';
-import { db } from './firebase-config';
+import { db } from '../config/firebase/firebase-config';
 import { messageConverter } from './firestoreDataCoversion';
 
 type submitMessageArgs = {

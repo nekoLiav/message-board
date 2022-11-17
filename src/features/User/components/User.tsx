@@ -1,15 +1,15 @@
 import { useState } from 'react';
 import { useEffect } from 'react';
 import getUserPosts from '@/functions/getUserPosts';
-import Content from '@/components/Content/Content';
-import Profile from '@/components/Profile/Profile';
+import { Content } from '@/features/Content';
+import { Profile } from './Profile';
 import { useParams, useRouteLoaderData } from 'react-router-dom';
 import getUserByHandle from '@/functions/getUserByHandle';
-import ContentSubmission from '@/components/ContentSubmission/ContentSubmission';
+import { ContentSubmission } from '@/features/ContentSubmission';
 import { isUser } from '@/functions/assertUnknowns';
 import { UserContainer } from './style';
 
-const User = () => {
+export const User = () => {
   const [user, setUser] = useState<UserType>();
   const [userPosts, setUserPosts] = useState<PostType[]>();
   const [messageToggle, setMessageToggle] = useState<boolean>();
@@ -50,5 +50,3 @@ const User = () => {
   }
   return null;
 };
-
-export default User;

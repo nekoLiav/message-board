@@ -10,7 +10,7 @@ import {
   where,
   getDocs,
 } from 'firebase/firestore';
-import { db } from '@/functions/firebase-config';
+import { db } from '@/config';
 import { postConverter } from '@/functions/firestoreDataCoversion';
 
 export default function usePostThread() {

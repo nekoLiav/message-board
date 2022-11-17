@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Container } from '../container/style';
+import { Container } from '../Elements/Container/Container';
 import { Link } from 'react-router-dom';
 import { ReactComponent as Icon } from '@/assets/logo3.svg';
 
