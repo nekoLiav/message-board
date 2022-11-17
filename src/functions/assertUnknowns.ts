@@ -29,3 +29,34 @@ export function isUser(user: unknown) {
   }
   throw new Error('Not a valid user object!');
 }
+
+function assertPost(post: unknown): post is PostType {
+  function assertPostLike(
+    given: unknown
+  ): given is Partial<Record<keyof PostType, unknown>> {
+    return typeof given === 'object' && given !== null;
+  }
+  return (
+    assertPostLike(post) &&
+    typeof post.user_data === 'object' &&
+    typeof post.date_posted === 'number' &&
+    typeof post.post_id === 'string' &&
+    Array.isArray(post.parent_ids) &&
+    typeof post.text === 'string' &&
+    typeof post.direct_parent === 'string' &&
+    typeof post.img_url === 'string' &&
+    typeof post.vid_url === 'string' &&
+    typeof post.replies === 'number' &&
+    typeof post.reposts === 'number' &&
+    typeof post.likes === 'number' &&
+    typeof post.is_reply === 'boolean' &&
+    Array.isArray(post.tags)
+  );
+}
+
+export function isPost(post: unknown) {
+  if (assertUser(post)) {
+    return post;
+  }
+  throw new Error('Not a valid post object!');
+}

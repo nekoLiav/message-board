@@ -1,7 +1,6 @@
 import { lazy } from 'react';
 import { createBrowserRouter } from 'react-router-dom';
 import App from 'App';
-import signIn from 'functions/signIn';
 
 const Home = lazy(() => import('pages/Home'));
 const User = lazy(() => import('features/User'));
@@ -14,10 +13,6 @@ export const router = createBrowserRouter([
     path: '/',
     element: <App />,
     id: 'app',
-    loader: async () => {
-      const clientUser = await signIn;
-      return clientUser;
-    },
     children: [
       {
         element: <Home />,

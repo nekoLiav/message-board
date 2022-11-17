@@ -1,7 +1,5 @@
-import { useRouteLoaderData } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
-import { isUser } from 'functions/assertUnknowns';
 import {
   HeaderContainer,
   LinkContainer,
@@ -16,9 +14,6 @@ import {
 } from './style';
 
 export const Header = () => {
-  const currentUser = isUser(useRouteLoaderData('app'));
-  const { handle } = currentUser;
-
   return (
     <HeaderContainer>
       <LinkContainer>
@@ -41,7 +36,7 @@ export const Header = () => {
           />
           <MessagesLinkText>DMs</MessagesLinkText>
         </MessagesLink>
-        <ProfileLink to={handle}>
+        <ProfileLink to={''}>
           <FontAwesomeIcon
             className="header-icon"
             icon={solid('user')}
