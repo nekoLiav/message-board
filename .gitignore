@@ -24,6 +24,4 @@ yarn-error.log*
 
 *.log
 
-/functions
-/saved-database-stuff
-/src/dev
+firebase-emulator
