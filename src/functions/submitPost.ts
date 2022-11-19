@@ -25,8 +25,6 @@ export const submitPost = (
       post_id: newPostDoc.id,
       parent_ids: [],
       date_posted: Date.now(),
-      img_url: null,
-      vid_url: null,
       text: data,
       tags: [],
       replies: 0,

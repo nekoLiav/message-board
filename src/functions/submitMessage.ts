@@ -26,8 +26,6 @@ export const submitMessage = (
       message_id: newMessageDoc.id,
       recipient: recipient,
       date_posted: Date.now(),
-      img_url: null,
-      vid_url: null,
       text: data,
       parent_id: newMessageDoc.id,
       is_reply: false,
