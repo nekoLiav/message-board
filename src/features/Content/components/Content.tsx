@@ -69,8 +69,8 @@ export const Content = ({ content, chain, main }: ContentProps) => {
       <Linker chain={chain} />
       <Body>
         <Text>{text}</Text>
-        {img_url === null ? null : <Img src={img_url} />}
-        {vid_url === null ? null : <Img src={vid_url} />}
+        {img_url && <Img src={img_url} />}
+        {vid_url && <Img src={vid_url} />}
       </Body>
       {'post_id' in content && (
         <Engagement>
