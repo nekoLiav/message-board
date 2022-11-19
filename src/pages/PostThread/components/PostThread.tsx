@@ -1,20 +1,34 @@
-import { ContentSubmission } from 'features/ContentSubmission';
+// import { ContentSubmission } from 'features/ContentSubmission';
 import { Content } from 'features/Content';
 import { PostThreadContainer } from './style';
-import useGetPostThread from '../hooks/useGetPostThread';
+import { useLoaderData } from 'react-router-dom';
+import { isLoader } from '../types/isLoader';
+import { isPost } from '../types/isPost';
 
 export const PostThread = () => {
-  const { post, parents, replies, isLoading, clientUser } = useGetPostThread();
+  const loader = useLoaderData();
 
-  if (!isLoading && post) {
+  if (isLoader(loader)) {
     return (
-      <PostThreadContainer key={post.post_id}>
-        {parents.map((p) => (
-          <Content key={p.post_id} content={p} chain={true} />
-        ))}
-        <Content content={post} main={true} />
-        <ContentSubmission post={post} clientUser={clientUser} />
-        {replies && replies.map((r) => <Content key={r.post_id} content={r} />)}
+      <PostThreadContainer>
+        {loader.parents &&
+          loader.parents.map((post) => {
+            if (isPost(post)) {
+              return <Content key={post.post_id} content={post} chain={true} />;
+            }
+            return null;
+          })}
+        {loader.post && isPost(loader.post) ? (
+          <Content content={loader.post} main={true} />
+        ) : null}
+        {/* <ContentSubmission post={post} clientUser={clientUser} /> */}
+        {loader.replies &&
+          loader.replies.map((post) => {
+            if (isPost(post)) {
+              return <Content key={post.post_id} content={post} />;
+            }
+            return null;
+          })}
       </PostThreadContainer>
     );
   }

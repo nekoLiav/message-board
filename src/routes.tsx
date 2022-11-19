@@ -8,6 +8,9 @@ const Messages = lazy(() => import('pages/Messages'));
 const MessageThread = lazy(() => import('pages/MessageThread'));
 const PostThread = lazy(() => import('pages/PostThread'));
 
+import homeLoader from 'pages/Home/loaders/homeLoader';
+import postThreadLoader from 'pages/PostThread/loaders/postThreadLoader';
+
 export const router = createBrowserRouter([
   {
     path: '/',
@@ -17,6 +20,11 @@ export const router = createBrowserRouter([
       {
         element: <Home />,
         index: true,
+        loader: async () => {
+          return {
+            posts: await homeLoader(),
+          };
+        },
       },
       {
         path: '/home',
@@ -37,6 +45,12 @@ export const router = createBrowserRouter([
       {
         path: '/:handle/post/:post_id',
         element: <PostThread />,
+        loader: async ({ params }) => {
+          if (params.post_id) {
+            return postThreadLoader(params.post_id);
+          }
+          return undefined;
+        },
       },
     ],
   },
