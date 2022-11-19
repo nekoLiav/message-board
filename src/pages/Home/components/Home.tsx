@@ -1,27 +1,24 @@
+import { useLoaderData } from 'react-router-dom';
 import { HomeContainer } from './style';
 import { Content } from 'features/Content';
-import useHomePosts from '../hooks/useHomePosts';
-import { Loading } from 'pages/Loading';
+import { isLoader } from '../types/isLoader';
+import { isPost } from '../types/isPost';
 
 export const Home = () => {
-  const { status, data, error } = useHomePosts();
+  const loader = useLoaderData();
 
-  if (status === 'loading') {
-    return <Loading />;
+  if (isLoader(loader) && loader.posts) {
+    return (
+      <HomeContainer>
+        {loader.posts.map((post) => {
+          if (isPost(post)) {
+            return <Content key={post.post_id} content={post} />;
+          } else {
+            return null;
+          }
+        })}
+      </HomeContainer>
+    );
   }
-
-  if (status === 'error') {
-    if (error instanceof Error) {
-      console.log(error.message);
-    }
-    return <Loading />;
-  }
-
-  return (
-    <HomeContainer>
-      {data.map((post) => (
-        <Content key={post.post_id} content={post} />
-      ))}
-    </HomeContainer>
-  );
+  return null;
 };

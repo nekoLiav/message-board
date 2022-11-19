@@ -27,12 +27,12 @@ declare global {
     parent_ids: string[];
     text: string;
     direct_parent?: string;
-    img_url: string | null;
-    vid_url: string | null;
+    img_url?: string;
+    vid_url?: string;
     replies: number;
     reposts: number;
     likes: number;
-    tags: [];
+    tags: string[];
     is_reply: boolean;
   };
 
@@ -47,9 +47,9 @@ declare global {
     message_id: string;
     recipient: string;
     text: string;
-    parent_id: string | null;
-    img_url: string | null;
-    vid_url: string | null;
+    parent_id?: string;
+    img_url?: string;
+    vid_url?: string;
     is_reply: boolean;
   };
 
@@ -58,6 +58,4 @@ declare global {
     parentData?: PostType[];
     replyData?: PostType[];
   };
-
-  export type Component = React.ElementType;
 }
