@@ -13,20 +13,20 @@ function isPlainObject(value: unknown): value is PlainObject {
 }
 
 interface Loader {
-  posts?: unknown[];
+  homePosts?: unknown[];
 }
 
 export function isLoader(value: unknown): value is Loader {
   if (!isPlainObject(value)) return false;
 
-  let posts: unknown[] | undefined;
+  let homePosts: unknown[] | undefined;
 
-  if (value.hasOwnProperty('posts')) {
-    if (!Array.isArray(value.posts)) return false;
-    posts = value.posts;
+  if (value.hasOwnProperty('homePosts')) {
+    if (!Array.isArray(value.homePosts)) return false;
+    homePosts = value.homePosts;
   }
 
-  const obj = { posts };
+  const obj = { homePosts };
   const isValid: Loader = obj;
   const noNewOptionalProps: Omit<Required<Loader>, keyof typeof obj> = {};
 

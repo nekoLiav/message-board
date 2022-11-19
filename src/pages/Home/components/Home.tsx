@@ -6,11 +6,12 @@ import { isPost } from '../types/isPost';
 
 export const Home = () => {
   const loader = useLoaderData();
+  console.log(loader);
 
-  if (isLoader(loader) && loader.posts) {
+  if (isLoader(loader) && loader.homePosts) {
     return (
       <HomeContainer>
-        {loader.posts.map((post) => {
+        {loader.homePosts.map((post) => {
           if (isPost(post)) {
             return <Content key={post.post_id} content={post} />;
           } else {

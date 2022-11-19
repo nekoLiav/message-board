@@ -8,6 +8,6 @@ export default async function homeLoader() {
     where('is_reply', '==', false)
   );
   const homePostSnap = await getDocs(homePostRefs);
-  const homePostData = homePostSnap.docs.map((doc) => doc.data());
-  return homePostData;
+  const homePosts = homePostSnap.docs.map((doc) => doc.data());
+  return { homePosts };
 }
