@@ -5,6 +5,7 @@
 
 interface PlainObject {
   hasOwnProperty<K extends string>(key: K): this is Record<K, unknown>;
+  hasOwn<K extends string>(key: K): this is Record<K, unknown>;
 }
 
 function isPlainObject(value: unknown): value is PlainObject {
