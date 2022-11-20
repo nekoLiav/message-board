@@ -3,14 +3,14 @@ import { db } from '../config/firebase/firebase-config';
 import { messageConverter } from './firestoreDataCoversion';
 
 type submitMessageArgs = {
-  clientUser: UserType;
+  currentUser: UserType;
   recipient: string;
   message?: string;
 };
 
 export const submitMessage = (
   data: string,
-  { clientUser, recipient, message }: submitMessageArgs
+  { currentUser, recipient, message }: submitMessageArgs
 ) => {
   try {
     const newMessageDoc = doc(
@@ -18,10 +18,10 @@ export const submitMessage = (
     );
     const messageTemplate: MessageType = {
       user_data: {
-        id: clientUser.id,
-        name: clientUser.name,
-        handle: clientUser.handle,
-        avatar: clientUser.avatar,
+        id: currentUser.id,
+        name: currentUser.name,
+        handle: currentUser.handle,
+        avatar: currentUser.avatar,
       },
       message_id: newMessageDoc.id,
       recipient: recipient,

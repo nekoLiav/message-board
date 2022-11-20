@@ -1,66 +1,44 @@
 import { useState } from 'react';
-import { Content } from 'features/Content';
-import { Profile } from './Profile';
-import { useParams } from 'react-router-dom';
 import { UserContainer } from './style';
-import useUserProfile from './useUserProfile';
-import useUserPosts from './useUserPosts';
-import { Loading } from 'pages/Loading';
-import { ErrorDisplay } from 'pages/ErrorDisplay';
+import { Profile } from './Profile';
+import { ContentSubmission } from 'features/ContentSubmission';
+import { Content } from 'features/Content';
+import { useLoaderData, useRouteLoaderData } from 'react-router-dom';
+import { isLoader } from '../types/isLoader';
+import { isPost } from '../../../types/isPost';
+// import { isUser } from '../types/isUser';
 
 export const User = () => {
   const [messageToggle, setMessageToggle] = useState(false);
-  const { handle } = useParams();
-
-  const {
-    status: userStatus,
-    data: user,
-    error: userError,
-  } = useUserProfile(handle);
-
-  const userId = user?.id;
-
-  const {
-    status: userPostsStatus,
-    data: userPosts,
-    error: userPostsError,
-  } = useUserPosts(userId);
+  const loader = useLoaderData();
+  // const { user } = useRouteLoaderData('app');
 
   const toggleDM = () => {
     setMessageToggle(!messageToggle);
   };
 
-  if (userStatus === 'loading') {
-    return <Loading />;
+  if (isLoader(loader)) {
+    return (
+      <UserContainer>
+        {/* {loader.user && isUser(loader.user) ? (
+          <Profile user={loader.user} toggleDM={toggleDM} />
+        ) : null}
+        {messageToggle && loader.user && isUser(loader.user) ? (
+          <ContentSubmission
+            clientUser={clientUser}
+            recipient={loader.user.id}
+          />
+        ) : null} */}
+        {loader.userPosts &&
+          loader.userPosts.map((post) => {
+            if (isPost(post)) {
+              return <Content key={post.post_id} content={post} />;
+            } else {
+              return null;
+            }
+          })}
+      </UserContainer>
+    );
   }
-
-  if (userPostsStatus === 'loading') {
-    return <Loading />;
-  }
-
-  if (userStatus === 'error') {
-    if (userError instanceof Error) {
-      return <ErrorDisplay>{userError.message}</ErrorDisplay>;
-    }
-    return <ErrorDisplay>Something went super duper wrong...</ErrorDisplay>;
-  }
-
-  if (userPostsStatus === 'error') {
-    if (userPostsError instanceof Error) {
-      return <ErrorDisplay>{userPostsError.message}</ErrorDisplay>;
-    }
-    return <ErrorDisplay>Something went super duper wrong...</ErrorDisplay>;
-  }
-
-  return (
-    <UserContainer>
-      <Profile user={user} toggleDM={toggleDM} />
-      {/* {messageToggle && (
-        <ContentSubmission clientUser={clientUser} recipient={userId} />
-      )} */}
-      {userPosts.map((post) => (
-        <Content key={post.post_id} content={post} />
-      ))}
-    </UserContainer>
-  );
+  return null;
 };

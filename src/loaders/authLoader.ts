@@ -6,13 +6,13 @@ import { db } from 'config';
 import { userConverter } from 'functions/firestoreDataCoversion';
 
 export default signInWithEmailAndPassword(auth, 'peepee@poopoo.com', '123456')
-  .then(async (userCredential) => {
-    console.log('signed in!');
-    const userRef = doc(db, 'users', userCredential.user.uid).withConverter(
+  .then(async (UserCredential) => {
+    const userRef = doc(db, 'users', UserCredential.user.uid).withConverter(
       userConverter
     );
     const userSnap = await getDoc(userRef);
-    return userSnap.data();
+    const currentUser = userSnap.data();
+    return { currentUser };
   })
   .catch((error: Error) => {
     console.log('Something went wrong!', error);

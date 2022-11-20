@@ -12,23 +12,23 @@ function isPlainObject(value: unknown): value is PlainObject {
   return !!value && typeof value === 'object' && !Array.isArray(value);
 }
 
-interface Loader {
-  homePosts?: unknown[];
+interface AppLoader {
+  currentUser?: unknown;
 }
 
-export function isLoader(value: unknown): value is Loader {
+export function isAppLoader(value: unknown): value is AppLoader {
   if (!isPlainObject(value)) return false;
 
-  let homePosts: unknown[] | undefined;
+  let currentUser: unknown | undefined;
 
-  if (value.hasOwnProperty('homePosts')) {
-    if (!Array.isArray(value.homePosts)) return false;
-    homePosts = value.homePosts;
+  if (value.hasOwnProperty('currentUser')) {
+    if (typeof currentUser === 'object') return false;
+    currentUser = value.currentUser;
   }
 
-  const obj = { homePosts };
-  const isValid: Loader = obj;
-  const noNewOptionalProps: Omit<Required<Loader>, keyof typeof obj> = {};
+  const obj = { currentUser };
+  const isValid: AppLoader = obj;
+  const noNewOptionalProps: Omit<Required<AppLoader>, keyof typeof obj> = {};
 
   return true;
 }

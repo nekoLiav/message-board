@@ -16,27 +16,27 @@ type Inputs = {
 };
 
 type ContentSubmissionProps = {
-  clientUser: UserType;
+  currentUser: UserType;
   recipient?: string;
   post?: PostType;
   message?: string;
 };
 
 export const ContentSubmission = ({
-  clientUser,
+  currentUser,
   recipient,
   post,
   message,
 }: ContentSubmissionProps) => {
-  const { handle, avatar } = clientUser;
+  const { handle, avatar } = currentUser;
 
   const { register, handleSubmit } = useForm<Inputs>();
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     if (recipient) {
-      submitMessage(data.body, { clientUser, recipient, message });
+      submitMessage(data.body, { currentUser, recipient, message });
     }
     if (post) {
-      submitPost(data.body, { clientUser, post });
+      submitPost(data.body, { currentUser, post });
     }
   };
 
@@ -54,6 +54,6 @@ export const ContentSubmission = ({
 };
 
 ContentSubmission.propTypes = {
-  clientUser: UserPropType.isRequired,
+  currentUser: UserPropType.isRequired,
   post: PostPropType,
 };
