@@ -71,6 +71,10 @@ export function isUser(value: unknown): value is UserType {
     follower_count,
     following_count,
   };
+
+  // No extra keys from those specified in obj
+  if (!Object.keys(value).every((key) => key in obj)) return false;
+
   const isValid: UserType = obj;
   const noNewOptionalProps: Omit<Required<UserType>, keyof typeof obj> = {};
 

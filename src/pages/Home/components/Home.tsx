@@ -9,6 +9,7 @@ import { useLoaderData, useRouteLoaderData } from 'react-router-dom';
 
 export const Home = () => {
   const appLoader = useRouteLoaderData('app');
+
   const homeLoader = useLoaderData();
 
   if (isAppLoader(appLoader) && isHomeLoader(homeLoader)) {

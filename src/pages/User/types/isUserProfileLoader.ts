@@ -17,7 +17,7 @@ interface Loader {
   userPosts?: unknown[];
 }
 
-export function isLoader(value: unknown): value is Loader {
+export function isUserProfileLoader(value: unknown): value is Loader {
   if (!isPlainObject(value)) return false;
 
   if (!value.hasOwnProperty('user')) return false;

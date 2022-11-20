@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-prototype-builtins */
 
+import { isUser } from './isUser';
+
 // Starting from the "TypeScript: Keeping Type Guards Safe and Up To Date" article https://levelup.gitconnected.com/typescript-keeping-type-guards-safe-and-up-to-date-2457d52bd722
 
 interface PlainObject {
@@ -21,8 +23,14 @@ export function isAppLoader(value: unknown): value is AppLoader {
 
   let currentUser: unknown | undefined;
 
+  function test2(
+    arg2: unknown
+  ): arg2 is Partial<Record<keyof UserType, unknown>> {
+    return arg2 !== null;
+  }
+
   if (value.hasOwnProperty('currentUser')) {
-    if (typeof currentUser === 'object') return false;
+    if (!isUser(value.currentUser)) return false;
     currentUser = value.currentUser;
   }
 
