@@ -1,36 +1,34 @@
-// import { ContentSubmission } from 'features/ContentSubmission';
+import { ContentSubmission } from 'features/ContentSubmission';
 import { Content } from 'features/Content';
 import { PostThreadContainer } from './style';
-import { useLoaderData } from 'react-router-dom';
-import { isLoader } from '../types/isLoader';
-import { isPost } from '../types/isPost';
+import { useLoaderData, useRouteLoaderData } from 'react-router-dom';
+
+type AppLoader = {
+  currentUser?: UserType;
+};
+
+type PostThreadLoader = {
+  post: PostType;
+  parents?: PostType[];
+  replies?: PostType[];
+};
 
 export const PostThread = () => {
-  const loader = useLoaderData();
+  const { currentUser } = useRouteLoaderData('app') as AppLoader;
+  const { post, parents, replies } = useLoaderData() as PostThreadLoader;
 
-  if (isLoader(loader)) {
-    return (
-      <PostThreadContainer>
-        {loader.parents &&
-          loader.parents.map((post) => {
-            if (isPost(post)) {
-              return <Content key={post.post_id} content={post} chain={true} />;
-            }
-            return null;
-          })}
-        {loader.post && isPost(loader.post) ? (
-          <Content content={loader.post} main={true} />
-        ) : null}
-        {/* <ContentSubmission post={post} clientUser={clientUser} /> */}
-        {loader.replies &&
-          loader.replies.map((post) => {
-            if (isPost(post)) {
-              return <Content key={post.post_id} content={post} />;
-            }
-            return null;
-          })}
-      </PostThreadContainer>
-    );
-  }
-  return null;
+  return (
+    <PostThreadContainer>
+      {parents &&
+        parents.map((post) => (
+          <Content key={post.post_id} content={post} chain={true} />
+        ))}
+      {post && <Content content={post} main={true} />}
+      {currentUser && (
+        <ContentSubmission post={post} currentUser={currentUser} />
+      )}
+      {replies &&
+        replies.map((post) => <Content key={post.post_id} content={post} />)}
+    </PostThreadContainer>
+  );
 };
