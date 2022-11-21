@@ -30,6 +30,7 @@ import {
   messageConverter,
 } from 'functions/firestoreDataCoversion';
 import { db } from 'config';
+import { ErrorDisplay } from 'pages/ErrorDisplay';
 
 async function getCurrentUser() {
   function getValidatedUser() {
@@ -180,6 +181,7 @@ export const router = createBrowserRouter([
     path: '/',
     element: <App />,
     id: 'app',
+    errorElement: <ErrorDisplay />,
     children: [
       {
         element: <Home />,
