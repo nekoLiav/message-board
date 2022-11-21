@@ -1,6 +1,3 @@
 *node_modules
 *.log
 build
-src/tests/firebase-emulator/dev
-src/tests/firebase-emulator/exports
-src/tests/firebase-emulator/functions
