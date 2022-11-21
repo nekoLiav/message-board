@@ -22,7 +22,9 @@ export const UserProfile = () => {
   return (
     <UserContainer>
       <Profile user={user} toggleDM={toggleDM} />
-      <ContentSubmission currentUser={currentUser} recipient={user.id} />
+      {messageToggle && (
+        <ContentSubmission currentUser={currentUser} recipient={user.id} />
+      )}
       {userPosts &&
         userPosts.map((post) => <Content key={post.post_id} content={post} />)}
     </UserContainer>
