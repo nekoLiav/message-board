@@ -9,7 +9,11 @@ const Messages = lazy(() => import('pages/Messages'));
 const MessageThread = lazy(() => import('pages/MessageThread'));
 const PostThread = lazy(() => import('pages/PostThread'));
 
-import { onAuthStateChanged, User } from 'firebase/auth';
+import {
+  signInWithEmailAndPassword,
+  onAuthStateChanged,
+  User,
+} from 'firebase/auth';
 import { auth } from 'config';
 
 import {
@@ -45,12 +49,15 @@ async function getCurrentUser() {
 
   if (!user) {
     console.log('User not logged in.');
+    signInWithEmailAndPassword(auth, 'definitelyrealemail@lol.net', '123456')
+      .then(() => getCurrentUser())
+      .catch((error) => console.log('Sign in failed!', error));
+  } else {
+    const userRef = doc(db, 'users', user.uid).withConverter(userConverter);
+    const userSnap = await getDoc(userRef);
+    const currentUser = userSnap.data();
+    return currentUser;
   }
-
-  const userRef = doc(db, 'users', user.uid).withConverter(userConverter);
-  const userSnap = await getDoc(userRef);
-  const currentUser = userSnap.data();
-  return currentUser;
 }
 
 async function getHomePosts() {
