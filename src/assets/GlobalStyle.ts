@@ -159,4 +159,8 @@ body {
 .header-icon {
   color: #00e5ff;
 }
+
+.loading-icon {
+  color: #00e5ff;
+}
 `;
