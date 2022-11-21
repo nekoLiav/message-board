@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="150mm"
+   height="150mm"
+   viewBox="0 0 150 150"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.2.1 (1:1.2.1+202210291244+9c6d41e410)"
+   sodipodi:docname="SITV.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="0.457453"
+     inkscape:cx="276.53114"
+     inkscape:cy="368.34385"
+     inkscape:window-width="2560"
+     inkscape:window-height="1403"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs2">
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient1137">
+      <stop
+         style="stop-color:#00e5ff;stop-opacity:1;"
+         offset="0.49983165"
+         id="stop1133" />
+      <stop
+         style="stop-color:#ffffff;stop-opacity:0;"
+         offset="1"
+         id="stop1135" />
+    </linearGradient>
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient1137"
+       id="radialGradient1139"
+       cx="-74.063293"
+       cy="122.58715"
+       fx="-74.063293"
+       fy="122.58715"
+       r="50"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1.5,0,0,1.5,216.36811,-38.988289)" />
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-30.273117,-69.892395)">
+    <g
+       id="g937">
+      <circle
+         style="fill:url(#radialGradient1139);fill-opacity:1;stroke:none;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:bevel;stroke-dasharray:none"
+         id="path494"
+         cx="105.27312"
+         cy="144.8924"
+         r="75" />
+      <circle
+         style="fill:#000000;fill-opacity:1;stroke-width:0.169;stroke-linecap:round;stroke-linejoin:bevel;stroke-dasharray:none"
+         id="path234"
+         cx="105.27312"
+         cy="144.8924"
+         r="25" />
+    </g>
+  </g>
+</svg>
