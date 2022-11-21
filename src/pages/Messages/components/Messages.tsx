@@ -1,27 +1,21 @@
 import { Content } from 'features/Content';
-import { Loading } from 'pages/Loading';
-import useMessages from '../hooks/useMessages';
 import { MessagesContainer } from './style';
+import { useLoaderData } from 'react-router-dom';
+
+type MessagesLoader = {
+  currentUser?: UserType;
+  messages?: MessageType[];
+};
 
 export const Messages = () => {
-  const { status, data, error } = useMessages();
-
-  if (status === 'loading') {
-    return <Loading />;
-  }
-
-  if (status === 'error') {
-    if (error instanceof Error) {
-      console.log(error);
-    }
-    return <Loading />;
-  }
+  const { currentUser, messages } = useLoaderData() as MessagesLoader;
 
   return (
     <MessagesContainer>
-      {data.map((message) => (
-        <Content key={message.message_id} content={message} />
-      ))}
+      {messages &&
+        messages.map((message) => (
+          <Content key={message.message_id} content={message} />
+        ))}
     </MessagesContainer>
   );
 };

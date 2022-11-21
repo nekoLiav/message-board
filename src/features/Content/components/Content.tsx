@@ -1,6 +1,4 @@
-import * as PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
-import { MessagePropType, PostPropType } from 'types/PropTypes';
 import { formatDistanceToNowStrict } from 'date-fns';
 import { SyntheticEvent } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -90,10 +88,4 @@ export const Content = ({ content, chain, main }: ContentProps) => {
       )}
     </ContentContainer>
   );
-};
-
-Content.propTypes = {
-  content: PropTypes.oneOfType([PostPropType, MessagePropType]),
-  chain: PropTypes.bool,
-  main: PropTypes.bool,
 };

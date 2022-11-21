@@ -1,19 +1,15 @@
 import { HomeContainer } from './style';
 import { Content } from 'features/Content';
 import { ContentSubmission } from 'features/ContentSubmission';
-import { useLoaderData, useRouteLoaderData } from 'react-router-dom';
-
-type AppLoader = {
-  currentUser?: UserType;
-};
+import { useLoaderData } from 'react-router-dom';
 
 type HomeLoader = {
+  currentUser: UserType;
   homePosts?: PostType[];
 };
 
 export const Home = () => {
-  const { currentUser } = useRouteLoaderData('app') as AppLoader;
-  const { homePosts } = useLoaderData() as HomeLoader;
+  const { currentUser, homePosts } = useLoaderData() as HomeLoader;
 
   return (
     <HomeContainer>

@@ -1,21 +1,18 @@
 import { ContentSubmission } from 'features/ContentSubmission';
 import { Content } from 'features/Content';
 import { PostThreadContainer } from './style';
-import { useLoaderData, useRouteLoaderData } from 'react-router-dom';
-
-type AppLoader = {
-  currentUser?: UserType;
-};
+import { useLoaderData } from 'react-router-dom';
 
 type PostThreadLoader = {
+  currentUser: UserType;
   post: PostType;
   parents?: PostType[];
   replies?: PostType[];
 };
 
 export const PostThread = () => {
-  const { currentUser } = useRouteLoaderData('app') as AppLoader;
-  const { post, parents, replies } = useLoaderData() as PostThreadLoader;
+  const { currentUser, post, parents, replies } =
+    useLoaderData() as PostThreadLoader;
 
   return (
     <PostThreadContainer>

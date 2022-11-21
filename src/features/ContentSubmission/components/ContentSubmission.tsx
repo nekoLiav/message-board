@@ -1,5 +1,4 @@
 import { submitPost } from 'functions/submitPost';
-import { UserPropType, PostPropType } from 'types/PropTypes';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { submitMessage } from 'functions/submitMessage';
 import {
@@ -51,9 +50,4 @@ export const ContentSubmission = ({
       </ContentSubmissionForm>
     </ContentSubmissionContainer>
   );
-};
-
-ContentSubmission.propTypes = {
-  currentUser: UserPropType.isRequired,
-  post: PostPropType,
 };

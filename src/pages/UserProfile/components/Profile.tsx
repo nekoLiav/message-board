@@ -1,4 +1,3 @@
-import { UserPropType } from 'types/PropTypes';
 import format from 'date-fns/format';
 import {
   ProfileContainer,
@@ -16,6 +15,7 @@ import {
   Info,
   Engagement,
 } from './style';
+import { UserPropType } from 'types/PropTypes';
 
 type ProfileProps = {
   user: UserType;
@@ -29,9 +29,9 @@ export const Profile = ({ user, toggleDM }: ProfileProps) => {
     name,
     handle,
     blurb,
+    post_count,
     follower_count,
     following_count,
-    post_count,
     birthday,
   } = user;
 
