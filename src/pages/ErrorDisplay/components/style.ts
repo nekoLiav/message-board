@@ -10,5 +10,3 @@ export const ErrorDisplayContainer = styled(Container)`
   width: 100%;
   gap: 1rem;
 `;
-
-export const ErrorContentContainer = styled(Container)``;

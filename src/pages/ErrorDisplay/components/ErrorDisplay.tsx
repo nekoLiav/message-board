@@ -1,4 +1,4 @@
-import { ErrorContentContainer, ErrorDisplayContainer } from './style';
+import { ErrorDisplayContainer } from './style';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { icon } from '@fortawesome/fontawesome-svg-core/import.macro';
 import { useRouteError } from 'react-router-dom';
@@ -13,9 +13,7 @@ export const ErrorDisplay = () => {
         className="loading-icon fa-5x"
         icon={icon({ name: 'bug', style: 'solid' })}
       />
-      <ErrorContentContainer>
-        Something went super wrong. My bad!
-      </ErrorContentContainer>
+      Something went super wrong. My bad!
       {error.toString()}
     </ErrorDisplayContainer>
   );

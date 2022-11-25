@@ -1,6 +1,5 @@
 import { ContentSubmission } from 'features/ContentSubmission';
 import { Content } from 'features/Content';
-import { PostThreadContainer } from './style';
 import { useLoaderData } from 'react-router-dom';
 
 type PostThreadLoader = {
@@ -15,7 +14,7 @@ export const PostThread = () => {
     useLoaderData() as PostThreadLoader;
 
   return (
-    <PostThreadContainer>
+    <div>
       {parents &&
         parents.map((post) => (
           <Content key={post.post_id} content={post} chain={true} />
@@ -26,6 +25,6 @@ export const PostThread = () => {
       )}
       {replies &&
         replies.map((post) => <Content key={post.post_id} content={post} />)}
-    </PostThreadContainer>
+    </div>
   );
 };

@@ -3,10 +3,10 @@ import { formatDistanceToNowStrict } from 'date-fns';
 import { SyntheticEvent } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { solid, regular } from '@fortawesome/fontawesome-svg-core/import.macro';
+import { Avatar } from 'components/Avatar';
 import {
   ContentContainer,
   AvatarLink,
-  Avatar,
   Linker,
   Info,
   Name,
@@ -16,12 +16,8 @@ import {
   Text,
   Img,
   Engagement,
-  Replies,
-  RepliesCount,
-  Reposts,
-  RepostsCount,
-  Likes,
-  LikesCount,
+  EngagementSubcontainer,
+  EngagementText,
 } from './style';
 
 type ContentProps = {
@@ -72,18 +68,22 @@ export const Content = ({ content, chain, main }: ContentProps) => {
       </Body>
       {'post_id' in content && (
         <Engagement>
-          <Replies className="no-post">
+          <EngagementSubcontainer className="no-post">
             <FontAwesomeIcon className="no-post" icon={regular('comments')} />
-            <RepliesCount className="no-post">{content.replies}</RepliesCount>
-          </Replies>
-          <Reposts className="no-post">
+            <EngagementText className="no-post">
+              {content.replies}
+            </EngagementText>
+          </EngagementSubcontainer>
+          <EngagementSubcontainer className="no-post">
             <FontAwesomeIcon className="no-post" icon={solid('retweet')} />
-            <RepostsCount className="no-post">{content.reposts}</RepostsCount>
-          </Reposts>
-          <Likes className="no-post">
+            <EngagementText className="no-post">
+              {content.reposts}
+            </EngagementText>
+          </EngagementSubcontainer>
+          <EngagementSubcontainer className="no-post">
             <FontAwesomeIcon className="no-post" icon={regular('heart')} />
-            <LikesCount className="no-post">{content.likes}</LikesCount>
-          </Likes>
+            <EngagementText className="no-post">{content.likes}</EngagementText>
+          </EngagementSubcontainer>
         </Engagement>
       )}
     </ContentContainer>

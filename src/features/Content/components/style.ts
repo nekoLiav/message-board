@@ -32,17 +32,10 @@ export const AvatarLink = styled(Link)`
   grid-area: 1 / 1 / 3 / 1;
 `;
 
-export const Avatar = styled.img`
-  display: block;
-  max-width: 3rem;
-  max-height: 3rem;
-  border-radius: 100%;
-`;
-
 export const Name = styled(Link)`
-  font-weight: bold;
-  text-decoration: none;
   color: ${(props) => props.theme.primary};
+  text-decoration: none;
+  font-weight: bold;
   font-size: 0.875rem;
   align-self: end;
   margin-left: 0.5rem;
@@ -107,7 +100,7 @@ export const Engagement = styled.div`
   grid-area: 3 / 2 / 4 / 6;
 `;
 
-export const Replies = styled.div`
+export const EngagementSubcontainer = styled.div`
   display: flex;
   width: min-content;
   gap: 0.5rem;
@@ -119,41 +112,7 @@ export const Replies = styled.div`
   }
 `;
 
-export const RepliesCount = styled.p`
-  font-weight: bold;
-  font-size: 0.75rem;
-`;
-
-export const Reposts = styled.div`
-  display: flex;
-  width: min-content;
-  gap: 0.5rem;
-  align-items: center;
-  color: ${(props) => props.theme.secondary};
-
-  &:hover {
-    color: #00ff00;
-  }
-`;
-
-export const RepostsCount = styled.p`
-  font-weight: bold;
-  font-size: 0.75rem;
-`;
-
-export const Likes = styled.div`
-  display: flex;
-  width: min-content;
-  gap: 0.5rem;
-  align-items: center;
-  color: ${(props) => props.theme.secondary};
-
-  &:hover {
-    color: #ff00ff;
-  }
-`;
-
-export const LikesCount = styled.p`
+export const EngagementText = styled.p`
   font-weight: bold;
   font-size: 0.75rem;
 `;

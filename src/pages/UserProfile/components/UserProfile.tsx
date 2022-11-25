@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { UserContainer } from './style';
 import { Profile } from './Profile';
 import { ContentSubmission } from 'features/ContentSubmission';
 import { Content } from 'features/Content';
@@ -20,13 +19,13 @@ export const UserProfile = () => {
   };
 
   return (
-    <UserContainer>
+    <div>
       <Profile user={user} toggleDM={toggleDM} />
       {messageToggle && (
         <ContentSubmission currentUser={currentUser} recipient={user.id} />
       )}
       {userPosts &&
         userPosts.map((post) => <Content key={post.post_id} content={post} />)}
-    </UserContainer>
+    </div>
   );
 };

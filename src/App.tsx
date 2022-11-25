@@ -1,7 +1,7 @@
 import { Outlet } from 'react-router-dom';
 import { Suspense } from 'react';
 import { Loading } from 'pages/Loading';
-import { MainLayout } from 'components/Layouts';
+import { MainLayout } from 'components/Layout';
 
 const App = () => {
   return (

@@ -1,4 +1,3 @@
-import { HomeContainer } from './style';
 import { Content } from 'features/Content';
 import { ContentSubmission } from 'features/ContentSubmission';
 import { useLoaderData } from 'react-router-dom';
@@ -12,10 +11,10 @@ export const Home = () => {
   const { currentUser, homePosts } = useLoaderData() as HomeLoader;
 
   return (
-    <HomeContainer>
+    <div>
       {currentUser && <ContentSubmission currentUser={currentUser} />}
       {homePosts &&
         homePosts.map((post) => <Content key={post.post_id} content={post} />)}
-    </HomeContainer>
+    </div>
   );
 };

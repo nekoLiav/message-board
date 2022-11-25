@@ -1,16 +1,11 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
+import { LogoLink, Logo } from 'components/Logo';
 import {
   HeaderContainer,
   LinkContainer,
-  LogoLink,
-  Logo,
-  HomeLink,
-  HomeLinkText,
-  MessagesLink,
-  MessagesLinkText,
-  ProfileLink,
-  ProfileLinkText,
+  HeaderLink,
+  HeaderText,
 } from './style';
 
 export const Header = () => {
@@ -20,30 +15,30 @@ export const Header = () => {
         <LogoLink to="/">
           <Logo />
         </LogoLink>
-        <HomeLink to="/">
+        <HeaderLink to="/">
           <FontAwesomeIcon
             className="header-icon"
             icon={solid('house')}
             fixedWidth
           />
-          <HomeLinkText>Home</HomeLinkText>
-        </HomeLink>
-        <MessagesLink to="/messages">
+          <HeaderText>Home</HeaderText>
+        </HeaderLink>
+        <HeaderLink to="/messages">
           <FontAwesomeIcon
             className="header-icon"
             icon={solid('envelope')}
             fixedWidth
           />
-          <MessagesLinkText>DMs</MessagesLinkText>
-        </MessagesLink>
-        <ProfileLink to={'/gsatoru89'}>
+          <HeaderText>DMs</HeaderText>
+        </HeaderLink>
+        <HeaderLink to={'/gsatoru89'}>
           <FontAwesomeIcon
             className="header-icon"
             icon={solid('user')}
             fixedWidth
           />
-          <ProfileLinkText>Profile</ProfileLinkText>
-        </ProfileLink>
+          <HeaderText>Profile</HeaderText>
+        </HeaderLink>
       </LinkContainer>
     </HeaderContainer>
   );

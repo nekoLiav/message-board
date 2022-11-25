@@ -1,6 +1,5 @@
 import { ContentSubmission } from 'features/ContentSubmission';
 import { Content } from 'features/Content';
-import { MessageThreadContainer } from './style';
 import { useLoaderData } from 'react-router-dom';
 
 type MessageThreadLoader = {
@@ -14,7 +13,7 @@ export const MessageThread = () => {
     useLoaderData() as MessageThreadLoader;
 
   return (
-    <MessageThreadContainer>
+    <div>
       {thread.map((message, index) => (
         <Content
           key={message.message_id}
@@ -27,6 +26,6 @@ export const MessageThread = () => {
         recipient={thread[0]?.recipient}
         currentUser={currentUser}
       />
-    </MessageThreadContainer>
+    </div>
   );
 };

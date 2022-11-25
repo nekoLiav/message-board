@@ -2,13 +2,11 @@ import styled from 'styled-components';
 import { Container } from 'components/Container';
 import { Button } from 'components/Button';
 
-export const UserContainer = styled(Container)``;
-
 export const ProfileContainer = styled(Container)`
   display: grid;
   border-bottom-width: 1px;
-  grid-template-rows: 1fr 1fr 1fr 1fr min-content;
-  grid-template-columns: min-content 1fr 1fr 1fr;
+  grid-template-rows: repeat(4, 1fr) min-content;
+  grid-template-columns: min-content repeat(3, 1fr);
 `;
 
 export const Banner = styled.div<{ profileColor: string }>`
