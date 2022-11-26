@@ -8,10 +8,17 @@ import {
   Avatar,
   ContentSubmissionForm,
   BodyField,
+  ImgField,
+  Attachments,
+  ImageAttachment,
 } from './style';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
+import { useState } from 'react';
 
 type Inputs = {
   body: string;
+  img?: string;
 };
 
 type ContentSubmissionProps = {
@@ -27,15 +34,19 @@ export const ContentSubmission = ({
   post,
   message,
 }: ContentSubmissionProps) => {
+  const [attachImg, setAttachImg] = useState(false);
+
   const { handle, avatar } = currentUser;
 
   const { register, handleSubmit } = useForm<Inputs>();
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     if (recipient) {
-      submitMessage(data.body, { currentUser, recipient, message });
+      submitMessage(data, { currentUser, recipient, message });
     }
     if (post) {
-      submitPost(data.body, { currentUser, post });
+      submitPost(data, { currentUser, post });
+    } else {
+      submitPost(data, { currentUser });
     }
   };
 
@@ -46,6 +57,18 @@ export const ContentSubmission = ({
       </AvatarLink>
       <ContentSubmissionForm onSubmit={handleSubmit(onSubmit)}>
         <BodyField id="body" placeholder="..." {...register('body')} />
+        {attachImg && (
+          <ImgField
+            id="img"
+            placeholder="put img url here"
+            {...register('img')}
+          />
+        )}
+        <Attachments>
+          <ImageAttachment onClick={() => setAttachImg(!attachImg)}>
+            <FontAwesomeIcon icon={solid('image')} />
+          </ImageAttachment>
+        </Attachments>
         <ContentSubmissionButton type="submit">Submit</ContentSubmissionButton>
       </ContentSubmissionForm>
     </ContentSubmissionContainer>

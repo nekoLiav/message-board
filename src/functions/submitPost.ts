@@ -8,7 +8,10 @@ type submitPostArgs = {
 };
 
 export const submitPost = (
-  data: string,
+  data: {
+    body: string;
+    img?: string;
+  },
   { currentUser, post }: submitPostArgs
 ) => {
   try {
@@ -25,7 +28,8 @@ export const submitPost = (
       post_id: newPostDoc.id,
       parent_ids: [],
       date_posted: Date.now(),
-      text: data,
+      text: data.body,
+      img_url: data.img,
       tags: [],
       replies: 0,
       reposts: 0,

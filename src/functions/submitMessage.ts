@@ -9,7 +9,10 @@ type submitMessageArgs = {
 };
 
 export const submitMessage = (
-  data: string,
+  data: {
+    body: string;
+    img?: string;
+  },
   { currentUser, recipient, message }: submitMessageArgs
 ) => {
   try {
@@ -26,7 +29,8 @@ export const submitMessage = (
       message_id: newMessageDoc.id,
       recipient: recipient,
       date_posted: Date.now(),
-      text: data,
+      text: data.body,
+      img_url: data.img,
       parent_id: newMessageDoc.id,
       is_reply: false,
     };
