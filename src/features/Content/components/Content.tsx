@@ -19,6 +19,9 @@ import {
   EngagementSubcontainer,
   EngagementText,
 } from './style';
+import { doc, runTransaction } from 'firebase/firestore';
+import { db } from 'config';
+import { postConverter } from 'functions/firestoreDataCoversion';
 
 type ContentProps = {
   content: PostType | MessageType;
@@ -34,7 +37,7 @@ export const Content = ({ content, chain, main }: ContentProps) => {
 
   const handleClick = (e: SyntheticEvent) => {
     const target = e.target as HTMLDivElement;
-    if (!target.classList.contains('no-post')) {
+    if (target.classList.contains('linkable')) {
       if ('post_id' in content) {
         navigate(`/${handle}/post/${content.post_id}`);
       }
@@ -44,45 +47,70 @@ export const Content = ({ content, chain, main }: ContentProps) => {
     }
   };
 
+  const handleLike = async () => {
+    if ('post_id' in content) {
+      try {
+        const docRef = doc(db, 'posts', content.post_id).withConverter(
+          postConverter
+        );
+        const newLikes = await runTransaction(db, async (transaction) => {
+          const doc = await transaction.get(docRef);
+          if (!doc.exists()) {
+            throw 'Document does not exist!';
+          }
+
+          const newLikeCount = doc.data().likes + 1;
+          if (newLikeCount <= 1000) {
+            transaction.update(docRef, { likes: newLikeCount });
+            return newLikeCount;
+          } else {
+            return Promise.reject('Sorry! Likes count is too big');
+          }
+        });
+
+        console.log('Likes increased to ', newLikes);
+      } catch (e) {
+        console.error(e);
+      }
+    }
+  };
+
   return (
-    <ContentContainer chain={chain} main={main} onClick={handleClick}>
-      <Info>
-        <AvatarLink className="no-post" to={`/${handle}`}>
-          <Avatar className="no-post" src={avatar} />
+    <ContentContainer
+      className="linkable"
+      chain={chain}
+      main={main}
+      onClick={handleClick}
+    >
+      <Info className="linkable">
+        <AvatarLink to={`/${handle}`}>
+          <Avatar src={avatar} />
         </AvatarLink>
-        <Name className="no-post" to={`/${handle}`}>
-          {name}&nbsp;
-        </Name>
-        <Handle className="no-post" to={`/${handle}`}>
-          {`@${handle}`}&nbsp;
-        </Handle>
-        <DatePosted className="no-post">
+        <Name to={`/${handle}`}>{name}&nbsp;</Name>
+        <Handle to={`/${handle}`}>{`@${handle}`}&nbsp;</Handle>
+        <DatePosted>
           &#x2022;&nbsp;{formatDistanceToNowStrict(date_posted)}
         </DatePosted>
       </Info>
       <Linker chain={chain} />
-      <Body>
+      <Body className="linkable">
         <Text>{text}</Text>
         {img_url && <Img src={img_url} />}
         {vid_url && <Img src={vid_url} />}
       </Body>
       {'post_id' in content && (
-        <Engagement>
-          <EngagementSubcontainer className="no-post">
-            <FontAwesomeIcon className="no-post" icon={regular('comments')} />
-            <EngagementText className="no-post">
-              {content.replies}
-            </EngagementText>
+        <Engagement className="linkable">
+          <EngagementSubcontainer>
+            <FontAwesomeIcon icon={regular('comments')} />
+            <EngagementText>{content.replies}</EngagementText>
           </EngagementSubcontainer>
-          <EngagementSubcontainer className="no-post">
-            <FontAwesomeIcon className="no-post" icon={solid('retweet')} />
-            <EngagementText className="no-post">
-              {content.reposts}
-            </EngagementText>
+          <EngagementSubcontainer>
+            <FontAwesomeIcon icon={solid('retweet')} />
+            <EngagementText>{content.reposts}</EngagementText>
           </EngagementSubcontainer>
-          <EngagementSubcontainer className="no-post">
-            <FontAwesomeIcon className="no-post" icon={regular('heart')} />
-            <EngagementText className="no-post">{content.likes}</EngagementText>
+          <EngagementSubcontainer onClick={handleLike}>
+            <FontAwesomeIcon icon={regular('heart')} />
+            <EngagementText>{content.likes}</EngagementText>
           </EngagementSubcontainer>
         </Engagement>
       )}
