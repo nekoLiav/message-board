@@ -19,9 +19,8 @@ import {
   EngagementSubcontainer,
   EngagementText,
 } from './style';
-import { doc, runTransaction } from 'firebase/firestore';
-import { db } from 'config';
-import { postConverter } from 'functions/firestoreDataCoversion';
+import postRepost from 'api/transactions/postRepost';
+import postLike from 'api/transactions/postLike';
 
 type ContentProps = {
   content: PostType | MessageType;
@@ -47,30 +46,14 @@ export const Content = ({ content, chain, main }: ContentProps) => {
     }
   };
 
-  const handleLike = async () => {
+  const handleEngagement = (e: SyntheticEvent) => {
     if ('post_id' in content) {
-      try {
-        const docRef = doc(db, 'posts', content.post_id).withConverter(
-          postConverter
-        );
-        const newLikes = await runTransaction(db, async (transaction) => {
-          const doc = await transaction.get(docRef);
-          if (!doc.exists()) {
-            throw 'Document does not exist!';
-          }
-
-          const newLikeCount = doc.data().likes + 1;
-          if (newLikeCount <= 1000) {
-            transaction.update(docRef, { likes: newLikeCount });
-            return newLikeCount;
-          } else {
-            return Promise.reject('Sorry! Likes count is too big');
-          }
-        });
-
-        console.log('Likes increased to ', newLikes);
-      } catch (e) {
-        console.error(e);
+      const id = e.currentTarget.id;
+      if (id === 'like') {
+        postLike(content.post_id);
+      }
+      if (id === 'repost') {
+        postRepost(content.post_id);
       }
     }
   };
@@ -100,15 +83,15 @@ export const Content = ({ content, chain, main }: ContentProps) => {
       </Body>
       {'post_id' in content && (
         <Engagement className="linkable">
-          <EngagementSubcontainer>
+          <EngagementSubcontainer className="linkable">
             <FontAwesomeIcon icon={regular('comments')} />
             <EngagementText>{content.replies}</EngagementText>
           </EngagementSubcontainer>
-          <EngagementSubcontainer>
+          <EngagementSubcontainer id="repost" onClick={handleEngagement}>
             <FontAwesomeIcon icon={solid('retweet')} />
             <EngagementText>{content.reposts}</EngagementText>
           </EngagementSubcontainer>
-          <EngagementSubcontainer onClick={handleLike}>
+          <EngagementSubcontainer id="like" onClick={handleEngagement}>
             <FontAwesomeIcon icon={regular('heart')} />
             <EngagementText>{content.likes}</EngagementText>
           </EngagementSubcontainer>
