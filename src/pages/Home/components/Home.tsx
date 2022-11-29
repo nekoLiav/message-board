@@ -1,14 +1,39 @@
+import { useGetUserDataByIdQuery } from 'api';
 import { Content } from 'features/Content';
 import { ContentSubmission } from 'features/ContentSubmission';
+import { ErrorDisplay } from 'pages/ErrorDisplay';
+import { Loading } from 'pages/Loading';
 import { useLoaderData } from 'react-router-dom';
+import {
+  isFetchBaseQueryError,
+  isErrorWithMessage,
+} from 'api/helpers/errorTypes';
 
 type HomeLoader = {
-  currentUser: UserType;
   homePosts?: PostType[];
 };
 
 export const Home = () => {
-  const { currentUser, homePosts } = useLoaderData() as HomeLoader;
+  const { homePosts } = useLoaderData() as HomeLoader;
+  const {
+    data: currentUser,
+    error: userDataError,
+    isLoading: userDataIsLoading,
+  } = useGetUserDataByIdQuery();
+
+  if (userDataIsLoading) {
+    return <Loading />;
+  }
+
+  if (userDataError) {
+    if (isFetchBaseQueryError(userDataError)) {
+      const errMsg = JSON.stringify(userDataError.data);
+      return <ErrorDisplay loadingError={errMsg} />;
+    }
+    if (isErrorWithMessage(userDataError)) {
+      return <ErrorDisplay loadingError={userDataError.message} />;
+    }
+  }
 
   return (
     <div>
