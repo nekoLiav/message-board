@@ -1,4 +1,4 @@
-import { useGetUserDataByIdQuery } from 'api';
+import { useValidatedUserDataQuery } from 'api';
 import { Content } from 'features/Content';
 import { ContentSubmission } from 'features/ContentSubmission';
 import { ErrorDisplay } from 'pages/ErrorDisplay';
@@ -19,7 +19,7 @@ export const Home = () => {
     data: currentUser,
     error: userDataError,
     isLoading: userDataIsLoading,
-  } = useGetUserDataByIdQuery();
+  } = useValidatedUserDataQuery();
 
   if (userDataIsLoading) {
     return <Loading />;
