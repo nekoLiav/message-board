@@ -1,20 +1,19 @@
-import { useValidatedUserDataQuery } from 'api';
 import { Content } from 'features/Content';
 import { ContentSubmission } from 'features/ContentSubmission';
 import { ErrorDisplay } from 'pages/ErrorDisplay';
 import { Loading } from 'pages/Loading';
-import { useLoaderData } from 'react-router-dom';
+import { useHomePostsQuery, useValidatedUserDataQuery } from 'api';
 import {
   isFetchBaseQueryError,
   isErrorWithMessage,
 } from 'api/helpers/errorTypes';
 
-type HomeLoader = {
-  homePosts?: PostType[];
-};
-
 export const Home = () => {
-  const { homePosts } = useLoaderData() as HomeLoader;
+  const {
+    data: homePosts,
+    error: homePostsError,
+    isLoading: homePostsIsLoading,
+  } = useHomePostsQuery();
   const {
     data: currentUser,
     error: userDataError,
@@ -25,6 +24,10 @@ export const Home = () => {
     return <Loading />;
   }
 
+  if (homePostsIsLoading) {
+    return <Loading />;
+  }
+
   if (userDataError) {
     if (isFetchBaseQueryError(userDataError)) {
       const errMsg = JSON.stringify(userDataError.data);
@@ -32,6 +35,16 @@ export const Home = () => {
     }
     if (isErrorWithMessage(userDataError)) {
       return <ErrorDisplay loadingError={userDataError.message} />;
+    }
+  }
+
+  if (homePostsError) {
+    if (isFetchBaseQueryError(homePostsError)) {
+      const errMsg = JSON.stringify(homePostsError.data);
+      return <ErrorDisplay loadingError={errMsg} />;
+    }
+    if (isErrorWithMessage(homePostsError)) {
+      return <ErrorDisplay loadingError={homePostsError.message} />;
     }
   }
 

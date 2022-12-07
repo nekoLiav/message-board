@@ -10,7 +10,6 @@ const Messages = lazy(() => import('pages/Messages'));
 const MessageThread = lazy(() => import('pages/MessageThread'));
 const PostThread = lazy(() => import('pages/PostThread'));
 
-import { homeLoader } from 'api/loaders/homeLoader';
 import { userProfileLoader } from 'api/loaders/userProfileLoader';
 import { messagesLoader } from 'api/loaders/messagesLoader';
 import { messageThreadLoader } from 'api/loaders/messageThreadLoader';
@@ -26,12 +25,10 @@ export const router = createBrowserRouter([
       {
         element: <Home />,
         index: true,
-        loader: () => homeLoader(),
       },
       {
         path: '/home',
         element: <Home />,
-        loader: () => homeLoader(),
       },
       {
         path: '/:handle',
