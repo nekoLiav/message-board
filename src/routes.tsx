@@ -12,8 +12,6 @@ const PostThread = lazy(() => import('pages/PostThread'));
 
 import { userProfileLoader } from 'api/loaders/userProfileLoader';
 import { messagesLoader } from 'api/loaders/messagesLoader';
-import { messageThreadLoader } from 'api/loaders/messageThreadLoader';
-import { postThreadLoader } from 'api/loaders/postThreadLoader';
 
 export const router = createBrowserRouter([
   {
@@ -47,20 +45,10 @@ export const router = createBrowserRouter([
       {
         path: '/messages/:message_id',
         element: <MessageThread />,
-        loader: ({ params }) => {
-          if (params.message_id) {
-            return messageThreadLoader(params.message_id);
-          }
-        },
       },
       {
         path: '/:handle/post/:post_id',
         element: <PostThread />,
-        loader: ({ params }) => {
-          if (params.post_id) {
-            return postThreadLoader(params.post_id);
-          }
-        },
       },
     ],
   },
