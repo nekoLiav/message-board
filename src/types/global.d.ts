@@ -52,10 +52,4 @@ declare global {
     vid_url?: string;
     is_reply: boolean;
   };
-
-  export type PostThread = {
-    postData: PostType;
-    parentData?: PostType[];
-    replyData?: PostType[];
-  };
 }

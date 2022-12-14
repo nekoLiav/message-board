@@ -1,8 +1,9 @@
 import { createApi, fakeBaseQuery } from '@reduxjs/toolkit/query/react';
+import { getValidatedUserData } from './endpoints/getValidatedUserData';
 import { getHomePosts } from './endpoints/getHomePosts';
 import { getPostThread } from './endpoints/getPostThread';
 import { getMessageThread } from './endpoints/getMessageThread';
-import { getValidatedUserData } from './endpoints/getValidatedUserData';
+import { getMessages } from './endpoints/getMessages';
 
 type PostThreadData = {
   post: PostType | undefined;
@@ -20,7 +21,7 @@ export const api = createApi({
     validatedUserData: builder.query<UserType | undefined, void>({
       queryFn: () => getValidatedUserData(),
     }),
-    homePosts: builder.query<PostType[] | undefined, void>({
+    homePosts: builder.query<PostType[], void>({
       queryFn: () => getHomePosts(),
     }),
     postThread: builder.query<PostThreadData, string>({
@@ -28,6 +29,9 @@ export const api = createApi({
     }),
     messageThread: builder.query<MessageThreadData, string>({
       queryFn: (message_id) => getMessageThread(message_id),
+    }),
+    messages: builder.query<MessageType[], void>({
+      queryFn: () => getMessages(),
     }),
   }),
 });
@@ -39,4 +43,5 @@ export const {
   useHomePostsQuery,
   usePostThreadQuery,
   useMessageThreadQuery,
+  useMessagesQuery,
 } = api;

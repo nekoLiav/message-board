@@ -11,7 +11,6 @@ const MessageThread = lazy(() => import('pages/MessageThread'));
 const PostThread = lazy(() => import('pages/PostThread'));
 
 import { userProfileLoader } from 'api/loaders/userProfileLoader';
-import { messagesLoader } from 'api/loaders/messagesLoader';
 
 export const router = createBrowserRouter([
   {
@@ -40,7 +39,6 @@ export const router = createBrowserRouter([
       {
         path: '/messages',
         element: <Messages />,
-        loader: () => messagesLoader(),
       },
       {
         path: '/messages/:message_id',
