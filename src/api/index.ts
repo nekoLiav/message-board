@@ -4,6 +4,7 @@ import { getHomePosts } from './endpoints/getHomePosts';
 import { getPostThread } from './endpoints/getPostThread';
 import { getMessageThread } from './endpoints/getMessageThread';
 import { getMessages } from './endpoints/getMessages';
+import { getUserProfile } from './endpoints/getUserProfile';
 
 type PostThreadData = {
   post: PostType | undefined;
@@ -13,6 +14,12 @@ type PostThreadData = {
 
 type MessageThreadData = {
   thread: MessageType[];
+};
+
+type UserProfileData = {
+  currentUser: UserType | undefined;
+  user: UserType | undefined;
+  userPosts: PostType[];
 };
 
 export const api = createApi({
@@ -33,6 +40,9 @@ export const api = createApi({
     messages: builder.query<MessageType[], void>({
       queryFn: () => getMessages(),
     }),
+    userProfile: builder.query<UserProfileData, string>({
+      queryFn: (user_id) => getUserProfile(user_id),
+    }),
   }),
 });
 
@@ -44,4 +54,5 @@ export const {
   usePostThreadQuery,
   useMessageThreadQuery,
   useMessagesQuery,
+  useUserProfileQuery,
 } = api;

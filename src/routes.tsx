@@ -10,8 +10,6 @@ const Messages = lazy(() => import('pages/Messages'));
 const MessageThread = lazy(() => import('pages/MessageThread'));
 const PostThread = lazy(() => import('pages/PostThread'));
 
-import { userProfileLoader } from 'api/loaders/userProfileLoader';
-
 export const router = createBrowserRouter([
   {
     path: '/',
@@ -30,11 +28,6 @@ export const router = createBrowserRouter([
       {
         path: '/:handle',
         element: <UserProfile />,
-        loader: ({ params }) => {
-          if (params.handle) {
-            return userProfileLoader(params.handle);
-          }
-        },
       },
       {
         path: '/messages',
