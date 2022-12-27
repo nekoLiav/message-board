@@ -3,7 +3,7 @@ import { postsByUserId } from 'api/queries/post/postsByUserId';
 import { userByHandle } from 'api/queries/user/userByHandle';
 import { userDataById } from 'api/queries/user/userDataById';
 
-export async function getUserProfile(handle: string) {
+export async function getUserProfile(handle: string | undefined) {
   const validatedUser = await validateUser();
   if (validatedUser) {
     const currentUser = await userDataById(validatedUser.uid);

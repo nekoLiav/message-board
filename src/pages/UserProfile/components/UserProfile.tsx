@@ -15,15 +15,23 @@ import { useParams } from 'react-router-dom';
 export const UserProfile = () => {
   const [messageToggle, setMessageToggle] = useState(false);
 
-  const toggleDM = () => {
-    setMessageToggle(!messageToggle);
-  };
+  const params = useParams();
 
   const {
     data: currentUser,
     error: currentUserDataError,
     isLoading: currentUserDataIsLoading,
   } = useValidatedUserDataQuery();
+
+  const {
+    data,
+    error: userProfileDataError,
+    isLoading: userProfileDataIsLoading,
+  } = useUserProfileQuery(params.handle);
+
+  const toggleDM = () => {
+    setMessageToggle(!messageToggle);
+  };
 
   if (currentUserDataIsLoading) {
     return <Loading />;
@@ -38,18 +46,6 @@ export const UserProfile = () => {
       return <ErrorDisplay loadingError={currentUserDataError.message} />;
     }
   }
-
-  const params = useParams();
-
-  if (!params.handle) {
-    throw new Error("Error! Somehow there's no valid url. Try reloading.");
-  }
-
-  const {
-    data,
-    error: userProfileDataError,
-    isLoading: userProfileDataIsLoading,
-  } = useUserProfileQuery(params.handle);
 
   if (userProfileDataIsLoading || !data) {
     return <Loading />;

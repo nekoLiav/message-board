@@ -40,7 +40,7 @@ export const api = createApi({
     messages: builder.query<MessageType[], void>({
       queryFn: () => getMessages(),
     }),
-    userProfile: builder.query<UserProfileData, string>({
+    userProfile: builder.query<UserProfileData, string | undefined>({
       queryFn: (user_id) => getUserProfile(user_id),
     }),
   }),
