@@ -1,3 +1,4 @@
+import { LoginBanner } from 'features/LoginBanner';
 import { StyledMainLayout, RouteContainer } from './style';
 import { Header } from 'pages/Header';
 import { Sidebar } from 'pages/Sidebar';

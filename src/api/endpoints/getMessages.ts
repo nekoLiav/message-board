@@ -7,6 +7,6 @@ export const getMessages = async () => {
     const messages = await messagesByUserId(validatedUser.uid);
     return { data: messages };
   } else {
-    throw new Error('Message data query failed.');
+    return { data: undefined };
   }
 };

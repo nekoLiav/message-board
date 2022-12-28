@@ -17,7 +17,6 @@ type MessageThreadData = {
 };
 
 type UserProfileData = {
-  currentUser: UserType | undefined;
   user: UserType | undefined;
   userPosts: PostType[];
 };
@@ -37,12 +36,14 @@ export const api = createApi({
     messageThread: builder.query<MessageThreadData, string>({
       queryFn: (message_id) => getMessageThread(message_id),
     }),
-    messages: builder.query<MessageType[], void>({
+    messages: builder.query<MessageType[] | undefined, void>({
       queryFn: () => getMessages(),
     }),
-    userProfile: builder.query<UserProfileData, string | undefined>({
-      queryFn: (user_id) => getUserProfile(user_id),
-    }),
+    userProfile: builder.query<UserProfileData | undefined, string | undefined>(
+      {
+        queryFn: (user_id) => getUserProfile(user_id),
+      }
+    ),
   }),
 });
 

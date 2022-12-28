@@ -1,16 +1,12 @@
-import { validateUser } from 'api/auth/validateUser';
 import { postsByUserId } from 'api/queries/post/postsByUserId';
 import { userByHandle } from 'api/queries/user/userByHandle';
-import { userDataById } from 'api/queries/user/userDataById';
 
 export async function getUserProfile(handle: string | undefined) {
-  const validatedUser = await validateUser();
-  if (validatedUser) {
-    const currentUser = await userDataById(validatedUser.uid);
+  if (handle) {
     const user = await userByHandle(handle);
     const userPosts = await postsByUserId(user?.id);
-    return { data: { currentUser, user, userPosts } };
+    return { data: { user, userPosts } };
   } else {
-    throw new Error('User Profile data query failed.');
+    return { data: undefined };
   }
 }

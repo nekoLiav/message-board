@@ -7,6 +7,6 @@ export const getValidatedUserData = async () => {
     const userData = await userDataById(validatedUser.uid);
     return { data: userData };
   } else {
-    throw new Error('User data query failed.');
+    return { data: undefined };
   }
 };

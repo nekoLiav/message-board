@@ -21,12 +21,12 @@ export async function validateUser() {
 
   const user = (await validatedUser()) as User;
 
-  if (!user) {
-    console.log('User not logged in.');
-    signInWithEmailAndPassword(auth, 'definitelyrealemail@lol.net', '123456')
-      .then(() => validateUser())
-      .catch((error) => console.log('Sign in failed!', error));
-  } else {
-    return user;
-  }
+  // if (!user) {
+  //   console.log('User not logged in.');
+  //   signInWithEmailAndPassword(auth, 'definitelyrealemail@lol.net', '123456')
+  //     .then(() => validateUser())
+  //     .catch((error) => console.log('Sign in failed!', error));
+  // } else {
+  return user;
+  // }
 }
