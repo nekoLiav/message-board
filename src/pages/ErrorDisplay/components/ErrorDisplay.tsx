@@ -17,9 +17,9 @@ export const ErrorDisplay = (props: Props) => {
         className="loading-icon fa-5x"
         icon={icon({ name: 'bug', style: 'solid' })}
       />
-      Something went super wrong. My bad!
-      {routeError && routeError.toString()}
-      {loadingError && loadingError}
+      <p>Something went super wrong. My bad!</p>
+      {routeError && <p>{routeError.toString()}</p>}
+      {loadingError && <p>{loadingError}</p>}
     </ErrorDisplayContainer>
   );
 };
