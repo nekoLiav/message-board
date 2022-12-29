@@ -12,7 +12,7 @@ const Modal = (props: ModalProps) => {
   const { children } = props;
 
   return createPortal(
-    <ModalBackground>
+    <ModalBackground id="modal">
       <StyledModal>{children}</StyledModal>
     </ModalBackground>,
     portalRoot!

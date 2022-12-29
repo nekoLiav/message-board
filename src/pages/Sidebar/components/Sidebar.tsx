@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   LoginFlowContainer,
   SidebarContainer,
@@ -8,13 +8,24 @@ import {
 } from './style';
 import { SignUpModal } from 'features/SignUpModal/components/SignUpModal';
 import { auth } from 'config';
-import { signOut } from 'firebase/auth';
+import { signOut, onAuthStateChanged } from 'firebase/auth';
+import { SignInModal } from 'features/SignInModal';
 
 export const Sidebar = () => {
+  const [loggedIn, setLoggedIn] = useState(false);
+
   const [signUpModalOpen, setSignUpModalOpen] = useState(false);
   const [signInModalOpen, setSignInModalOpen] = useState(false);
 
-  const user = auth.currentUser;
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setLoggedIn(true);
+      } else {
+        setLoggedIn(false);
+      }
+    });
+  }, []);
 
   function handleSignUpClick() {
     setSignUpModalOpen(!signUpModalOpen);
@@ -31,15 +42,18 @@ export const Sidebar = () => {
   return (
     <SidebarContainer>
       <LoginFlowContainer>
-        {!user && <SignInButton>Sign In</SignInButton>}
-        {!user && (
+        {!loggedIn && (
+          <SignInButton onClick={handleSignInClick}>Sign In</SignInButton>
+        )}
+        {!loggedIn && (
           <SignUpButton onClick={handleSignUpClick}>Sign Up</SignUpButton>
         )}
-        {user && (
+        {loggedIn && (
           <SignOutButton onClick={handleSignOutClick}>Sign Out</SignOutButton>
         )}
       </LoginFlowContainer>
       {signUpModalOpen && <SignUpModal />}
+      {signInModalOpen && <SignInModal />}
     </SidebarContainer>
   );
 };
