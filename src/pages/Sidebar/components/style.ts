@@ -8,7 +8,7 @@ export const SidebarContainer = styled(Container)`
   }
 `;
 
-export const LoginContainer = styled(Container)`
+export const LoginFlowContainer = styled(Container)`
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -22,3 +22,5 @@ export const LoginContainer = styled(Container)`
 export const SignUpButton = styled(Button)``;
 
 export const SignInButton = styled(Button)``;
+
+export const SignOutButton = styled(Button)``;

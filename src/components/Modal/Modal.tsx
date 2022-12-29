@@ -2,14 +2,20 @@
 import { createPortal } from 'react-dom';
 import { StyledModal, ModalBackground } from './style';
 
-const Modal = () => {
-  const anchor = document.getElementById('attachment-modal-anchor');
+type ModalProps = {
+  children: React.ReactNode;
+};
+
+const Modal = (props: ModalProps) => {
+  const portalRoot = document.getElementById('portal-root');
+
+  const { children } = props;
 
   return createPortal(
     <ModalBackground>
-      <StyledModal></StyledModal>
+      <StyledModal>{children}</StyledModal>
     </ModalBackground>,
-    anchor!
+    portalRoot!
   );
 };
 

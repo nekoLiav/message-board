@@ -8,6 +8,7 @@ export const ModalBackground = styled.div`
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.5);
+  top: 0;
 `;
 
 export const StyledModal = styled.div`
@@ -15,6 +16,6 @@ export const StyledModal = styled.div`
   border-color: ${(props) => props.theme.secondary};
   border-style: solid;
   border-width: 1px;
-  height: 100%;
-  width: 50%;
+  height: 20rem;
+  width: 20rem;
 `;
