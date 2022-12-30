@@ -10,7 +10,7 @@ export const HeaderContainer = styled(Container)`
   height: 100%;
   padding: 0.5rem;
 
-  @media (max-width: 360px) {
+  @media (max-width: 650px) {
     border-width: 0 0 1px 0;
   }
 `;
@@ -18,12 +18,9 @@ export const HeaderContainer = styled(Container)`
 export const LinkContainer = styled(Container)`
   display: flex;
   flex-direction: column;
+  gap: 0.5rem;
 
   @media (max-width: 650px) {
-    align-items: center;
-  }
-
-  @media (max-width: 360px) {
     flex-direction: row;
     align-items: center;
     width: 100%;

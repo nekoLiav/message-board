@@ -11,6 +11,8 @@ export const ContentContainer = styled(Container)`
   border-bottom-width: ${(props) => (props.chain ? '0' : '1px')};
   transition: 0.2s;
   padding-top: 0.5rem;
+  border-right-width: 1px;
+  border-left-width: 1px;
 
   &:hover {
     background: ${(props) => (props.main ? props.theme.mo2 : props.theme.mo)};

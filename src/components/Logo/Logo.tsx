@@ -15,7 +15,7 @@ export const LogoLink = styled(Link)`
     align-self: center;
   }
 
-  @media (max-width: 360px) {
+  @media (max-width: 650px) {
     flex-direction: row;
     margin: 0;
     margin-right: auto;
@@ -36,7 +36,7 @@ export const Logo = styled(Icon)`
     align-self: center;
   }
 
-  @media (max-width: 360px) {
+  @media (max-width: 650px) {
     flex-direction: row;
     margin: 0;
     margin-right: auto;

@@ -9,12 +9,10 @@ export const StyledMainLayout = styled(Container)`
   width: 100%;
   overflow: auto;
 
-  @media (max-width: 360px) {
+  @media (max-width: 650px) {
     grid-template-columns: 1fr;
-    grid-template-rows: min-content 1fr;
+    grid-template-rows: min-content 1fr min-content;
   }
 `;
 
-export const RouteContainer = styled(Container)`
-  border-width: 0 1px 0 1px;
-`;
+export const RouteContainer = styled(Container)``;
