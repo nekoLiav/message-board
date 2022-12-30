@@ -17,7 +17,7 @@ export const useUserProfile = () => {
 
   const params = useParams();
 
-  if (!params.post_id) {
+  if (!params.handle) {
     throw new Error("Error! Somehow there's no valid url. Try reloading.");
   }
 
