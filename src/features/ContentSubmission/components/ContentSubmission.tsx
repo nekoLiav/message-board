@@ -22,31 +22,31 @@ type Inputs = {
 };
 
 type ContentSubmissionProps = {
-  currentUser: UserType;
+  loggedInUser: UserType;
   recipient?: string;
   post?: PostType;
   message?: string;
 };
 
 export const ContentSubmission = ({
-  currentUser,
+  loggedInUser,
   recipient,
   post,
   message,
 }: ContentSubmissionProps) => {
   const [attachImg, setAttachImg] = useState(false);
 
-  const { handle, avatar } = currentUser;
+  const { handle, avatar } = loggedInUser;
 
   const { register, handleSubmit } = useForm<Inputs>();
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     if (recipient) {
-      submitMessage(data, { currentUser, recipient, message });
+      submitMessage(data, { loggedInUser, recipient, message });
     }
     if (post) {
-      submitPost(data, { currentUser, post });
+      submitPost(data, { loggedInUser, post });
     } else {
-      submitPost(data, { currentUser });
+      submitPost(data, { loggedInUser });
     }
   };
 

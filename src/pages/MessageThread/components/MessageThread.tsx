@@ -1,48 +1,39 @@
 import { ContentSubmission } from 'features/ContentSubmission';
 import { Content } from 'features/Content';
-import { useValidatedUserDataQuery, useMessageThreadQuery } from 'api';
 import {
   isFetchBaseQueryError,
   isErrorWithMessage,
 } from 'api/helpers/errorTypes';
 import { Loading } from 'pages/Loading';
 import { ErrorDisplay } from 'pages/ErrorDisplay';
-import { useParams } from 'react-router-dom';
+import { useMessageThread } from '../hooks/useMessageThread';
 
 export const MessageThread = () => {
   const {
-    data: currentUser,
-    error: userDataError,
-    isLoading: userDataIsLoading,
-  } = useValidatedUserDataQuery();
+    loggedInUserData,
+    loggedInUserDataError,
+    loggedInUserDataIsLoading,
+    messageThreadData,
+    messageThreadError,
+    messageThreadIsLoading,
+    message_id,
+  } = useMessageThread();
 
-  if (userDataIsLoading) {
+  if (loggedInUserDataIsLoading) {
     return <Loading />;
   }
 
-  if (userDataError) {
-    if (isFetchBaseQueryError(userDataError)) {
-      const errMsg = JSON.stringify(userDataError.data);
+  if (loggedInUserDataError) {
+    if (isFetchBaseQueryError(loggedInUserDataError)) {
+      const errMsg = JSON.stringify(loggedInUserDataError.data);
       return <ErrorDisplay loadingError={errMsg} />;
     }
-    if (isErrorWithMessage(userDataError)) {
-      return <ErrorDisplay loadingError={userDataError.message} />;
+    if (isErrorWithMessage(loggedInUserDataError)) {
+      return <ErrorDisplay loadingError={loggedInUserDataError.message} />;
     }
   }
 
-  const { message_id } = useParams();
-
-  if (!message_id) {
-    throw new Error("Error! Somehow there's no valid url. Try reloading.");
-  }
-
-  const {
-    data,
-    error: messageThreadError,
-    isLoading: messageThreadIsLoading,
-  } = useMessageThreadQuery(message_id);
-
-  if (messageThreadIsLoading || !data) {
+  if (messageThreadIsLoading || !messageThreadData) {
     return <Loading />;
   }
 
@@ -56,22 +47,20 @@ export const MessageThread = () => {
     }
   }
 
-  const { thread } = data;
-
   return (
     <div>
-      {thread.map((message, index) => (
+      {messageThreadData.map((message, index) => (
         <Content
           key={message.message_id}
           content={message}
-          chain={index !== thread.length - 1}
+          chain={index !== messageThreadData.length - 1}
         />
       ))}
-      {currentUser && (
+      {loggedInUserData && (
         <ContentSubmission
           message={message_id}
-          recipient={thread[0]?.recipient}
-          currentUser={currentUser}
+          recipient={messageThreadData[0]?.recipient}
+          loggedInUser={loggedInUserData}
         />
       )}
     </div>

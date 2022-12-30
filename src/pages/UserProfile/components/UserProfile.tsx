@@ -4,50 +4,42 @@ import { ContentSubmission } from 'features/ContentSubmission';
 import { Content } from 'features/Content';
 import { Loading } from 'pages/Loading';
 import { ErrorDisplay } from 'pages/ErrorDisplay';
-import { useValidatedUserDataQuery } from 'api';
-import { useUserProfileQuery } from 'api';
 import {
   isFetchBaseQueryError,
   isErrorWithMessage,
 } from 'api/helpers/errorTypes';
-import { useParams } from 'react-router-dom';
+import { useUserProfile } from '../hooks/useUserProfile';
 
 export const UserProfile = () => {
   const [messageToggle, setMessageToggle] = useState(false);
-
-  const params = useParams();
-
   const {
-    data: currentUser,
-    error: currentUserDataError,
-    isLoading: currentUserDataIsLoading,
-  } = useValidatedUserDataQuery();
-
-  const {
-    data,
-    error: userProfileDataError,
-    isLoading: userProfileDataIsLoading,
-  } = useUserProfileQuery(params.handle);
+    loggedInUserData,
+    loggedInUserDataError,
+    loggedInUserDataIsLoading,
+    userProfileData,
+    userProfileDataError,
+    userProfileDataIsLoading,
+  } = useUserProfile();
 
   const toggleDM = () => {
     setMessageToggle(!messageToggle);
   };
 
-  if (currentUserDataIsLoading) {
+  if (loggedInUserDataIsLoading) {
     return <Loading />;
   }
 
-  if (currentUserDataError) {
-    if (isFetchBaseQueryError(currentUserDataError)) {
-      const errMsg = JSON.stringify(currentUserDataError.data);
+  if (loggedInUserDataError) {
+    if (isFetchBaseQueryError(loggedInUserDataError)) {
+      const errMsg = JSON.stringify(loggedInUserDataError.data);
       return <ErrorDisplay loadingError={errMsg} />;
     }
-    if (isErrorWithMessage(currentUserDataError)) {
-      return <ErrorDisplay loadingError={currentUserDataError.message} />;
+    if (isErrorWithMessage(loggedInUserDataError)) {
+      return <ErrorDisplay loadingError={loggedInUserDataError.message} />;
     }
   }
 
-  if (userProfileDataIsLoading || !data) {
+  if (userProfileDataIsLoading || !userProfileData) {
     return <Loading />;
   }
 
@@ -61,13 +53,16 @@ export const UserProfile = () => {
     }
   }
 
-  const { user, userPosts } = data;
+  const { user, userPosts } = userProfileData;
 
   return (
     <div>
       {user && <Profile user={user} toggleDM={toggleDM} />}
-      {messageToggle && currentUser && user && (
-        <ContentSubmission currentUser={currentUser} recipient={user.id} />
+      {messageToggle && loggedInUserData && user && (
+        <ContentSubmission
+          loggedInUser={loggedInUserData}
+          recipient={user.id}
+        />
       )}
       {userPosts &&
         userPosts.map((post) => <Content key={post.post_id} content={post} />)}

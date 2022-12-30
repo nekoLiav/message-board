@@ -10,6 +10,7 @@ import { SignUpModal } from 'features/SignUpModal/components/SignUpModal';
 import { auth } from 'config';
 import { signOut, onAuthStateChanged } from 'firebase/auth';
 import { SignInModal } from 'features/SignInModal';
+import { useNavigate } from 'react-router-dom';
 
 export const Sidebar = () => {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -27,6 +28,8 @@ export const Sidebar = () => {
     });
   }, []);
 
+  const navigate = useNavigate();
+
   function handleSignUpClick() {
     setSignUpModalOpen(!signUpModalOpen);
   }
@@ -37,6 +40,7 @@ export const Sidebar = () => {
 
   function handleSignOutClick() {
     signOut(auth);
+    navigate(0);
   }
 
   return (

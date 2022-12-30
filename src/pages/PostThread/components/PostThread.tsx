@@ -2,47 +2,37 @@ import { ContentSubmission } from 'features/ContentSubmission';
 import { Content } from 'features/Content';
 import { Loading } from 'pages/Loading';
 import { ErrorDisplay } from 'pages/ErrorDisplay';
-import { usePostThreadQuery, useValidatedUserDataQuery } from 'api';
 import {
   isFetchBaseQueryError,
   isErrorWithMessage,
 } from 'api/helpers/errorTypes';
-import { useParams } from 'react-router-dom';
+import { usePostThread } from '../hooks/usePostThread';
 
 export const PostThread = () => {
   const {
-    data: currentUser,
-    error: userDataError,
-    isLoading: userDataIsLoading,
-  } = useValidatedUserDataQuery();
+    loggedInUserData,
+    loggedInUserDataError,
+    loggedInUserDataIsLoading,
+    postThreadData,
+    postThreadError,
+    postThreadIsLoading,
+  } = usePostThread();
 
-  if (userDataIsLoading) {
+  if (loggedInUserDataIsLoading) {
     return <Loading />;
   }
 
-  if (userDataError) {
-    if (isFetchBaseQueryError(userDataError)) {
-      const errMsg = JSON.stringify(userDataError.data);
+  if (loggedInUserDataError) {
+    if (isFetchBaseQueryError(loggedInUserDataError)) {
+      const errMsg = JSON.stringify(loggedInUserDataError.data);
       return <ErrorDisplay loadingError={errMsg} />;
     }
-    if (isErrorWithMessage(userDataError)) {
-      return <ErrorDisplay loadingError={userDataError.message} />;
+    if (isErrorWithMessage(loggedInUserDataError)) {
+      return <ErrorDisplay loadingError={loggedInUserDataError.message} />;
     }
   }
 
-  const params = useParams();
-
-  if (!params.post_id) {
-    throw new Error("Error! Somehow there's no valid url. Try reloading.");
-  }
-
-  const {
-    data,
-    error: postThreadError,
-    isLoading: postThreadIsLoading,
-  } = usePostThreadQuery(params.post_id);
-
-  if (postThreadIsLoading || !data) {
+  if (postThreadIsLoading || !postThreadData) {
     return <Loading />;
   }
 
@@ -56,7 +46,7 @@ export const PostThread = () => {
     }
   }
 
-  const { post, parents, replies } = data;
+  const { post, parents, replies } = postThreadData;
 
   return (
     <div>
@@ -65,8 +55,8 @@ export const PostThread = () => {
           <Content key={post.post_id} content={post} chain={true} />
         ))}
       {post && <Content content={post} main={true} />}
-      {currentUser && (
-        <ContentSubmission post={post} currentUser={currentUser} />
+      {loggedInUserData && (
+        <ContentSubmission post={post} loggedInUser={loggedInUserData} />
       )}
       {replies &&
         replies.map((post) => <Content key={post.post_id} content={post} />)}

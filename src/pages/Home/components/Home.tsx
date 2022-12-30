@@ -2,40 +2,40 @@ import { Content } from 'features/Content';
 import { ContentSubmission } from 'features/ContentSubmission';
 import { ErrorDisplay } from 'pages/ErrorDisplay';
 import { Loading } from 'pages/Loading';
-import { useHomePostsQuery, useValidatedUserDataQuery } from 'api';
 import {
   isFetchBaseQueryError,
   isErrorWithMessage,
 } from 'api/helpers/errorTypes';
+import { useHome } from '../hooks/useHome';
 
 export const Home = () => {
-  const {
-    data: homePosts,
-    error: homePostsError,
-    isLoading: homePostsIsLoading,
-  } = useHomePostsQuery();
-  const {
-    data: currentUser,
-    error: userDataError,
-    isLoading: userDataIsLoading,
-  } = useValidatedUserDataQuery();
+  const HomeData = useHome();
 
-  if (userDataIsLoading) {
+  const {
+    loggedInUserData,
+    loggedInUserDataError,
+    loggedInUserDataIsLoading,
+    homePosts,
+    homePostsError,
+    homePostsIsLoading,
+  } = HomeData;
+
+  if (loggedInUserDataIsLoading) {
     return <Loading />;
+  }
+
+  if (loggedInUserDataError) {
+    if (isFetchBaseQueryError(loggedInUserDataError)) {
+      const errMsg = JSON.stringify(loggedInUserDataError.data);
+      return <ErrorDisplay loadingError={errMsg} />;
+    }
+    if (isErrorWithMessage(loggedInUserDataError)) {
+      return <ErrorDisplay loadingError={loggedInUserDataError.message} />;
+    }
   }
 
   if (homePostsIsLoading) {
     return <Loading />;
-  }
-
-  if (userDataError) {
-    if (isFetchBaseQueryError(userDataError)) {
-      const errMsg = JSON.stringify(userDataError.data);
-      return <ErrorDisplay loadingError={errMsg} />;
-    }
-    if (isErrorWithMessage(userDataError)) {
-      return <ErrorDisplay loadingError={userDataError.message} />;
-    }
   }
 
   if (homePostsError) {
@@ -50,7 +50,9 @@ export const Home = () => {
 
   return (
     <div>
-      {currentUser && <ContentSubmission currentUser={currentUser} />}
+      {loggedInUserData && (
+        <ContentSubmission loggedInUser={loggedInUserData} />
+      )}
       {homePosts &&
         homePosts.map((post) => <Content key={post.post_id} content={post} />)}
     </div>

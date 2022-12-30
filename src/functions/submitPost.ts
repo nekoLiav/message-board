@@ -3,7 +3,7 @@ import { db } from '../config/firebase/firebase-config';
 import { postConverter } from './firestoreDataCoversion';
 
 type submitPostArgs = {
-  currentUser: UserType;
+  loggedInUser: UserType;
   post?: PostType;
 };
 
@@ -12,7 +12,7 @@ export const submitPost = (
     body: string;
     img?: string;
   },
-  { currentUser, post }: submitPostArgs
+  { loggedInUser, post }: submitPostArgs
 ) => {
   try {
     const newPostDoc = doc(
@@ -20,10 +20,10 @@ export const submitPost = (
     );
     const postTemplate: PostType = {
       user_data: {
-        id: currentUser.id,
-        name: currentUser.name,
-        handle: currentUser.handle,
-        avatar: currentUser.avatar,
+        id: loggedInUser.id,
+        name: loggedInUser.name,
+        handle: loggedInUser.handle,
+        avatar: loggedInUser.avatar,
       },
       post_id: newPostDoc.id,
       parent_ids: [],
