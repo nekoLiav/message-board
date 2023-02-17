@@ -7,22 +7,37 @@ import {
   HeaderLink,
   HeaderText,
 } from './style';
-import { auth } from 'config';
-import { onAuthStateChanged } from 'firebase/auth';
-import { useState, useEffect } from 'react';
+import { useHeader } from '../hooks/useHeader';
+import { Loading } from 'pages/Loading';
+import { ErrorDisplay } from 'pages/ErrorDisplay';
+import {
+  isErrorWithMessage,
+  isFetchBaseQueryError,
+} from 'api/helpers/errorTypes';
 
 export const Header = () => {
-  const [loggedIn, setLoggedIn] = useState(false);
+  const HeaderData = useHeader();
 
-  useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setLoggedIn(true);
-      } else {
-        setLoggedIn(false);
-      }
-    });
-  }, []);
+  const {
+    loggedIn,
+    loggedInUserData,
+    loggedInUserDataError,
+    loggedInUserDataIsLoading,
+  } = HeaderData;
+
+  if (loggedInUserDataIsLoading) {
+    return <Loading />;
+  }
+
+  if (loggedInUserDataError) {
+    if (isFetchBaseQueryError(loggedInUserDataError)) {
+      const errMsg = JSON.stringify(loggedInUserDataError.data);
+      return <ErrorDisplay loadingError={errMsg} />;
+    }
+    if (isErrorWithMessage(loggedInUserDataError)) {
+      return <ErrorDisplay loadingError={loggedInUserDataError.message} />;
+    }
+  }
 
   return (
     <HeaderContainer>
@@ -49,8 +64,8 @@ export const Header = () => {
             <HeaderText>DMs</HeaderText>
           </HeaderLink>
         )}
-        {loggedIn && (
-          <HeaderLink to={'/gsatoru89'}>
+        {loggedIn && loggedInUserData && (
+          <HeaderLink to={`${loggedInUserData.handle}`}>
             <FontAwesomeIcon
               className="header-icon"
               icon={solid('user')}

@@ -29,7 +29,6 @@ export const submitPost = (
       parent_ids: [],
       date_posted: Date.now(),
       text: data.body,
-      img_url: data.img,
       tags: [],
       replies: 0,
       reposts: 0,
@@ -50,7 +49,15 @@ export const submitPost = (
       }
     } else {
       try {
-        setDoc(newPostDoc, postTemplate);
+        if (data.img) {
+          const imgAppendedPostTemplate: PostType = {
+            ...postTemplate,
+            img_url: data.img,
+          };
+          setDoc(newPostDoc, imgAppendedPostTemplate);
+        } else {
+          setDoc(newPostDoc, postTemplate);
+        }
       } catch (error) {
         console.log('Something went wrong!', error);
       }
