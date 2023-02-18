@@ -1,6 +1,6 @@
 import Modal from 'components/Modal/Modal';
 import { useForm } from 'react-hook-form';
-import { auth, db } from 'config';
+import { auth } from 'config';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { redirect } from 'react-router-dom';
 import {
@@ -13,12 +13,11 @@ import {
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { doc, setDoc } from 'firebase/firestore';
-
 type FormData = {
   email: string;
   password: string;
   verifypassword: string;
+  handle: string;
 };
 
 export const SignUpModal = () => {
@@ -43,12 +42,6 @@ export const SignUpModal = () => {
 
     createUserWithEmailAndPassword(auth, email, password)
       .then(async () => {
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        const { uid } = auth.currentUser!;
-        await setDoc(doc(db, 'users', uid), {
-          id: uid,
-          birthday: Date.now(),
-        });
         await redirect('/home');
         navigate(0);
       })
@@ -82,6 +75,13 @@ export const SignUpModal = () => {
           {...register('verifypassword', { required: true })}
         />
         {errors.verifypassword && (
+          <ModalErrorText>This field is required.</ModalErrorText>
+        )}
+        <StyledInput
+          placeholder="handle"
+          {...register('handle', { required: true })}
+        />
+        {errors.handle && (
           <ModalErrorText>This field is required.</ModalErrorText>
         )}
         {passwordMismatch && (

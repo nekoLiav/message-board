@@ -18,6 +18,7 @@
     "babel-plugin-macros": "^3.1.0",
     "date-fns": "^2.29.3",
     "firebase": "^9.17.1",
+    "firebase-admin": "^11.5.0",
     "firebase-functions": "^4.2.1",
     "firebaseui": "^6.0.2",
     "prop-types": "^15.8.1",

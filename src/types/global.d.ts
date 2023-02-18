@@ -1,3 +1,5 @@
+import { Timestamp } from 'firebase/firestore';
+
 export {};
 
 declare global {
@@ -13,6 +15,7 @@ declare global {
     name: string;
     post_count: number;
     profile_color: string;
+    joined_date: Timestamp | number;
   };
 
   export type PostType = {
