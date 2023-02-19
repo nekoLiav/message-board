@@ -1,8 +1,7 @@
 import Modal from 'components/Modal/Modal';
 import { useForm } from 'react-hook-form';
-import { auth } from 'config';
+import { auth, db } from 'config';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { redirect } from 'react-router-dom';
 import {
   CreateAccountBlurb,
   ModalErrorText,
@@ -12,6 +11,7 @@ import {
 } from './style';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { doc, setDoc, onSnapshot } from 'firebase/firestore';
 
 type FormData = {
   email: string;
@@ -32,7 +32,7 @@ export const SignUpModal = () => {
   } = useForm<FormData>();
 
   const onSubmit = handleSubmit((data) => {
-    const { email, password, verifypassword } = data;
+    const { email, password, verifypassword, handle } = data;
 
     if (password !== verifypassword) {
       setPasswordMismatch(true);
@@ -41,9 +41,26 @@ export const SignUpModal = () => {
     }
 
     createUserWithEmailAndPassword(auth, email, password)
-      .then(async () => {
-        await redirect('/home');
-        navigate(0);
+      .then(async (userCredential) => {
+        const { uid } = userCredential.user;
+        const unsub = onSnapshot(
+          doc(db, 'users', uid),
+          { includeMetadataChanges: true },
+          async (userDoc) => {
+            const source = userDoc.metadata.hasPendingWrites;
+            if (!source) {
+              await setDoc(
+                doc(db, 'users', uid),
+                {
+                  handle,
+                },
+                { merge: true }
+              );
+              navigate(0);
+              unsub();
+            }
+          }
+        );
       })
       .catch((error) => {
         console.log(error);
