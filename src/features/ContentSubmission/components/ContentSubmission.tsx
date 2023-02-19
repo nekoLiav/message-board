@@ -45,7 +45,7 @@ export const ContentSubmission = ({
     }
     if (post) {
       submitPost(data, { loggedInUser, post });
-    } else {
+    } else if (!recipient) {
       submitPost(data, { loggedInUser });
     }
   };
