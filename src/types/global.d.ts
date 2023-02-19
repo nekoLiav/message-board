@@ -5,7 +5,6 @@ export {};
 declare global {
   export type UserType = {
     avatar: string;
-    birthday: number;
     blurb: string;
     follower_count: number;
     following_count: number;
@@ -51,7 +50,7 @@ declare global {
     recipient: string;
     text: string;
     parent_id?: string;
-    img_url?: string;
+    img_url: string | null;
     vid_url?: string;
     is_reply: boolean;
   };

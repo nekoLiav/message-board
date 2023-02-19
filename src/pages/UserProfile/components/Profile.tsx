@@ -32,7 +32,7 @@ export const Profile = ({ user, toggleDM }: ProfileProps) => {
     post_count,
     follower_count,
     following_count,
-    birthday,
+    joined_date,
   } = user;
 
   return (
@@ -44,7 +44,7 @@ export const Profile = ({ user, toggleDM }: ProfileProps) => {
         <Handle>@{handle}</Handle>
         <Joined>
           Joined&nbsp;
-          {format(new Date(birthday * 1000), 'MMMM, dd yyyy')}
+          {format(new Date((joined_date as number) * 1000), 'MMMM, dd yyyy')}
         </Joined>
       </Info>
       <Blurb>{blurb}</Blurb>

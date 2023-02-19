@@ -30,7 +30,7 @@ export const submitMessage = (
       recipient: recipient,
       date_posted: Date.now(),
       text: data.body,
-      img_url: data.img,
+      img_url: null,
       parent_id: newMessageDoc.id,
       is_reply: false,
     };
@@ -47,7 +47,15 @@ export const submitMessage = (
       }
     } else {
       try {
-        setDoc(newMessageDoc, messageTemplate);
+        if (data.img) {
+          const imgAppendedMessageTemplate: MessageType = {
+            ...messageTemplate,
+            img_url: data.img,
+          };
+          setDoc(newMessageDoc, imgAppendedMessageTemplate);
+        } else {
+          setDoc(newMessageDoc, messageTemplate);
+        }
       } catch (error) {
         console.log('Something went wrong!', error);
       }

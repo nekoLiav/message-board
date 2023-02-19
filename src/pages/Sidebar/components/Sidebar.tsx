@@ -38,9 +38,9 @@ export const Sidebar = () => {
     setSignInModalOpen(!signInModalOpen);
   }
 
-  function handleSignOutClick() {
+  async function handleSignOutClick() {
     signOut(auth);
-    navigate(0);
+    navigate('/home');
   }
 
   return (

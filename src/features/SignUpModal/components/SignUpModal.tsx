@@ -47,8 +47,7 @@ export const SignUpModal = () => {
           doc(db, 'users', uid),
           { includeMetadataChanges: true },
           async (userDoc) => {
-            const source = userDoc.metadata.hasPendingWrites;
-            if (!source) {
+            if (userDoc.exists()) {
               await setDoc(
                 doc(db, 'users', uid),
                 {
@@ -56,7 +55,7 @@ export const SignUpModal = () => {
                 },
                 { merge: true }
               );
-              navigate(0);
+              navigate('/home');
               unsub();
             }
           }
